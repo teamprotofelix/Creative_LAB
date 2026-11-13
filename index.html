@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050912">
+  <meta name="description" content="NOEMA — THE UNBOUND ATLAS. 인식, 감성, 상상력의 경계 너머. Creative LAB의 16개 인터랙티브 세계를 탐험하는 포털.">
+  <meta property="og:type" content="website"><meta property="og:title" content="NOEMA — THE UNBOUND ATLAS"><meta property="og:description" content="16개의 세계. 하나의 감각. 끝없는 바깥.">
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./assets/portal.css">
+  <title>NOEMA — THE UNBOUND ATLAS | Creative LAB</title>
+</head>
+<body>
+<a href="#atlas" class="skip-link">세계 목록으로 건너뛰기</a>
+<div id="top" class="page-root">
+  <section class="hero" aria-labelledby="heroTitle">
+    <canvas id="cosmos" aria-label="열여섯 세계를 둘러싼 입자 우주. 빛나는 점을 클릭하면 해당 세계를 미리 볼 수 있습니다." role="img"></canvas>
+    <div class="hero-vignette" aria-hidden="true"></div><div class="fine-grid" aria-hidden="true"></div>
+    <header class="masthead">
+      <a class="brand" href="#top" aria-label="NOEMA 포털 처음으로">
+        <span class="brand-mark" aria-hidden="true"><span></span></span>
+        <span class="brand-word">N O E M A <small>THE UNBOUND ATLAS</small></span>
+      </a>
+      <div class="header-state"><span class="live-dot"></span><span>CREATIVE LAB / <b>16</b> CONNECTED WORLDS</span></div>
+      <div class="header-actions"><a href="#atlas" class="header-outline">전체 세계 <span aria-hidden="true">↗</span></a><button class="header-icon" id="soundBtn" type="button" aria-pressed="false" aria-label="사운드 켜기" title="앰비언트 사운드 켜기 / 끄기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 9v6h3l4 4V5L8 9H5Zm11 1c1 .5 1 3 0 4m2-7c3 2 3 8 0 10"/></svg></button></div>
+    </header>
+    <div class="scene-coordinate" aria-hidden="true"><span>COORDINATE / NOEMA—00</span><i></i><span>BEYOND THE VISIBLE</span></div>
+    <div class="hero-copy">
+      <div class="eyebrow"><span class="tiny-line"></span> AN ATLAS OF THE IMPOSSIBLE</div>
+      <h1 id="heroTitle">세계의<br>끝에서,<br><em>다시 시작.</em></h1>
+      <p>생각은 물질이 되고, 감정은 우주가 됩니다.<br>정해진 현실의 바깥에서<br>열여섯 개의 가능성을 만나보세요.</p>
+      <div class="hero-copy-actions"><a class="solid-link" href="#atlas">16개의 세계 탐험 <span aria-hidden="true">↗</span></a><button class="text-link" id="randomBtn" type="button">운명에 맡기기 <span aria-hidden="true">⤳</span></button></div>
+    </div>
+    <div class="orbit-hint" id="orbitHint" aria-hidden="true"><span class="orbit-hint-symbol">✦</span><span>TOUCH THE CONSTELLATION</span></div>
+    <div class="tip" id="nodeTip" aria-hidden="true"><span class="tip-index"></span><strong class="tip-title"></strong><span class="tip-arrow">↗</span></div>
+    <aside class="featured" aria-label="선택한 세계">
+      <div class="featured-top"><span class="feature-pre">NOW OBSERVING</span><span class="feature-count" id="featureCount">07 / 16</span></div>
+      <div class="feature-index" aria-hidden="true" id="featureIndex">07</div>
+      <div class="featured-body"><span class="feature-category" id="featureCategory">인지 · 감각</span><h2 id="featureTitle">MINDSCAPE</h2><p class="feature-ko" id="featureKo">상상력의 경계 너머</p><p class="feature-description" id="featureDescription">1,600개의 입자가 글자와 구체 사이를 오가며 움직임과 충격파에 반응합니다.</p></div>
+      <div class="feature-bottom"><a href="./mindscape/index.html" id="featureEnter" class="feature-enter">이 세계로 입장하기 <span aria-hidden="true">↗</span></a><div class="feature-pager"><button type="button" id="prevWorld" aria-label="이전 세계" title="이전 세계">←</button><button type="button" id="nextWorld" aria-label="다음 세계" title="다음 세계">→</button></div></div>
+    </aside>
+    <div class="hero-tools"><form id="thoughtForm" autocomplete="off"><label for="thoughtInput">형태를 바꿀 단어</label><div class="thought-input-wrap"><input id="thoughtInput" maxlength="16" placeholder="상상, 빛, ∞ ..." aria-label="입자로 만들 단어"><button type="submit" aria-label="입자로 단어 형상화">형상화 <span aria-hidden="true">↗</span></button></div></form><span class="tool-divider" aria-hidden="true"></span><button type="button" class="tool-quiet" id="pulseBtn" title="별의 충격파">파동 <span aria-hidden="true">✧</span></button><button type="button" class="tool-quiet" id="pauseBtn" aria-pressed="false">정지 <span aria-hidden="true">Ⅱ</span></button></div>
+    <div class="hero-footer"><span>01 <span class="foot-hair"></span> OBSERVE THE UNOBSERVABLE</span><a href="#atlas">SCROLL TO EXPLORE <span class="scroll-arrow" aria-hidden="true">↓</span></a><span id="phaseLabel">PARTICLES / BREATHING</span></div>
+  </section>
+  <main>
+    <section class="interlude" aria-label="포털의 선언"><div class="interlude-mark" aria-hidden="true">✳</div><p>여기는 정답이 전시되는 곳이 아닙니다.<br><strong>아직 이름 붙지 않은 경험이 시작되는 곳입니다.</strong></p><span>THE EXPERIMENT BEGINS WITH YOU</span></section>
+    <section class="atlas-section" id="atlas" aria-labelledby="atlasTitle">
+      <div class="section-heading"><div><p class="eyebrow">02 <span class="tiny-line"></span> THE ATLAS / EXPLORE</p><h2 id="atlasTitle">열여섯 개의 <em>문.</em></h2><p>각 작품은 서로 다른 질문에서 출발합니다. 마음이 끌리는 방향으로 입장하세요.</p></div><div class="section-num" aria-hidden="true">16<span>INDEPENDENT UNIVERSES</span></div></div>
+      <div class="atlas-toolbar"><div class="category-list" role="group" aria-label="세계 분야로 필터링"><button class="filter-chip active" type="button" data-filter="all" aria-pressed="true">전체 세계</button>
+<button class="filter-chip" type="button" data-filter="perception" aria-pressed="false">인지 · 감각</button>
+<button class="filter-chip" type="button" data-filter="life" aria-pressed="false">생명 · 진화</button>
+<button class="filter-chip" type="button" data-filter="memory" aria-pressed="false">기억 · 흔적</button>
+<button class="filter-chip" type="button" data-filter="creation" aria-pressed="false">발상 · 창조</button>
+<button class="filter-chip" type="button" data-filter="cosmos" aria-pressed="false">우주 · 차원</button></div><div class="search-wrap"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><label for="searchInput" class="visually-hidden">작품 이름이나 특징 검색</label><input id="searchInput" type="search" placeholder="세계의 이름 또는 감각 검색" autocomplete="off"></div></div>
+      <div class="result-line"><span>SELECT YOUR REALITY</span><span id="resultCount" role="status" aria-live="polite">16 / 16 WORLDS</span></div>
+      <div class="world-grid" id="worldGrid"><a class="world-card" href="./aether/index.html" data-category="life" data-slug="aether" data-search="aether 생명의 언어 생명 / 유기적 입자 빛 입자들이 숨 쉬고 꽃피는 3차원 생명. 손짓으로 호흡·개화·궤도를 바꿉니다." style="--world-accent:#8df0d0" aria-label="AETHER, 생명의 언어 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/aether.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 01</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">LIVING PARTICLES</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>생명 · 진화</span>
+      <h3>AETHER</h3><p class="card-ko">생명의 언어</p><p class="card-description">빛 입자들이 숨 쉬고 꽃피는 3차원 생명. 손짓으로 호흡·개화·궤도를 바꿉니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./anima/index.html" data-category="life" data-slug="anima" data-search="anima 살아있는 페이지 진화 / 인공 생태계 신경망을 가진 가상 개체들이 서로 반응하며 실시간으로 진화하는 생태계입니다." style="--world-accent:#d1f49c" aria-label="ANIMA, 살아있는 페이지 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/anima.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 02</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">EVOLVING LIFE</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>생명 · 진화</span>
+      <h3>ANIMA</h3><p class="card-ko">살아있는 페이지</p><p class="card-description">신경망을 가진 가상 개체들이 서로 반응하며 실시간으로 진화하는 생태계입니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./anomalia/index.html" data-category="cosmos" data-slug="anomalia" data-search="anomalia 상상력 바깥의 지도 차원 / 미지의 우주 사건의 안쪽에서 네 번째 방향까지. 다섯 세계를 건너 숨겨진 여섯 번째 세계를 해금합니다." style="--world-accent:#b6a2ff" aria-label="ANOMALIA, 상상력 바깥의 지도 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/anomalia.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 03</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">ATLAS OF THE UNIMAGINED</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>우주 · 차원</span>
+      <h3>ANOMALIA</h3><p class="card-ko">상상력 바깥의 지도</p><p class="card-description">사건의 안쪽에서 네 번째 방향까지. 다섯 세계를 건너 숨겨진 여섯 번째 세계를 해금합니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./auroramind/index.html" data-category="memory" data-slug="auroramind" data-search="auroramind 당신이라는 우주 흔적 / 영속하는 별 움직임으로 만들어진 별들이 남아 있는 개인 우주. 다시 돌아와도 별자리를 기억합니다." style="--world-accent:#83dfff" aria-label="AURORAMIND, 당신이라는 우주 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/auroramind.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 04</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">THE PERSISTENT SKY</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>기억 · 흔적</span>
+      <h3>AURORAMIND</h3><p class="card-ko">당신이라는 우주</p><p class="card-description">움직임으로 만들어진 별들이 남아 있는 개인 우주. 다시 돌아와도 별자리를 기억합니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./beyond/index.html" data-category="creation" data-slug="beyond" data-search="beyond 가능성의 틈 발상 / 질문의 확장 반전·삭제·증폭·결합·미래의 다섯 렌즈로 정답의 바깥에서 새로운 질문을 만듭니다." style="--world-accent:#ffc993" aria-label="BEYOND, 가능성의 틈 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/beyond.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 05</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">FIVE LENSES OF IDEAS</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>발상 · 창조</span>
+      <h3>BEYOND</h3><p class="card-ko">가능성의 틈</p><p class="card-description">반전·삭제·증폭·결합·미래의 다섯 렌즈로 정답의 바깥에서 새로운 질문을 만듭니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./engram/index.html" data-category="memory" data-slug="engram" data-search="engram 관찰자의 귀환 기록 / 시선의 별자리 20초 동안의 움직임이 별자리가 됩니다. 남긴 단어와 함께 기억 보관소에 담아봅니다." style="--world-accent:#e0b6ff" aria-label="ENGRAM, 관찰자의 귀환 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/engram.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 06</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">TRACES THAT REMAIN</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>기억 · 흔적</span>
+      <h3>ENGRAM</h3><p class="card-ko">관찰자의 귀환</p><p class="card-description">20초 동안의 움직임이 별자리가 됩니다. 남긴 단어와 함께 기억 보관소에 담아봅니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./mindscape/index.html" data-category="perception" data-slug="mindscape" data-search="mindscape 상상력의 경계 너머 인지 / 살아 있는 사고 1,600개의 입자가 글자와 구체 사이를 오가며 움직임과 충격파에 반응합니다." style="--world-accent:#8ad9ff" aria-label="MINDSCAPE, 상상력의 경계 너머 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/mindscape.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 07</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">THOUGHT INTO MATTER</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>인지 · 감각</span>
+      <h3>MINDSCAPE</h3><p class="card-ko">상상력의 경계 너머</p><p class="card-description">1,600개의 입자가 글자와 구체 사이를 오가며 움직임과 충격파에 반응합니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./names/index.html" data-category="creation" data-slug="names" data-search="names 이름의 우주 정체성 / 이름의 씨앗 이름 하나를 씨앗으로 별자리를 탄생시키고, 그 우주의 시간을 직접 움직입니다." style="--world-accent:#f1c3fa" aria-label="NAMES, 이름의 우주 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/names.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 08</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">A UNIVERSE OF NAMES</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>발상 · 창조</span>
+      <h3>NAMES</h3><p class="card-ko">이름의 우주</p><p class="card-description">이름 하나를 씨앗으로 별자리를 탄생시키고, 그 우주의 시간을 직접 움직입니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./nocturne/index.html" data-category="life" data-slug="nocturne" data-search="nocturne 별의 정원 시 / 심어지는 빛 어둠 속에 별꽃을 심고, 꽃마다 깃든 시를 읽는 당신만의 작은 정원입니다." style="--world-accent:#c2e4b6" aria-label="NOCTURNE, 별의 정원 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/nocturne.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 09</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">A GARDEN OF STARFLOWERS</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>생명 · 진화</span>
+      <h3>NOCTURNE</h3><p class="card-ko">별의 정원</p><p class="card-description">어둠 속에 별꽃을 심고, 꽃마다 깃든 시를 읽는 당신만의 작은 정원입니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./outside/index.html" data-category="cosmos" data-slug="outside" data-search="the outside 인지의 바깥 초월 / 관측자의 세계 원환·접힘·기억·프랙털·지평선의 세계를 건너 여섯 번째 관측자 차원을 엽니다." style="--world-accent:#f1a6a6" aria-label="THE OUTSIDE, 인지의 바깥 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/outside.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 10</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">BEYOND PERCEPTION</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>우주 · 차원</span>
+      <h3>THE OUTSIDE</h3><p class="card-ko">인지의 바깥</p><p class="card-description">원환·접힘·기억·프랙털·지평선의 세계를 건너 여섯 번째 관측자 차원을 엽니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./someone/index.html" data-category="perception" data-slug="someone" data-search="someone 당신을 보고 있는 웹사이트 관찰 / 존재의 반전 움직임에 깨어나는 미지의 존재. 약 60초 뒤에 누가 누구를 보고 있었는지 드러납니다." style="--world-accent:#f5bf9b" aria-label="SOMEONE, 당신을 보고 있는 웹사이트 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/someone.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 11</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">WHO IS WATCHING WHOM</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>인지 · 감각</span>
+      <h3>SOMEONE</h3><p class="card-ko">당신을 보고 있는 웹사이트</p><p class="card-description">움직임에 깨어나는 미지의 존재. 약 60초 뒤에 누가 누구를 보고 있었는지 드러납니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./sum/index.html" data-category="perception" data-slug="sum" data-search="sum 숨 호흡 / 감각의 고요 빛의 흐름에 손을 얹고, 한 번 숨을 고르며 공간의 색을 바꾸는 고요한 방입니다." style="--world-accent:#fad5a5" aria-label="SUM, 숨 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/sum.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 12</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">A ROOM FOR BREATHING</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>인지 · 감각</span>
+      <h3>SUM</h3><p class="card-ko">숨</p><p class="card-description">빛의 흐름에 손을 얹고, 한 번 숨을 고르며 공간의 색을 바꾸는 고요한 방입니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./the-site-that-knows-you-improved/index.html" data-category="perception" data-slug="the-site-that-knows-you-improved" data-search="the site that knows you 당신을 닮은 별자리 초상 / 몸짓의 서사 움직임과 멈춤을 시각적인 별자리 초상화로 완성합니다. 성격 검사가 아닌 예술 경험입니다." style="--world-accent:#a5ddd0" aria-label="THE SITE THAT KNOWS YOU, 당신을 닮은 별자리 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/the-site-that-knows-you-improved.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 13</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">AN ARTISTIC PORTRAIT</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>인지 · 감각</span>
+      <h3>THE SITE THAT KNOWS YOU</h3><p class="card-ko">당신을 닮은 별자리</p><p class="card-description">움직임과 멈춤을 시각적인 별자리 초상화로 완성합니다. 성격 검사가 아닌 예술 경험입니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./threshold/index.html" data-category="creation" data-slug="threshold" data-search="the threshold 뚫는 자의 기록 돌파 / 균열의 빛 스크롤로 벽에 균열을 내고 빛을 쏟아내며 여섯 장면의 경계를 통과합니다." style="--world-accent:#fff0a2" aria-label="THE THRESHOLD, 뚫는 자의 기록 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/threshold.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 14</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">CROSS THE INVISIBLE WALL</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>발상 · 창조</span>
+      <h3>THE THRESHOLD</h3><p class="card-ko">뚫는 자의 기록</p><p class="card-description">스크롤로 벽에 균열을 내고 빛을 쏟아내며 여섯 장면의 경계를 통과합니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./unfelt/index.html" data-category="perception" data-slug="unfelt" data-search="unfelt 감정의 바깥 미감 / 감정의 탄생 거리·무게·흔적·시간을 선택해 아직 존재하지 않던 감정의 이름을 탄생시킵니다." style="--world-accent:#ffb8e0" aria-label="UNFELT, 감정의 바깥 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/unfelt.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 15</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">EMOTIONS YET UNNAMED</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>인지 · 감각</span>
+      <h3>UNFELT</h3><p class="card-ko">감정의 바깥</p><p class="card-description">거리·무게·흔적·시간을 선택해 아직 존재하지 않던 감정의 이름을 탄생시킵니다.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a>
+<a class="world-card" href="./unwritten/index.html" data-category="cosmos" data-slug="unwritten" data-search="unwritten 아직 쓰이지 않은 세계 생성 / 여섯 개의 차원 사건의 지평선부터 형광 정원, 기억의 바다, 가능성의 도시, 프랙털, 오로라까지." style="--world-accent:#abb1ff" aria-label="UNWRITTEN, 아직 쓰이지 않은 세계 세계 입장하기">
+    <div class="card-image-wrap"><img loading="lazy" decoding="async" src="./assets/worlds/unwritten.webp" width="960" height="620" alt="" class="world-image">
+      <span class="image-index">EXPEDITION / 16</span><span class="image-symbol" aria-hidden="true">✧</span><span class="image-tag">SIX GENERATIVE WORLDS</span>
+    </div>
+    <div class="card-body"><span class="card-kind"><span class="microdot"></span>우주 · 차원</span>
+      <h3>UNWRITTEN</h3><p class="card-ko">아직 쓰이지 않은 세계</p><p class="card-description">사건의 지평선부터 형광 정원, 기억의 바다, 가능성의 도시, 프랙털, 오로라까지.</p>
+      <span class="card-go">세계로 입장 <span aria-hidden="true">↗</span></span>
+    </div>
+  </a></div>
+      <div class="empty-state" id="emptyState" hidden><span>∅</span><h3>이 좌표에는 아직 세계가 없습니다.</h3><p>다른 단어를 입력하거나 필터를 초기화해보세요.</p><button type="button" id="resetFilter">모든 세계 보기 ↗</button></div>
+    </section>
+    <section class="closing" aria-label="다음 세계로 향하기"><div class="closing-orbit" aria-hidden="true"><span>✺</span></div><div><div class="eyebrow">THERE IS ALWAYS ANOTHER DOOR</div><h2>여기서 끝내지<br><em>마세요.</em></h2><p>다음 세계는 순서가 아니라 호기심이 결정합니다.</p><button class="closing-button" id="randomBottom" type="button">예측 불가능한 세계로 입장 <span aria-hidden="true">↗</span></button></div><div class="closing-count" aria-hidden="true">∞</div></section>
+  </main>
+  <footer class="site-footer"><div class="footer-brand"><span class="brand-mark tiny" aria-hidden="true"><span></span></span><div><b>NOEMA</b><span>AN EXPERIMENT BY CREATIVE LAB</span></div></div><p>인간의 창의성, 감성, 인지의 경계를 탐험하는 16개의 정적 웹 실험.</p><div class="footer-links"><a href="https://github.com/teamprotofelix/Creative_LAB" target="_blank" rel="noopener noreferrer">GITHUB ↗</a><a href="#top">BACK TO THE ORIGIN ↑</a></div></footer>
+</div>
+<div class="sr-announcement visually-hidden" id="announce" aria-live="polite"></div>
+<script id="worldData" type="application/json">[{"slug":"aether","title":"AETHER","ko":"생명의 언어","category":"life","theme":"생명 / 유기적 입자","tag":"LIVING PARTICLES","desc":"빛 입자들이 숨 쉬고 꽃피는 3차원 생명. 손짓으로 호흡·개화·궤도를 바꿉니다.","detail":"하나의 빛이 생명처럼 호흡하고, 개화하고, 궤도를 그립니다.","color":"#8df0d0","art":"living"},{"slug":"anima","title":"ANIMA","ko":"살아있는 페이지","category":"life","theme":"진화 / 인공 생태계","tag":"EVOLVING LIFE","desc":"신경망을 가진 가상 개체들이 서로 반응하며 실시간으로 진화하는 생태계입니다.","detail":"먹이를 주고, 지켜보고, 예상할 수 없는 생명의 방향을 만납니다.","color":"#d1f49c","art":"neural"},{"slug":"anomalia","title":"ANOMALIA","ko":"상상력 바깥의 지도","category":"cosmos","theme":"차원 / 미지의 우주","tag":"ATLAS OF THE UNIMAGINED","desc":"사건의 안쪽에서 네 번째 방향까지. 다섯 세계를 건너 숨겨진 여섯 번째 세계를 해금합니다.","detail":"사건 지평선, 미래의 정원, 사차원 정육면체, 기억의 바다, 시간의 성당.","color":"#b6a2ff","art":"anomaly"},{"slug":"auroramind","title":"AURORAMIND","ko":"당신이라는 우주","category":"memory","theme":"흔적 / 영속하는 별","tag":"THE PERSISTENT SKY","desc":"움직임으로 만들어진 별들이 남아 있는 개인 우주. 다시 돌아와도 별자리를 기억합니다.","detail":"당신이 지나간 자리에 별을 심고, 다음 방문에도 그 자리를 다시 만납니다.","color":"#83dfff","art":"aurora"},{"slug":"beyond","title":"BEYOND","ko":"가능성의 틈","category":"creation","theme":"발상 / 질문의 확장","tag":"FIVE LENSES OF IDEAS","desc":"반전·삭제·증폭·결합·미래의 다섯 렌즈로 정답의 바깥에서 새로운 질문을 만듭니다.","detail":"생각을 뒤집고 서로 다른 개념을 충돌시켜 나만의 포스터로 남깁니다.","color":"#ffc993","art":"ribbon"},{"slug":"engram","title":"ENGRAM","ko":"관찰자의 귀환","category":"memory","theme":"기록 / 시선의 별자리","tag":"TRACES THAT REMAIN","desc":"20초 동안의 움직임이 별자리가 됩니다. 남긴 단어와 함께 기억 보관소에 담아봅니다.","detail":"당신이 어디를 향해 움직였는지, 어떤 순간에 머물렀는지 빛으로 기록합니다.","color":"#e0b6ff","art":"trace"},{"slug":"mindscape","title":"MINDSCAPE","ko":"상상력의 경계 너머","category":"perception","theme":"인지 / 살아 있는 사고","tag":"THOUGHT INTO MATTER","desc":"1,600개의 입자가 글자와 구체 사이를 오가며 움직임과 충격파에 반응합니다.","detail":"생각을 입력하면 별이 글자가 되고, 다시 회전하는 하나의 우주가 됩니다.","color":"#8ad9ff","art":"mind"},{"slug":"names","title":"NAMES","ko":"이름의 우주","category":"creation","theme":"정체성 / 이름의 씨앗","tag":"A UNIVERSE OF NAMES","desc":"이름 하나를 씨앗으로 별자리를 탄생시키고, 그 우주의 시간을 직접 움직입니다.","detail":"당신의 이름을 천체의 규칙으로 바꾸고 탄생에서 소멸까지 여행합니다.","color":"#f1c3fa","art":"names"},{"slug":"nocturne","title":"NOCTURNE","ko":"별의 정원","category":"life","theme":"시 / 심어지는 빛","tag":"A GARDEN OF STARFLOWERS","desc":"어둠 속에 별꽃을 심고, 꽃마다 깃든 시를 읽는 당신만의 작은 정원입니다.","detail":"빈 공간을 누르면 별꽃이 피고, 꽃잎을 건드리면 조용한 시가 열립니다.","color":"#c2e4b6","art":"flower"},{"slug":"outside","title":"THE OUTSIDE","ko":"인지의 바깥","category":"cosmos","theme":"초월 / 관측자의 세계","tag":"BEYOND PERCEPTION","desc":"원환·접힘·기억·프랙털·지평선의 세계를 건너 여섯 번째 관측자 차원을 엽니다.","detail":"시선과 문장을 씨앗으로 다차원의 공간을 관측합니다.","color":"#f1a6a6","art":"portal"},{"slug":"someone","title":"SOMEONE","ko":"당신을 보고 있는 웹사이트","category":"perception","theme":"관찰 / 존재의 반전","tag":"WHO IS WATCHING WHOM","desc":"움직임에 깨어나는 미지의 존재. 약 60초 뒤에 누가 누구를 보고 있었는지 드러납니다.","detail":"페이지가 당신을 지켜보는 동안, 당신도 그 존재를 변화시킵니다.","color":"#f5bf9b","art":"eye"},{"slug":"sum","title":"SUM","ko":"숨","category":"perception","theme":"호흡 / 감각의 고요","tag":"A ROOM FOR BREATHING","desc":"빛의 흐름에 손을 얹고, 한 번 숨을 고르며 공간의 색을 바꾸는 고요한 방입니다.","detail":"숨을 들이쉬고 내쉬는 작은 순간이 하나의 공간이 됩니다.","color":"#fad5a5","art":"breath"},{"slug":"the-site-that-knows-you-improved","title":"THE SITE THAT KNOWS YOU","ko":"당신을 닮은 별자리","category":"perception","theme":"초상 / 몸짓의 서사","tag":"AN ARTISTIC PORTRAIT","desc":"움직임과 멈춤을 시각적인 별자리 초상화로 완성합니다. 성격 검사가 아닌 예술 경험입니다.","detail":"매 순간의 몸짓이 단 한 번의 별자리로 남는 디지털 초상화.","color":"#a5ddd0","art":"portrait"},{"slug":"threshold","title":"THE THRESHOLD","ko":"뚫는 자의 기록","category":"creation","theme":"돌파 / 균열의 빛","tag":"CROSS THE INVISIBLE WALL","desc":"스크롤로 벽에 균열을 내고 빛을 쏟아내며 여섯 장면의 경계를 통과합니다.","detail":"보이지 않던 벽에 첫 번째 균열을 내는 순간부터 시작되는 여정.","color":"#fff0a2","art":"crack"},{"slug":"unfelt","title":"UNFELT","ko":"감정의 바깥","category":"perception","theme":"미감 / 감정의 탄생","tag":"EMOTIONS YET UNNAMED","desc":"거리·무게·흔적·시간을 선택해 아직 존재하지 않던 감정의 이름을 탄생시킵니다.","detail":"말로 부르기 전의 감정, 아직 분류되지 않은 느낌을 직접 만듭니다.","color":"#ffb8e0","art":"unfelt"},{"slug":"unwritten","title":"UNWRITTEN","ko":"아직 쓰이지 않은 세계","category":"cosmos","theme":"생성 / 여섯 개의 차원","tag":"SIX GENERATIVE WORLDS","desc":"사건의 지평선부터 형광 정원, 기억의 바다, 가능성의 도시, 프랙털, 오로라까지.","detail":"당신의 문장이 각 차원의 지형을 새로 만드는 여섯 개의 생성형 세계.","color":"#abb1ff","art":"unwritten"}]</script>
+<script src="./assets/portal.js" defer></script>
+</body>
+</html>
