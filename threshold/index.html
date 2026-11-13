@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#08090e">
+  <meta name="description" content="THE THRESHOLD — 스크롤하고, 벽을 두드리고, 균열 너머로 걸어가는 감각적 웹 경험.">
+  <meta property="og:title" content="THE THRESHOLD — 뚫는 자의 기록">
+  <meta property="og:description" content="당신이 서 있는 벽은, 당신이 쌓은 것이다. 스크롤하고, 균열을 만들고, 통과하라.">
+  <title>THE THRESHOLD — 뚫는 자의 기록</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <div class="ambient-fallback" aria-hidden="true"></div>
+  <canvas id="gl" aria-hidden="true"></canvas>
+  <canvas id="fx" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="flash" aria-hidden="true"></div>
+
+  <header class="hud" aria-label="사이트 상태">
+    <a class="logo" href="#opening" aria-label="THE THRESHOLD 처음으로">THE<span class="logo-sep">/</span>THRESHOLD</a>
+    <div class="signal" aria-label="진행률"><span class="signal-symbol">◈</span> SIGNAL <span id="signal">00</span><span class="percentage">%</span></div>
+    <div class="hud-right">
+      <button id="sound-btn" class="sound-btn" type="button" aria-label="배경음 켜기" aria-pressed="false">♪ <span id="sound-status">OFF</span></button>
+      <time id="clock" aria-label="현재 시각">--:--</time>
+    </div>
+  </header>
+
+  <aside class="rail" aria-label="여정 진행도">
+    <span>01</span><div class="rail-track"><div id="rail-fill" class="rail-fill"></div></div><span>06</span>
+  </aside>
+
+  <main id="main">
+    <section class="scene first is-visible" id="opening" data-depth="0" aria-label="01 암전">
+      <div class="scene-shell">
+        <div class="content left">
+          <p class="label"><span class="number">01</span> / 암전 <span class="label-line"></span> BEFORE THE BREAK</p>
+          <h1>무언가를<br><em>뚫어야</em> 할 때가 있다.</h1>
+          <p class="body short">우리는 때때로, 길이 없다고 생각한다.<br>어쩌면 길을 가리는 것은 벽이 아니라 시선일지도 모른다.</p>
+          <a class="start-link" href="#surface">여정 시작 <span aria-hidden="true">↓</span></a>
+        </div>
+        <p class="edge-caption">SCROLL TO ALTER YOUR REALITY <span class="scroll-mark">↓</span></p>
+      </div>
+    </section>
+
+    <section class="scene" id="surface" data-depth="1" aria-label="02 표면">
+      <div class="scene-shell">
+        <div class="content right">
+          <p class="label"><span class="number">02</span> / 표면 <span class="label-line"></span> THE SURFACE</p>
+          <h2>당신이 서 있는 벽은<br><em>당신이 쌓은</em> 것이다.</h2>
+          <p class="body">단단함은 힘의 증거가 아니다.<br>오래된 습관의 흔적이다.</p>
+          <p class="micro">마우스를 움직여 표면의 움직임을 느껴보세요.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene fracture-scene" id="fracture" data-depth="2" aria-label="03 균열">
+      <div class="scene-shell">
+        <div class="content center">
+          <p class="label"><span class="number">03</span> / 균열 <span class="label-line"></span> THE FRACTURE</p>
+          <h2>뚫는 것은<br>힘이 아니라, <em>방향이다.</em></h2>
+          <p class="body">작은 균열 하나로도, 빛은 들어온다.</p>
+          <button class="fracture-button" id="fracture-btn" type="button"><span class="button-mark" aria-hidden="true">✳</span> 여기에 균열을 내다 <span class="button-arrow" aria-hidden="true">↗</span></button>
+          <p class="micro">버튼 또는 화면을 클릭하면 벽에 흔적이 남습니다.</p>
+          <p class="impact-note" id="impact-note" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene" id="crossing" data-depth="3" aria-label="04 통과">
+      <div class="scene-shell">
+        <div class="content left">
+          <p class="label"><span class="number">04</span> / 통과 <span class="label-line"></span> CROSSING OVER</p>
+          <h2>빛은 벽 너머에 있다.<br><em>벽 위에 있지 않다.</em></h2>
+          <p class="body">당신이 지금 붙잡고 있는 것이<br>당신을 막고 있는 것일 수 있다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene final" id="arrival" data-depth="4" aria-label="05 도착">
+      <div class="scene-shell">
+        <div class="content center">
+          <p class="label"><span class="number">05</span> / 도착 <span class="label-line"></span> BEYOND THE WALL</p>
+          <h2 class="huge">당신은 이미<br><em>벽 너머에</em> 있다.</h2>
+          <p class="body">다만, 아직 돌아보지 않았을 뿐.</p>
+          <span class="arrival-symbol" aria-hidden="true">✳</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="scene outro" id="after" data-depth="5" aria-label="06 그 이후">
+      <div class="scene-shell">
+        <div class="content center">
+          <p class="label"><span class="number">06</span> / 그 이후 <span class="label-line"></span> THE NEXT QUESTION</p>
+          <h2>이제,<br><em>무엇을 뚫을 것인가.</em></h2>
+          <p class="body">벽은 끝이 아니다. 새로운 질문의 시작이다.</p>
+          <a class="restart-link" href="#opening" id="restart-btn">처음부터 다시 경험하기 <span aria-hidden="true">↗</span></a>
+          <p class="signature">THE THRESHOLD <span class="signature-star">✦</span> CREATED FOR THOSE WHO KEEP GOING</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
+  <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+</body>
+</html>

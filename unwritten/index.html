@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060714">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="아직 존재하지 않는 세계들의 지도. 문장을 쓰고, 현실을 바꾸고, 여섯 개의 살아 있는 차원을 탐험하세요. 설치 없이 브라우저 안에서 작동하는 인터랙티브 디지털 아트.">
+  <meta property="og:title" content="UNWRITTEN — 아직 쓰이지 않은 세계">
+  <meta property="og:description" content="한 문장으로 우주를 바꾸는 인터랙티브 디지털 아트 전시관">
+  <title>UNWRITTEN — 아직 쓰이지 않은 세계</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app" id="app" data-world="0">
+    <div class="fallback-sky" aria-hidden="true"></div>
+    <canvas id="universe" aria-hidden="true"></canvas>
+    <canvas id="particles" aria-hidden="true"></canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <a class="brand" href="#" aria-label="UNWRITTEN 홈" id="brandHome">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-word">UNWRITTEN<span class="brand-dot">.</span></span>
+      </a>
+      <div class="top-center" aria-hidden="true"><span class="hairline"></span> AN EXPERIMENT IN POSSIBILITY <span class="hairline"></span></div>
+      <div class="top-actions">
+        <span class="status"><span class="live-dot"></span> <span id="statusLabel">REALITY ONLINE</span></span>
+        <button class="icon-btn" id="soundBtn" aria-label="소리 켜기" title="소리 켜기 (M)" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path id="soundWave" d="m16 9 5 6m0-6-5 6"/></svg></button>
+        <button class="outline-btn top-help" id="helpBtn"><span class="help-question">?</span> <span>사용 설명서</span></button>
+      </div>
+    </header>
+
+    <div class="axis axis-left" aria-hidden="true"><span>INFINITE POSSIBILITY ENGINE</span><span class="axis-cross">✳</span><span>EST. NOWHERE · 2026</span></div>
+    <div class="axis axis-right" aria-hidden="true"><span>THE UNMADE ATLAS</span><span>∞ / ∞</span></div>
+
+    <main class="main-content" id="mainContent">
+      <div class="hero">
+        <div class="hero-eyebrow"><span class="eyebrow-line"></span><span id="worldIndex">EXHIBIT 01 / 06</span><span class="eyebrow-bead"></span><span id="worldCategory">THE FIRST THRESHOLD</span></div>
+        <h1 id="worldHeading"><span class="title-top">아직 존재하지</span><span class="title-bottom">않는 곳.</span></h1>
+        <p class="hero-description" id="worldDescription">불가능하다고 생각했던 풍경이 지금 이 화면에서 태어납니다.<br>마우스를 움직여 보세요. 세계가 당신을 알아봅니다.</p>
+        <div class="hero-cta-row">
+          <button class="primary-cta" id="nextBtn"><span class="cta-icon" aria-hidden="true">↗</span><span id="nextBtnText">다음 현실로 들어가기</span><span class="cta-arrow" aria-hidden="true">→</span></button>
+          <button class="text-link" id="tourBtn"><span class="play-ring" aria-hidden="true">▶</span><span id="tourBtnText">자동 탐험 시작</span></button>
+        </div>
+      </div>
+      <div class="center-sigil" id="centerSigil" aria-hidden="true"><span class="sigil-square"></span><span class="sigil-label">YOU ARE HERE</span></div>
+      <div class="scene-corner scene-corner-tl" aria-hidden="true"></div>
+      <div class="scene-corner scene-corner-br" aria-hidden="true"></div>
+    </main>
+
+    <nav class="world-list" id="worldList" aria-label="차원 선택">
+      <div class="world-list-header"><span>SELECT REALITY</span><span>06 ∕ ∞</span></div>
+      <button class="world-item active" data-scene="0" aria-current="true"><span class="world-number">01</span><span class="world-item-main"><span class="world-name">사건의 지평선</span><span class="world-sub">THE THRESHOLD</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <button class="world-item" data-scene="1"><span class="world-number">02</span><span class="world-item-main"><span class="world-name">형광 정원</span><span class="world-sub">THE GARDEN</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <button class="world-item" data-scene="2"><span class="world-number">03</span><span class="world-item-main"><span class="world-name">기억의 바다</span><span class="world-sub">THE OCEAN</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <button class="world-item" data-scene="3"><span class="world-number">04</span><span class="world-item-main"><span class="world-name">가능성의 도시</span><span class="world-sub">THE CITY</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <button class="world-item" data-scene="4"><span class="world-number">05</span><span class="world-item-main"><span class="world-name">무한의 단면</span><span class="world-sub">THE FRACTAL</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <button class="world-item" data-scene="5"><span class="world-number">06</span><span class="world-item-main"><span class="world-name">빛의 편지</span><span class="world-sub">THE AURORA</span></span><span class="world-arrow" aria-hidden="true">↗</span></button>
+      <div class="world-list-foot"><span class="small-pulse"></span> <span id="sceneNote">스크린을 터치하면 시공간에 흔적이 남습니다.</span></div>
+    </nav>
+
+    <div class="mobile-worlds" id="mobileWorlds" aria-label="차원 바로가기"></div>
+
+    <div class="coordinates" aria-live="off"><span>REALITY COORDINATES</span><span id="coordinatesText">X 000.000 &nbsp; Y 000.000</span></div>
+    <div class="fragment-indicator" aria-hidden="true"><span class="fragment-arc"></span><span id="fragmentText">001.∞</span></div>
+
+    <section class="dock" aria-label="우주 생성 콘솔">
+      <div class="dock-label"><span class="dock-label-icon">✧</span><span>REALITY GENERATOR</span><span class="dock-mini">WORDS BECOME WORLDS</span></div>
+      <form id="wishForm" class="wish-form">
+        <label class="sr-only" for="wishInput">어떤 세상을 만들고 싶은지 문장을 입력하세요</label>
+        <span class="prompt-mark" aria-hidden="true">&gt;_</span>
+        <input id="wishInput" name="wish" type="text" maxlength="72" autocomplete="off" spellcheck="false" placeholder="당신이 보고 싶은 불가능한 세계를 한 문장으로…" aria-describedby="wishHint">
+        <button class="generate-btn" type="submit"><span class="generate-icon">✳</span><span>새 현실 생성</span><span class="generate-arrow">↗</span></button>
+      </form>
+      <div class="dock-bottom">
+        <div class="dock-hint" id="wishHint"><span class="keycap">↵</span><span>상상하는 순간, 세계가 달라집니다.</span></div>
+        <div class="dock-quick-actions">
+          <button id="randomBtn" class="quick-btn" title="무작위 세계 (R)"><span aria-hidden="true">⚄</span> <span>우연</span></button>
+          <button id="saveBtn" class="quick-btn" title="작품 이미지 저장 (S)"><span aria-hidden="true">↓</span> <span>작품 저장</span></button>
+          <button id="bookmarkBtn" class="quick-btn" title="이 세계 보관"><span aria-hidden="true">◇</span> <span>보관</span></button>
+          <button id="galleryBtn" class="quick-btn" title="보관함 열기 (G)"><span aria-hidden="true">▦</span> <span>보관함 <span id="galleryCount">0</span></span></button>
+          <button id="shareBtn" class="quick-btn" title="현재 세계 링크 복사"><span aria-hidden="true">↗</span> <span>링크</span></button>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>NOT MADE WITH AI IMAGES · DRAWN LIVE BY MATHEMATICS</span>
+      <span>EVERY FRAME IS BORN ONLY ONCE <span class="footer-star">✳</span> <span id="clockValue">00:00:00</span></span>
+    </footer>
+
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="overlay" id="modalOverlay" hidden>
+      <div class="modal-backdrop" id="modalBackdrop"></div>
+      <section class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+        <div class="modal-top"><span class="modal-kicker" id="modalKicker">THE FIELD MANUAL</span><button id="closeModal" class="modal-close" aria-label="닫기">✕</button></div>
+        <h2 id="modalTitle">가능성의 사용 설명서</h2>
+        <p class="modal-lead" id="modalLead">화면 속 세계는 영상이 아닙니다. 당신의 기기에서 매 순간 새롭게 계산되는 살아 있는 풍경입니다.</p>
+        <div id="modalBody"></div>
+      </section>
+    </div>
+  </div>
+  <script src="js/engine.js" defer></script>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

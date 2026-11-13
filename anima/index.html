@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>ANIMA — 살아있는 페이지</title>
+<meta name="description" content="신경망을 가진 개체들이 태어나고 진화하는, 살아있는 웹페이지.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=IBM+Plex+Mono:wght@300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<canvas id="stage"></canvas>
+<div id="vignette"></div>
+
+<div id="hud">
+  <div class="cell tl">
+    <div class="brand">ANIMA</div>
+    <div class="tagline">a page that is alive</div>
+  </div>
+
+  <div class="cell tr">
+    <canvas id="graph" width="200" height="56"></canvas>
+    <div class="graph-label">population</div>
+  </div>
+
+  <div class="cell bl stats">
+    <div><span>세대</span><b id="s-gen">0</b></div>
+    <div><span>개체</span><b id="s-pop">0</b></div>
+    <div><span>먹이</span><b id="s-food">0</b></div>
+    <div><span>시간</span><b id="s-time">0:00</b></div>
+  </div>
+
+  <div class="cell br hints">
+    <div>click &amp; hold — 먹이 주기</div>
+    <div>space — 멈춤 &nbsp;·&nbsp; s — 소리 &nbsp;·&nbsp; r — 다시</div>
+  </div>
+</div>
+
+<div id="toast"></div>
+
+<div id="intro">
+  <div class="intro-inner">
+    <h1>ANIMA</h1>
+    <p class="sub">이 페이지는 살아 있습니다</p>
+    <p class="desc">
+      화면 속 개체들은 각자 작은 신경망을 가지고 있습니다.<br>
+      그들은 먹이를 찾고, 번식하고, 죽습니다.<br>
+      당신이 먹이를 주면 — 그들은 당신을 향해 진화합니다.
+    </p>
+    <button id="awaken">깨우기</button>
+  </div>
+</div>
+
+<!-- Classic deferred scripts: double-clicking index.html also works offline. -->
+<script defer src="js/genome.js"></script>
+<script defer src="js/world.js"></script>
+<script defer src="js/render.js"></script>
+<script defer src="js/audio.js"></script>
+<script defer src="js/main.js"></script>
+</body>
+</html>
