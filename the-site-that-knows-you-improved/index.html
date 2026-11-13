@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#03050c">
+  <meta name="description" content="당신의 움직임으로 단 한 번의 별자리 초상화를 만드는, 브라우저 안의 작은 우주. 기록은 전송되지 않습니다.">
+  <title>the site that knows you · 당신이라는 별자리</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="nebula" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <div id="surface" class="interaction-surface" tabindex="-1" role="button" aria-label="관찰 영역: 마우스, 터치 또는 스페이스바로 빛을 남깁니다"></div>
+
+  <header class="topbar">
+    <div class="brand" aria-label="the site that knows you">
+      <span class="brand-symbol" aria-hidden="true">✳</span>
+      <span class="brand-text">the site <em>that knows you</em></span>
+    </div>
+    <div class="top-controls">
+      <span id="phaseTag" class="phase-tag"><span class="status-light" aria-hidden="true"></span><span data-i18n="phaseBefore">아직 시작하지 않은 우주</span></span>
+      <button id="langBtn" class="text-button" type="button" aria-label="Switch language to English">EN</button>
+      <button id="soundBtn" class="text-button sound-button" type="button" aria-pressed="false" data-i18n="soundOff" aria-label="소리 켜기">소리 꺼짐</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="intro" class="intro-screen" aria-labelledby="introTitle">
+      <div class="opening-mark" aria-hidden="true"><span></span><span></span><span></span></div>
+      <p class="eyebrow" data-i18n="eyebrow">A SMALL EXPERIMENT IN PRESENCE</p>
+      <h1 id="introTitle"><span data-i18n="introLine1">우리는 아직</span><br><em data-i18n="introLine2">만난 적이 없어요.</em></h1>
+      <p class="intro-copy" data-i18n="introCopy">하지만 당신이 남길 아주 작은 움직임으로, 이 순간에만 존재하는 별자리를 그릴 수 있어요.</p>
+      <button id="startBtn" type="button" class="primary-button"><span data-i18n="start">나의 우주 시작하기</span><span aria-hidden="true">↗</span></button>
+      <p class="intro-whisper" data-i18n="introHint">움직여도, 가만히 있어도 괜찮아요 · 약 30초</p>
+    </section>
+
+    <section id="watch" class="watch-screen" aria-labelledby="watchTitle" hidden>
+      <div class="watch-center" aria-live="polite" aria-atomic="true">
+        <div class="observing-mark" aria-hidden="true"><span></span><i></i></div>
+        <p class="eyebrow"><span class="tiny-blink" aria-hidden="true"></span><span data-i18n="watchEyebrow">THE MOMENT IS UNFOLDING</span></p>
+        <h2 id="watchTitle" data-i18n="watchTitle">당신의 움직임이<br>하나의 우주가 됩니다.</h2>
+        <p id="watchPoem" class="watch-poem" data-i18n="poem0">빛은 흔적을 남기고, 고요함은 형태를 만듭니다.</p>
+      </div>
+      <div class="watch-hud">
+        <div class="hud-top"><span data-i18n="observing">OBSERVING / 관찰 중</span><output id="watchTime">00:00 / 00:30</output></div>
+        <div class="progress-track" aria-hidden="true"><div id="progressBar"></div></div>
+        <div class="hud-bottom">
+          <div class="metrics" aria-label="현재 관찰 기록">
+            <div><span data-i18n="metricTravel">궤적</span><strong id="distanceMetric">0</strong></div>
+            <div><span data-i18n="metricZones">탐색</span><strong id="zonesMetric">0</strong></div>
+            <div><span data-i18n="metricClicks">빛의 파동</span><strong id="clicksMetric">0</strong></div>
+          </div>
+          <button id="revealBtn" class="outline-button" type="button"><span data-i18n="reveal">내 별자리 보기</span><span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="hud-instruction" data-i18n="watchHint">화면을 움직이거나 누르세요. 키보드의 스페이스바도 사용할 수 있어요.</p>
+      </div>
+    </section>
+
+    <section id="ending" class="ending-screen" aria-labelledby="resultTitle" hidden>
+      <div class="result-layout">
+        <div class="portrait-column">
+          <div class="portrait-aura" aria-hidden="true"></div>
+          <div id="portraitHost" class="portrait-host" aria-label="움직임으로 생성한 별자리 초상화"></div>
+          <p class="portrait-label"><span data-i18n="portraitLabel">A CONSTELLATION OF ONE MOMENT</span><span class="dot-sep" aria-hidden="true">✧</span><span id="portraitSerial">000000</span></p>
+        </div>
+        <div class="result-copy">
+          <p class="eyebrow" data-i18n="revealed">YOU LEFT A PATTERN IN THE DARK</p>
+          <p class="result-pretitle" data-i18n="youAre">이 순간, 당신은</p>
+          <h2 id="resultTitle">The Stillness</h2>
+          <p id="archetypeKo" class="result-subtitle">고요한 사람</p>
+          <p id="resultDescription" class="result-description"></p>
+          <p id="resultNote" class="result-note"></p>
+          <div class="result-metrics">
+            <div><span data-i18n="resultTime">함께 머문 시간</span><strong id="finalTime">0s</strong></div>
+            <div><span data-i18n="resultPath">움직인 거리</span><strong id="finalTravel">0</strong></div>
+            <div><span data-i18n="resultLight">남긴 파동</span><strong id="finalClicks">0</strong></div>
+          </div>
+          <div class="result-actions">
+            <button id="downloadSvg" type="button" class="primary-button compact"><span data-i18n="downloadSVG">SVG로 간직하기</span><span aria-hidden="true">↧</span></button>
+            <button id="downloadPng" type="button" class="outline-button compact"><span data-i18n="downloadPNG">PNG 저장</span><span aria-hidden="true">↧</span></button>
+            <button id="restart" type="button" class="text-button restart-button"><span data-i18n="restart">다시 만날까요?</span><span aria-hidden="true">↻</span></button>
+          </div>
+          <p class="disclaimer" data-i18n="disclaimer">이 결과는 움직임에서 영감을 얻은 예술적 해석이며, 실제 성격 진단이 아닙니다.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span data-i18n="privacy">PRIVATE BY DESIGN · 서버 전송 없음 · 저장 없음</span>
+    <span class="footer-right">NO TWO MOMENTS ARE THE SAME <span aria-hidden="true">✧</span></span>
+  </footer>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite"></div>
+</body>
+</html>

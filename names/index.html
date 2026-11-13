@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080616">
+  <meta name="description" content="하나의 이름으로 태어나는 하나의 우주. 별을 만지고, 시간을 여행하고, 그 우주를 공유하세요.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="이름의 우주 — Universe of Names">
+  <meta property="og:description" content="당신의 이름은 하나의 우주입니다. 별자리가 되고 음악이 되는 이름의 세계를 만나보세요.">
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <title>이름의 우주 · Universe of Names</title>
+</head>
+<body>
+  <canvas id="universe" aria-label="이름에서 생성된 별과 성운이 움직이는 우주" role="img" tabindex="-1"></canvas>
+  <div id="noise" aria-hidden="true"></div>
+  <div id="vignette" aria-hidden="true"></div>
+
+  <main id="entry" class="screen active" aria-hidden="false">
+    <div class="entry-card">
+      <div class="entry-orbit" aria-hidden="true"><i></i><b>✦</b><i></i></div>
+      <div class="eyebrow">A PERSONAL COSMOS · 001</div>
+      <h1>이름의 <em>우주</em></h1>
+      <p class="subtitle">당신의 이름은, 하나의 우주입니다.</p>
+      <p class="description">글자마다 별이 깨어나고, 서로를 이어 하나의 별자리가 됩니다.<br>같은 이름을 부르면 같은 우주가 다시 열립니다.</p>
+      <form id="nameForm" autocomplete="off">
+        <label for="nameInput" class="visually-hidden">우주를 만들 이름</label>
+        <input id="nameInput" name="name" type="text" placeholder="당신의 이름을 들려주세요" maxlength="64" autocomplete="off" autocapitalize="off" spellcheck="false" required>
+        <button id="birthBtn" class="birth-btn" type="submit"><span>우주를 탄생시키기</span><span aria-hidden="true">↗</span></button>
+      </form>
+      <p class="privacy">✧ 별과 이름은 이 브라우저에서 만들어집니다. 서버로 전송하지 않습니다.<br>공유 주소에는 이름이 포함됩니다.</p>
+    </div>
+    <div class="entry-footer" aria-hidden="true"><span>NO TWO NAMES. THE SAME SKY.</span><span>↓ &nbsp;A SMALL INFINITY</span></div>
+  </main>
+
+  <section id="ui" aria-label="우주 조작 화면" aria-hidden="true">
+    <header class="top-bar">
+      <div class="identity"><span class="identity-symbol" aria-hidden="true">✦</span><div><span class="identity-caption">UNIVERSE OF NAMES</span><strong id="universeTitle"></strong></div></div>
+      <div class="top-actions">
+        <button id="soundBtn" type="button" title="소리 켜기" aria-label="소리 켜기" aria-pressed="false">♪<span class="sound-label"> OFF</span></button>
+        <button id="bounceBtn" type="button" title="빅뱅 다시 보기" aria-label="빅뱅 다시 보기">✳</button>
+        <button id="shareBtn" type="button" title="우주 주소 복사" aria-label="우주 주소 복사">⧉</button>
+        <button id="resetBtn" type="button" title="다른 이름으로" aria-label="다른 이름으로">↶</button>
+      </div>
+    </header>
+    <div class="side-caption" aria-hidden="true">EVERY NAME IS A CONSTELLATION</div>
+    <div class="center-hint" id="centerHint" aria-live="polite">별을 터치하면 이름의 음이 울립니다</div>
+    <footer class="bottom-bar">
+      <span class="chapter" id="chapter">CHAPTER III · 은하</span>
+      <p id="poem" aria-live="polite"></p>
+      <div class="slider-wrap">
+        <span class="slider-label">탄생 <small>00</small></span>
+        <input type="range" id="timeSlider" min="0" max="100" step="1" value="50" aria-label="우주의 시간: 탄생에서 소멸까지">
+        <span class="slider-label right">소멸 <small>100</small></span>
+      </div>
+      <div class="footer-row"><button type="button" id="seedInfo" title="우주 주소 복사" aria-label="우주 주소 복사"></button><span id="timeReadout" aria-live="off">50 / 100</span></div>
+    </footer>
+  </section>
+
+  <div id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <script src="script.js" defer></script>
+</body>
+</html>

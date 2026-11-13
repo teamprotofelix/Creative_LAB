@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#07070a">
+<title>숨 · SUM — a breathing room</title>
+<meta name="description" content="a breathing room for the mind">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='30' fill='none' stroke='%23ebe6df' stroke-width='4'/%3E%3C/svg%3E">
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  :root{
+    --bg:#07070a;--fg:#ebe6df;--dim:#a6a2b0;
+    --accent:hsl(30,80%,60%);
+  }
+  html{scroll-behavior:smooth;-webkit-font-smoothing:antialiased}
+  body{
+    background:var(--bg);color:var(--fg);
+    font-family:'Helvetica Neue',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+    font-weight:300;line-height:1.6;overflow-x:hidden;
+    cursor:auto;min-height:100vh;
+  }
+  @media (hover:hover) and (pointer:fine){
+    body{cursor:none}
+    .sound-btn,.breathe-btn,footer button{cursor:none}
+  }
+  @media (hover:none), (pointer:coarse){.cursor-dot,.cursor-ring{display:none}}
+
+  /* progress bar */
+  .progress{
+    position:fixed;top:0;left:0;height:2px;width:0;
+    background:linear-gradient(90deg,hsl(30,80%,60%),hsl(200,80%,60%));
+    z-index:200;transition:width .1s linear;pointer-events:none;
+  }
+
+  /* canvas field */
+  #field{
+    position:fixed;inset:0;width:100%;height:100%;
+    z-index:0;pointer-events:none;
+    mix-blend-mode:screen;opacity:.95;
+  }
+
+  /* custom cursor */
+  .cursor-dot,.cursor-ring{
+    position:fixed;top:0;left:0;pointer-events:none;
+    border-radius:50%;transform:translate(-50%,-50%);
+    mix-blend-mode:difference;will-change:transform;visibility:hidden;
+  }
+  .cursor-dot{
+    width:6px;height:6px;background:var(--fg);z-index:9999;
+    transition:width .2s,height .2s;
+  }
+  .cursor-ring{
+    width:34px;height:34px;border:1px solid var(--fg);
+    z-index:9998;opacity:.55;
+    transition:width .3s,height .3s,opacity .3s,border-color .3s;
+  }
+  body.cursor-ready .cursor-dot,body.cursor-ready .cursor-ring{visibility:visible}
+  body.hovering .cursor-ring{width:70px;height:70px;opacity:1;border-color:hsl(30,90%,65%)}
+  body.hovering .cursor-dot{width:3px;height:3px}
+
+  /* sound button */
+  .sound-btn{
+    position:fixed;top:1.5rem;right:1.5rem;z-index:100;
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
+    color:var(--dim);background:rgba(7,7,10,.4);
+    border:1px solid rgba(235,230,223,.15);
+    padding:.65rem 1.1rem;border-radius:100px;
+    cursor:pointer;transition:all .3s;
+    display:flex;align-items:center;gap:.6rem;
+    -webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);
+  }
+  .sound-btn:hover{color:var(--fg);border-color:var(--fg)}
+  .sound-btn .pulse{
+    width:6px;height:6px;border-radius:50%;background:var(--dim);
+    transition:all .3s;flex-shrink:0;
+  }
+  .sound-btn.on .pulse{
+    background:var(--accent);
+    box-shadow:0 0 14px var(--accent);
+    animation:pulse 2s ease-in-out infinite;
+  }
+  @keyframes pulse{
+    0%,100%{transform:scale(1);opacity:1}
+    50%{transform:scale(1.6);opacity:.55}
+  }
+
+  /* ticker */
+  .ticker{
+    position:fixed;bottom:2rem;left:2rem;z-index:100;
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.7rem;color:var(--dim);letter-spacing:.12em;
+    pointer-events:none;max-width:320px;line-height:1.7;
+    transition:opacity .8s;
+  }
+  .ticker::before{content:'› ';color:var(--accent)}
+  @media (max-width:640px){.ticker{display:none}}
+
+  /* main layout */
+  main{position:relative;z-index:1}
+  section{
+    min-height:100vh;padding:14vh 8vw;
+    display:flex;flex-direction:column;justify-content:center;
+    position:relative;
+  }
+
+  /* hero */
+  .hero{align-items:center;text-align:center}
+  .title{
+    font-size:clamp(6rem,22vw,20rem);
+    font-weight:200;letter-spacing:-.04em;line-height:.9;
+    background:linear-gradient(180deg,var(--fg) 0%,rgba(235,230,223,.25) 100%);
+    -webkit-background-clip:text;background-clip:text;
+    -webkit-text-fill-color:transparent;color:transparent;
+    animation:float 8s ease-in-out infinite;
+  }
+  @keyframes float{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+  }
+  .hero .korean{
+    font-size:clamp(.9rem,1.8vw,1.3rem);
+    color:var(--dim);letter-spacing:.7em;
+    margin-top:1.8rem;padding-left:.7em;
+  }
+  .tagline{
+    margin-top:3rem;
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.72rem;color:var(--dim);
+    letter-spacing:.32em;text-transform:uppercase;
+  }
+  .scroll-hint{
+    position:absolute;bottom:5vh;left:50%;
+    transform:translateX(-50%);
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.66rem;color:var(--dim);letter-spacing:.3em;
+    animation:bob 3s ease-in-out infinite;
+  }
+  @keyframes bob{
+    0%,100%{transform:translate(-50%,0);opacity:.4}
+    50%{transform:translate(-50%,10px);opacity:1}
+  }
+
+  /* chapters */
+  .chapter{max-width:900px;margin:0 auto}
+  .label{
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.72rem;color:var(--dim);
+    letter-spacing:.3em;text-transform:uppercase;
+    margin-bottom:3rem;display:flex;align-items:center;gap:1rem;
+  }
+  .label::before{content:'';width:40px;height:1px;background:var(--dim)}
+  .chapter h2{
+    font-size:clamp(2rem,5vw,3.6rem);
+    font-weight:300;line-height:1.12;letter-spacing:-.02em;
+    margin-bottom:2rem;
+  }
+  .chapter p{
+    font-size:clamp(1rem,1.5vw,1.15rem);
+    color:var(--dim);max-width:62ch;margin-bottom:1.5rem;
+  }
+  .chapter p:last-child{color:rgba(235,230,223,.55)}
+
+  /* footer */
+  footer{
+    position:relative;z-index:1;
+    padding:6vh 8vw 8vh;
+    display:flex;justify-content:space-between;align-items:center;
+    font-family:'SF Mono',Menlo,Consolas,monospace;
+    font-size:.7rem;color:var(--dim);letter-spacing:.22em;
+    border-top:1px solid rgba(235,230,223,.06);
+    flex-wrap:wrap;gap:1.2rem;
+  }
+  footer span:last-child{color:rgba(235,230,223,.35)}
+
+  @media (prefers-reduced-motion:reduce){
+    *,*::before,*::after{
+      animation-duration:.01ms !important;
+      transition-duration:.01ms !important;
+    }
+  }
+
+  /* Graceful fallbacks and accessibility refinements. */
+  :focus-visible{outline:2px solid #e8ca98;outline-offset:4px}
+  .sound-btn:disabled,.breathe-btn:disabled{opacity:.55;cursor:wait}
+  .sound-btn{color:#c0bac9;border-color:rgba(235,230,223,.28)}
+  .chapter p{color:#b0abb8;line-height:1.82}
+  .chapter p:last-child{color:rgba(235,230,223,.79)}
+  .label,.hero .korean,.tagline,.scroll-hint,.ticker,footer,.slider-label{color:#a19cae}
+  .hero .korean{letter-spacing:.34em;padding-left:.34em}
+  .breathe-btn{
+    margin-top:2.4rem;padding:.7rem 1.4rem;border:1px solid rgba(224,195,153,.38);
+    background:rgba(10,8,15,.44);color:#e1cbaa;border-radius:100px;
+    letter-spacing:.15em;font-size:.72rem;font-weight:400;
+    backdrop-filter:blur(8px);transition:background .2s,border-color .2s;
+  }
+  .breathe-btn:hover{background:rgba(225,194,151,.12);border-color:#e1cbaa}
+  .breathe-btn span{margin-left:.5rem}
+  .breath-overlay{position:fixed;inset:0;display:flex;flex-direction:column;
+    justify-content:center;align-items:center;gap:1.8rem;z-index:20;pointer-events:none;opacity:0;transition:opacity .6s;
+    background:radial-gradient(ellipse at center,rgba(9,9,15,.42),transparent 70%)}
+  .breath-overlay.active{opacity:1}
+  .breath-orb{width:min(26vw,180px);height:min(26vw,180px);min-width:92px;min-height:92px;
+    border-radius:50%;transform:scale(.68);border:1px solid rgba(241,206,170,.54);
+    background:radial-gradient(circle at 45% 40%,rgba(238,205,184,.27),rgba(124,100,173,.12) 45%,transparent 70%);
+    box-shadow:0 0 90px rgba(192,159,205,.18),inset 0 0 35px rgba(192,156,203,.17)}
+  .breath-word{font-size:.75rem;letter-spacing:.22em;color:#f2d5c7;
+    text-shadow:0 0 15px #08070a;text-align:center}
+  .wake-message{position:fixed;left:50%;top:47%;transform:translate(-50%,-50%);
+    color:#9addde;font:400 clamp(.82rem,2vw,1.15rem)/1.6 Consolas,monospace;
+    letter-spacing:.17em;text-align:center;max-width:92vw;pointer-events:none;
+    z-index:100;opacity:0;transition:opacity .65s;text-shadow:0 0 28px rgba(75,216,225,.6)}
+  .wake-message.visible{opacity:1}
+  .forget-btn{background:none;border:0;border-bottom:1px solid rgba(229,219,206,.3);
+    font:inherit;letter-spacing:inherit;color:#c2bbc9;cursor:pointer;padding:4px 0}
+  .forget-btn[hidden]{display:none!important}
+  .sr-only{position:absolute!important;width:1px;height:1px;padding:0;margin:-1px;
+    overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+  .canvas-fallback{background:radial-gradient(circle at 50% 40%,#20142f,#090912 55%,#07070a 100%)}
+  @media(max-width:640px){
+    section{padding:12vh 8vw;min-height:100svh}
+    .hero .title{font-size:clamp(5rem,28vw,11rem)}
+    .hero .tagline{letter-spacing:.12em;font-size:.63rem}
+    .chapter h2{font-size:clamp(1.75rem,7.4vw,2.4rem)}
+    .scroll-hint{bottom:7vh}
+    footer{padding-bottom:calc(2rem + env(safe-area-inset-bottom,0px));font-size:.63rem}
+    .sound-btn{top:calc(.8rem + env(safe-area-inset-top,0px));right:.8rem;padding:.65rem .8rem}
+  }
+  @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto} .breath-orb{transition:none}}
+</style>
+</head>
+<body>
+  <div class="progress" aria-hidden="true"></div>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div class="cursor-dot"></div>
+  <div class="cursor-ring"></div>
+
+  <button class="sound-btn" id="soundBtn" type="button" aria-label="소리 켜기" aria-pressed="false">
+    <span class="pulse"></span>
+    <span class="sound-label">sound off</span>
+  </button>
+
+  <div class="ticker" id="ticker" aria-hidden="true">the room is listening</div>
+  <div id="breathOverlay" class="breath-overlay" aria-hidden="true"><div id="breathOrb" class="breath-orb"></div><div id="breathWord" class="breath-word"></div></div>
+  <div id="wakeMessage" class="wake-message" aria-hidden="true"></div>
+  <div id="status" class="sr-only" role="status" aria-live="polite"></div>
+
+  <main>
+    <section class="hero">
+      <h1 class="title" data-scramble>SUM</h1>
+      <div class="korean">숨</div>
+      <p class="tagline">a breathing room for the mind</p>
+      <button class="breathe-btn" id="breatheBtn" type="button">한 번 숨 고르기 <span aria-hidden="true">↗</span></button>
+      <div class="scroll-hint">scroll</div>
+    </section>
+
+    <section class="chapter">
+      <div class="label">01 · Welcome</div>
+      <h2 data-scramble>This room breathes.</h2>
+      <p>Every particle you see is a thought that hasn't been finished yet. They drift, they collide, they forget. Move your cursor and the air shifts with you.</p>
+      <p>당신이 보는 모든 입자는 아직 끝나지 않은 생각입니다. 흩어지고, 부딪히고, 잊혀집니다. 마우스를 움직이면 공기가 당신을 따라 흔들립니다.</p>
+    </section>
+
+    <section class="chapter">
+      <div class="label">02 · Interact</div>
+      <h2 data-scramble>Disturb the air.</h2>
+      <p>Click anywhere. A ripple will travel outward through the field. You are not a visitor here — you are weather.</p>
+      <p>어디든 클릭해보세요. 물결이 필드를 가로질러 퍼져나갑니다. 당신은 방문자가 아니라, 날씨입니다.</p>
+    </section>
+
+    <section class="chapter">
+      <div class="label">03 · Manifesto</div>
+      <h2 data-scramble>We are made of the same trembling.</h2>
+      <p>Look closely at the field. It never repeats. Neither do you. This page will never look the same twice — not for you, not for anyone.</p>
+      <p>필드를 자세히 보세요. 그것은 결코 반복되지 않습니다. 당신도 그렇습니다. 이 페이지는 두 번 다시 같은 모습을 보여주지 않습니다.</p>
+    </section>
+
+    <section class="chapter">
+      <div class="label">04 · Secret</div>
+      <h2 data-scramble>There is a word that wakes it.</h2>
+      <p>Somewhere on this page, a small door waits. Type the right three letters and the room will remember you.</p>
+      <p>이 페이지 어딘가에 작은 문이 있습니다. 올바른 세 글자를 입력하면, 방이 당신을 기억할 것입니다.</p>
+    </section>
+  </main>
+
+  <footer>
+    <span>SUM · 숨</span>
+    <span>© <span id="year"></span></span>
+    <span>type "sum" to wake the room</span>
+    <button type="button" id="forgetBtn" class="forget-btn" hidden>기억 지우기</button>
+  </footer>
+
+<script>
+(() => {
+  'use strict';
+
+  // SUM: a breathing room. All computation runs locally; no dependencies or requests.
+  const doc = document;
+  const root = doc.documentElement;
+  const canvas = doc.getElementById('field');
+  const ctx = canvas.getContext('2d', { alpha: false });
+  const progressBar = doc.querySelector('.progress');
+  const soundBtn = doc.getElementById('soundBtn');
+  const soundLabel = soundBtn.querySelector('.sound-label');
+  const ticker = doc.getElementById('ticker');
+  const statusEl = doc.getElementById('status');
+  const breatheBtn = doc.getElementById('breatheBtn');
+  const breathOverlay = doc.getElementById('breathOverlay');
+  const breathOrb = doc.getElementById('breathOrb');
+  const breathWord = doc.getElementById('breathWord');
+  const forgetBtn = doc.getElementById('forgetBtn');
+  const mediaReduce = matchMedia('(prefers-reduced-motion: reduce)');
+  const mediaFine = matchMedia('(hover: hover) and (pointer: fine)');
+  let reducedMotion = mediaReduce.matches;
+  let finePointer = mediaFine.matches;
+  const rand = (a, b) => a + Math.random() * (b - a);
+  const clamp = (x, lo, hi) => Math.min(hi, Math.max(lo, x));
+  const memoryKey = 'sum.room.awake.v1';
+  const sayStatus = message => { statusEl.textContent = message; };
+  const safelyRemember = value => { try { if (value) localStorage.setItem(memoryKey, '1'); else localStorage.removeItem(memoryKey); } catch {} };
+  const wasRemembered = () => { try { return localStorage.getItem(memoryKey) === '1'; } catch { return false; } };
+  let remembered = wasRemembered();
+  forgetBtn.hidden = !remembered;
+
+  // Color route: amber -> violet -> turquoise. Not a simple hue sweep.
+  const colorAt = progress => {
+    const p = clamp(progress, 0, 1);
+    return p < 0.52 ? 30 + (275 - 30) * p / 0.52 : 275 + (180 - 275) * (p - 0.52) / 0.48;
+  };
+  let hueTarget = 30, hue = 30;
+  let W = 1, H = 1, dpr = 1, particles = [], ripples = [];
+  let mouseX = -9999, mouseY = -9999, prevX = null, prevY = null;
+  let windX = 0, windY = 0, mouseActive = false;
+  let running = false, raf = 0, last = 0, tick = 0;
+  let wakeUntil = 0, wakeActive = false;
+  let breathingUntil = 0, breathingStart = 0;
+  let recordedProgress = -1;
+  const dot = doc.querySelector('.cursor-dot');
+  const ring = doc.querySelector('.cursor-ring');
+  let ringX = 0, ringY = 0;
+  const maxRipples = 10;
+
+  function createParticle() {
+    return { x: rand(0, W), y: rand(0, H), vx: 0, vy: 0,
+      age: rand(0, 380), life: rand(160, 460), size: rand(.4, 1.45), tint: rand(-12, 12) };
+  }
+  function recalcCount() {
+    const area = W * H;
+    const cap = finePointer ? 650 : 280;
+    const count = reducedMotion ? Math.min(150, Math.max(55, Math.round(area / 7500)))
+      : clamp(Math.round(area / (finePointer ? 2100 : 3300)), 130, cap);
+    if (particles.length > count) particles.length = count;
+    while (particles.length < count) particles.push(createParticle());
+  }
+  function resize() {
+    const oldW = W, oldH = H;
+    W = Math.max(1, window.innerWidth); H = Math.max(1, window.innerHeight);
+    dpr = Math.min(window.devicePixelRatio || 1, W < 700 ? 1.5 : 1.75);
+    if (ctx) {
+      canvas.width = Math.round(W * dpr); canvas.height = Math.round(H * dpr);
+      canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    }
+    if (oldW && oldH) for (const p of particles) { p.x *= W / oldW; p.y *= H / oldH; }
+    recalcCount();
+    if (ctx && reducedMotion) renderStatic();
+  }
+  function scrollProgress() {
+    const max = Math.max(0, root.scrollHeight - window.innerHeight);
+    return max ? clamp(window.scrollY / max, 0, 1) : 0;
+  }
+  function syncScroll() {
+    const p = scrollProgress();
+    progressBar.style.width = (p * 100).toFixed(2) + '%';
+    hueTarget = colorAt(p);
+    root.style.setProperty('--accent', `hsl(${hueTarget.toFixed(1)},80%,66%)`);
+    if (reducedMotion && ctx && Math.abs(recordedProgress - p) > .005) {
+      hue = hueTarget; recordedProgress = p; renderStatic();
+    }
+  }
+  function angleAt(x, y, time) {
+    return (Math.sin(x*.004 + time*.0002) + Math.cos(y*.005 + time*.0003)
+      + Math.sin((x+y)*.002 - time*.0004)) * Math.PI * .5;
+  }
+  function renderStatic() {
+    if (!ctx) return;
+    ctx.fillStyle = '#07070a'; ctx.fillRect(0, 0, W, H);
+    for (const p of particles) {
+      ctx.fillStyle = `hsla(${hue+p.tint},74%,71%,.46)`;
+      ctx.beginPath(); ctx.arc(p.x, p.y, p.size * 1.3, 0, Math.PI*2); ctx.fill();
+    }
+    for (const r of ripples) {
+      ctx.lineWidth = 1.3;
+      ctx.strokeStyle = `hsla(${hue},85%,77%,.6)`;
+      ctx.beginPath(); ctx.arc(r.x, r.y, Math.max(r.r, 38), 0, Math.PI*2); ctx.stroke();
+    }
+  }
+  function renderFrame(now, elapsed) {
+    if (!ctx) return;
+    const delta = clamp(elapsed/16.667, .15, 2.2);
+    tick += elapsed;
+    hue += (hueTarget - hue) * (1 - Math.pow(.967, delta));
+    ctx.fillStyle = 'rgba(7,7,10,.105)'; ctx.fillRect(0, 0, W, H);
+
+    for (let i = ripples.length - 1; i >= 0; i--) {
+      const r = ripples[i];
+      r.r += .34 * elapsed;
+      r.life = Math.max(0, 1 - r.r / r.maxR);
+      if (r.life <= 0) ripples.splice(i, 1);
+    }
+    const speed = 1 + clamp(Math.hypot(windX, windY)/130, 0, .8);
+    const fade = Math.pow(.94, delta);
+    for (const p of particles) {
+      const a = angleAt(p.x, p.y, tick) + tick*.00005;
+      p.vx += Math.cos(a) * .15 * delta;
+      p.vy += Math.sin(a) * .15 * delta;
+      if (mouseActive) {
+        const dx = p.x - mouseX, dy = p.y - mouseY;
+        const d2 = dx*dx+dy*dy;
+        if (d2 < 30000) {
+          const d = Math.sqrt(d2) || 1;
+          const force = Math.max(0, 1-d/174) * .8 * delta;
+          p.vx += dx/d * force + windX*.006*delta;
+          p.vy += dy/d * force + windY*.006*delta;
+        }
+      }
+      for (const r of ripples) {
+        const dx=p.x-r.x, dy=p.y-r.y, rd=Math.hypot(dx,dy);
+        const band=Math.abs(rd-r.r);
+        if (band < 38) {
+          const force=(1-band/38)*r.life*1.8*delta;
+          p.vx += (dx/(rd||1))*force; p.vy += (dy/(rd||1))*force;
+        }
+      }
+      p.vx *= fade; p.vy *= fade;
+      const nx=p.x+p.vx*speed*delta, ny=p.y+p.vy*speed*delta;
+      ctx.strokeStyle = `hsla(${hue+p.tint},75%,69%,.55)`;
+      ctx.lineWidth = p.size;
+      ctx.beginPath(); ctx.moveTo(p.x,p.y); ctx.lineTo(nx,ny); ctx.stroke();
+      p.x=nx; p.y=ny; p.age += delta;
+      if (p.x < -20 || p.x > W+20 || p.y < -20 || p.y > H+20 || p.age > p.life) {
+        Object.assign(p, createParticle());
+      }
+    }
+    windX *= .65; windY *= .65;
+    if (wakeActive && now >= wakeUntil) { wakeActive = false; syncScroll(); }
+    if (breathingUntil) updateBreath(now);
+  }
+  function followCursor() {
+    if (!finePointer || !mouseActive) return;
+    ringX += (mouseX - ringX) * .17;
+    ringY += (mouseY - ringY) * .17;
+    ring.style.transform = `translate(${ringX}px,${ringY}px) translate(-50%,-50%)`;
+  }
+  function animation(now) {
+    raf = 0;
+    if (!running || doc.hidden || reducedMotion) return;
+    const frameInterval = finePointer ? 1000/48 : 1000/30;
+    if (last && now-last < frameInterval) { raf = requestAnimationFrame(animation); return; }
+    const elapsed = last ? Math.min(50, Math.max(0, now-last)) : frameInterval;
+    last = now;
+    renderFrame(now, elapsed);
+    followCursor();
+    raf = requestAnimationFrame(animation);
+  }
+  function startLoop() {
+    if (!ctx || reducedMotion || doc.hidden || running) return;
+    running = true; last = 0; raf = requestAnimationFrame(animation);
+  }
+  function stopLoop() { running = false; if (raf) cancelAnimationFrame(raf); raf = 0; last = 0; }
+  function pushRipple(x,y) {
+    if (!Number.isFinite(x) || !Number.isFinite(y)) return;
+    ripples.push({x,y,r: reducedMotion ? 38 : 0,maxR:Math.min(440, Math.max(W,H)*.68),life:1});
+    if (ripples.length > maxRipples) ripples.shift();
+    if (reducedMotion) renderStatic();
+  }
+  function updatePointer(e) {
+    if (e.pointerType === 'touch' && e.type === 'pointermove' && e.buttons === 0) return;
+    mouseX = e.clientX; mouseY = e.clientY;
+    if (prevX !== null && prevY !== null) {
+      windX = clamp(mouseX-prevX,-38,38);
+      windY = clamp(mouseY-prevY,-38,38);
+    }
+    prevX=mouseX;prevY=mouseY;mouseActive=true;
+    if (finePointer) {
+      dot.style.transform = `translate(${mouseX}px,${mouseY}px) translate(-50%,-50%)`;
+      if (reducedMotion) ring.style.transform = `translate(${mouseX}px,${mouseY}px) translate(-50%,-50%)`;
+      doc.body.classList.add('cursor-ready');
+    }
+  }
+  function onPointerDown(e) {
+    if (e.button !== undefined && e.button !== 0) return;
+    if (e.target.closest('button, a, input, textarea, select')) return;
+    pushRipple(e.clientX,e.clientY);
+    if (audioOn) playChord();
+  }
+  // Interactive elements magnetically expand the custom cursor.
+  doc.querySelectorAll('button,a,.chapter h2').forEach(el=>{
+    el.addEventListener('pointerenter',()=>doc.body.classList.add('hovering'));
+    el.addEventListener('pointerleave',()=>doc.body.classList.remove('hovering'));
+  });
+  window.addEventListener('pointermove',updatePointer,{passive:true});
+  window.addEventListener('pointerdown',onPointerDown,{passive:true});
+  doc.addEventListener('pointerout',e=>{if(!e.relatedTarget){mouseActive=false;prevX=null;prevY=null;doc.body.classList.remove('cursor-ready');}},{passive:true});
+  window.addEventListener('blur',()=>{mouseActive=false;prevX=null;prevY=null;});
+  window.addEventListener('resize',resize,{passive:true});
+  window.addEventListener('scroll',syncScroll,{passive:true});
+  doc.addEventListener('visibilitychange',()=>{
+    if(doc.hidden){stopLoop();if(audioCtx && audioCtx.state==='running') audioCtx.suspend().catch(()=>{});}
+    else {if(audioOn && audioCtx && audioCtx.state==='suspended') audioCtx.resume().catch(()=>{});
+      last=0;startLoop();if(reducedMotion)renderStatic();}
+  });
+  mediaReduce.addEventListener?.('change',e=>{
+    reducedMotion=e.matches;
+    if (reducedMotion){stopLoop();hue=hueTarget;recalcCount();renderStatic();}
+    else {recalcCount();startLoop();}
+  });
+  mediaFine.addEventListener?.('change',e=>{finePointer=e.matches;recalcCount();});
+
+  // Decorative text reveal, without corrupting long headings or screen-reader output.
+  const GLYPHS='!<>-_\\/[]{}—=+*^?#';
+  function scramble(el) {
+    if (reducedMotion) return;
+    const final=el.textContent, length=final.length, total=36;
+    let n=0;
+    function step() {
+      if(doc.hidden){el.textContent=final;return;}
+      const done=Math.floor(length * n / total);
+      let out='';
+      for(let i=0;i<length;i++)out+= i<done || /\s/.test(final[i])?final[i]:GLYPHS[Math.floor(Math.random()*GLYPHS.length)];
+      el.textContent=out;
+      if(++n <= total)requestAnimationFrame(step);else el.textContent=final;
+    }
+    step();
+  }
+  if('IntersectionObserver' in window){
+    const io=new IntersectionObserver(entries=>{
+      for(const entry of entries) if(entry.isIntersecting&&!entry.target.dataset.scrambled){
+        entry.target.dataset.scrambled='1'; scramble(entry.target); io.unobserve(entry.target);
+      }
+    },{threshold:.35});
+    doc.querySelectorAll('[data-scramble]').forEach(e=>io.observe(e));
+  }
+
+  // Low-frequency text ticker; announce interaction state separately to assistive tech.
+  const phrases=['every particle is a thought you didn\'t finish','the room is listening',
+    'you are weather here','nothing repeats','breathe with the machine',
+    'the air remembers your shape','you are not a visitor'];
+  let tickerIndex=0;
+  if(remembered){ticker.textContent='you returned. the room remembers.';tickerIndex=1;}
+  function rotateTicker(){
+    if(!remembered || tickerIndex>0){
+      ticker.style.opacity='0';
+      setTimeout(()=>{ticker.textContent=phrases[tickerIndex++%phrases.length];ticker.style.opacity='1';},500);
+    }
+  }
+  setInterval(()=>{if(!doc.hidden)rotateTicker();},5800);
+
+  // WebAudio is optional and never blocks the visuals.
+  let audioCtx=null, masterGain=null, audioOn=false, toggling=false;
+  function initAudio() {
+    const AudioCtor=window.AudioContext||window.webkitAudioContext;
+    if(!AudioCtor) throw new Error('Web Audio API unsupported');
+    const context=new AudioCtor();
+    const master=context.createGain(); master.gain.value=0; master.connect(context.destination);
+    const filter=context.createBiquadFilter();
+    filter.type='lowpass';filter.frequency.value=420;filter.Q.value=1;filter.connect(master);
+    const created=[];
+    try {
+      [110,164.81,220].forEach((freq,i)=>{
+        const osc=context.createOscillator();osc.type=i===0?'sine':'triangle';osc.frequency.value=freq;osc.detune.value=(i-1)*5;
+        const g=context.createGain();g.gain.value=.1;osc.connect(g);g.connect(filter);osc.start();created.push(osc);
+      });
+      const lfo=context.createOscillator(), lfoGain=context.createGain();
+      lfo.frequency.value=.09;lfoGain.gain.value=160;lfo.connect(lfoGain);lfoGain.connect(filter.frequency);lfo.start();created.push(lfo);
+    } catch(error) {created.forEach(o=>{try{o.stop();}catch{}});context.close().catch(()=>{});throw error;}
+    audioCtx=context;masterGain=master;
+  }
+  function playChord(){
+    if(!audioCtx || !audioOn || audioCtx.state!=='running')return;
+    const now=audioCtx.currentTime;
+    [261.63,329.63,392.00,523.25].forEach((f,i)=>{
+      try{
+        const osc=audioCtx.createOscillator(),g=audioCtx.createGain();
+        osc.type='sine';osc.frequency.value=f;
+        g.gain.setValueAtTime(.0001,now+i*.06);
+        g.gain.linearRampToValueAtTime(.1,now+i*.06+.025);
+        g.gain.exponentialRampToValueAtTime(.0001,now+i*.06+1.9);
+        osc.connect(g);g.connect(masterGain);
+        osc.start(now+i*.06);osc.stop(now+i*.06+1.95);
+      }catch{}
+    });
+  }
+  function applyAudioUI(){
+    soundBtn.classList.toggle('on',audioOn);
+    soundBtn.setAttribute('aria-pressed',String(audioOn));
+    soundBtn.setAttribute('aria-label',audioOn?'소리 끄기':'소리 켜기');
+    soundLabel.textContent=audioOn?'sound on':'sound off';
+  }
+  soundBtn.addEventListener('click',async()=>{
+    if(toggling)return;
+    toggling=true;soundBtn.disabled=true;
+    try{
+      if(!audioCtx)initAudio();
+      if(!audioOn && audioCtx.state==='suspended')await audioCtx.resume();
+      audioOn=!audioOn;
+      const t=audioCtx.currentTime;
+      masterGain.gain.cancelScheduledValues(t);
+      masterGain.gain.setValueAtTime(Math.max(0,masterGain.gain.value),t);
+      masterGain.gain.linearRampToValueAtTime(audioOn?.15:0,t+.42);
+      applyAudioUI();
+      if(audioOn)playChord();
+      sayStatus(audioOn?'소리를 켰습니다.':'소리를 껐습니다.');
+    }catch(e){
+      audioOn=false;applyAudioUI();
+      soundLabel.textContent='sound unavailable';
+      sayStatus('이 브라우저에서 소리를 사용할 수 없습니다. 시각 효과는 계속 실행됩니다.');
+    }finally{soundBtn.disabled=false;toggling=false;}
+  });
+
+  // Optional breathing ritual: one inhale and one exhale, never medically framed.
+  function updateBreath(now){
+    if(!breathingUntil)return;
+    const elapsed=now-breathingStart;
+    if(elapsed>=9000){
+      breathingUntil=0;breathOverlay.classList.remove('active');
+      breatheBtn.disabled=false;sayStatus('호흡 한 번을 마쳤습니다.');return;
+    }
+    const inhale=elapsed<4000;
+    const phase=inhale?clamp(elapsed/4000,0,1):1-clamp((elapsed-4000)/5000,0,1);
+    breathWord.textContent=inhale?'천천히 들이쉬기':'부드럽게 내쉬기';
+    breathOrb.style.transform=`scale(${(0.68+phase*.53).toFixed(3)})`;
+  }
+  breatheBtn.addEventListener('click',()=>{
+    if(breathingUntil)return;
+    breatheBtn.disabled=true;
+    breathOverlay.classList.add('active');
+    if(reducedMotion){
+      breathWord.textContent='들이쉬고, 천천히 내쉬세요';
+      breathOrb.style.transform='scale(1)';
+      setTimeout(()=>{breathOverlay.classList.remove('active');breatheBtn.disabled=false;sayStatus('호흡 한 번을 마쳤습니다.');},9000);
+    }else{
+      breathingStart=performance.now();breathingUntil=breathingStart+9000;
+      updateBreath(breathingStart);
+    }
+    pushRipple(W/2,H/2);
+    sayStatus('한 번의 호흡을 시작합니다.');
+  });
+
+  let typed='',typingTimer=0;
+  function triggerWake(){
+    if(wakeActive)return;
+    wakeActive=true;wakeUntil=performance.now()+4000;
+    for(const p of particles){const a=rand(0,Math.PI*2),s=rand(3,12);p.vx+=Math.cos(a)*s;p.vy+=Math.sin(a)*s;}
+    hueTarget=192; root.style.setProperty('--accent','hsl(192,85%,72%)');
+    if(reducedMotion) {hue=hueTarget;renderStatic();}
+    if(audioOn)playChord();
+    remembered=true;safelyRemember(true);forgetBtn.hidden=false;
+    const msg=doc.getElementById('wakeMessage');
+    msg.textContent='the room remembers you.';
+    msg.classList.add('visible');
+    sayStatus('방이 당신을 기억합니다. 이 브라우저에 기억 여부만 저장했습니다.');
+    setTimeout(()=>{
+      msg.classList.remove('visible');wakeActive=false;
+      syncScroll();if(reducedMotion){hue=hueTarget;renderStatic();}
+    },4000);
+  }
+  window.addEventListener('keydown',e=>{
+    if(e.altKey||e.ctrlKey||e.metaKey||e.isComposing||e.key.length!==1)return;
+    if(e.target.closest('input,textarea,select,[contenteditable="true"]'))return;
+    clearTimeout(typingTimer);
+    typed=(typed+e.key.toLowerCase()).slice(-3);
+    if(typed==='sum'){typed='';triggerWake();return;}
+    typingTimer=setTimeout(()=>{typed='';},1600);
+  });
+  forgetBtn.addEventListener('click',()=>{
+    safelyRemember(false);remembered=false;forgetBtn.hidden=true;
+    ticker.textContent='the room is listening';
+    sayStatus('이 브라우저에서 방의 기억을 지웠습니다.');
+  });
+
+  doc.getElementById('year').textContent=new Date().getFullYear();
+  if(!ctx){canvas.hidden=true;doc.body.classList.add('canvas-fallback');sayStatus('그래픽 기능을 사용할 수 없어 정적 배경으로 표시합니다.');}
+  resize();syncScroll();
+  if(ctx){if(reducedMotion)renderStatic();else startLoop();}
+})();
+</script>
+</body>
+</html>
