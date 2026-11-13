@@ -1,0 +1,555 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#030614">
+  <meta name="description" content="MINDSCAPE — 손끝에서 구체가 되고, 생각이 되고, 다시 우주가 되는 살아있는 입자 세계.">
+  <title>MINDSCAPE — 상상력의 경계 너머</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink:#eaf5ff; --muted:#8a9db3; --accent:#82dfff; --line:rgba(155,205,248,.19);
+      --glass:rgba(9,17,37,.64); --sans:system-ui,-apple-system,"Malgun Gothic","Apple SD Gothic Neo","Segoe UI",sans-serif;
+      --mono:ui-monospace,"Cascadia Code","SFMono-Regular",Consolas,monospace;
+    }
+    *,*::before,*::after{box-sizing:border-box}
+    html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#030614;color:var(--ink);font-family:var(--sans)}
+    body{min-height:100vh;min-height:100dvh;-webkit-tap-highlight-color:transparent}
+    canvas#universe{position:fixed;inset:0;display:block;width:100%;height:100%;touch-action:none;z-index:0}
+    #universe:focus-visible{outline:2px solid var(--accent);outline-offset:-6px}
+    .aura{position:fixed;inset:0;pointer-events:none;z-index:1;background:
+      radial-gradient(ellipse at 52% 46%,transparent 20%,rgba(2,4,14,.14) 68%,rgba(0,2,9,.42) 100%)}
+    .topbar,.footer{position:fixed;z-index:4;left:0;right:0;display:flex;align-items:center;justify-content:space-between;gap:16px;pointer-events:none}
+    .topbar{top:0;padding:27px clamp(20px,4vw,54px)}
+    .brand{display:flex;align-items:center;gap:14px;letter-spacing:.21em;font-size:12px;font-weight:670;white-space:nowrap}
+    .brand-mark{width:27px;height:27px;border:1px solid var(--accent);transform:rotate(45deg);display:grid;place-items:center;border-radius:5px;box-shadow:0 0 22px rgba(116,209,255,.2)}
+    .brand-mark::after{content:"";width:7px;height:7px;background:var(--accent);border-radius:50%;box-shadow:0 0 15px var(--accent)}
+    .brand small{display:block;font-family:var(--mono);font-weight:400;letter-spacing:.13em;font-size:9px;color:var(--muted);margin-top:5px}
+    .top-right{display:flex;align-items:center;gap:13px;font:10px var(--mono);letter-spacing:.14em;color:var(--muted)}
+    .top-right .tiny-dot{width:6px;height:6px;border-radius:100%;background:var(--accent);box-shadow:0 0 10px var(--accent)}
+    #phaseLabel{color:#d2f0ff;text-transform:uppercase}
+    .side{position:fixed;z-index:2;left:clamp(20px,4vw,54px);top:50%;transform:translateY(-50%);pointer-events:none}
+    .side-line{height:78px;width:1px;background:linear-gradient(transparent,var(--accent),transparent);opacity:.65;margin-left:5px}
+    .side-index{font:10px var(--mono);letter-spacing:.14em;color:var(--muted);writing-mode:vertical-rl;transform:rotate(180deg);margin:15px 0}
+    .side .coord{font:9px var(--mono);letter-spacing:.12em;color:rgba(154,179,204,.55);margin-top:14px}
+    .focus{position:fixed;left:50%;top:var(--scene-center-y, 48%);transform:translate(-50%,-50%);z-index:2;pointer-events:none;width:min(78vmin,680px);height:min(78vmin,680px);border:1px solid rgba(121,188,242,.055);border-radius:50%;box-shadow:0 0 80px rgba(62,145,246,.035),inset 0 0 65px rgba(78,116,217,.026)}
+    .focus::before,.focus::after{content:"";position:absolute;left:50%;top:0;width:1px;height:14px;background:linear-gradient(var(--accent),transparent);opacity:.45}
+    .focus::after{top:auto;bottom:0;transform:rotate(180deg)}
+    .status{position:fixed;z-index:3;left:50%;top:17%;transform:translateX(-50%);width:90%;text-align:center;pointer-events:none}
+    .eyebrow{font:10px var(--mono);letter-spacing:.36em;color:var(--accent);opacity:.8}
+    .status strong{display:block;margin-top:12px;font-weight:340;font-size:clamp(14px,2.1vw,21px);letter-spacing:.13em;text-shadow:0 0 32px rgba(109,187,255,.36)}
+    .status p{font:11px var(--mono);letter-spacing:.08em;color:var(--muted);margin:9px 0 0}
+    .footer{bottom:0;padding:0 clamp(20px,4vw,54px) 24px;align-items:end}
+    .story{flex:1;max-width:310px}
+    .story .kicker{font:9px var(--mono);letter-spacing:.22em;color:var(--accent)}
+    .story p{font-size:12px;color:var(--muted);line-height:1.8;margin:8px 0 0;letter-spacing:.02em}
+    .hud{min-width:148px;margin-left:auto;text-align:right}
+    .hud .count{font:10px var(--mono);letter-spacing:.15em;color:#c4eaff}
+    .progress-track{height:2px;background:rgba(137,198,248,.14);margin-top:12px;width:140px;margin-left:auto;overflow:hidden}
+    #progress{height:100%;width:0%;background:var(--accent);box-shadow:0 0 12px var(--accent);transition:width .12s linear}
+    .controls{position:fixed;z-index:6;left:50%;bottom:clamp(91px,13vh,122px);transform:translateX(-50%);display:flex;align-items:center;gap:7px;padding:8px;border:1px solid var(--line);background:var(--glass);border-radius:18px;box-shadow:0 18px 65px rgba(0,0,0,.28),inset 0 1px rgba(255,255,255,.045);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);max-width:calc(100vw - 28px)}
+    button,input{font:12px var(--sans);color:var(--ink)}
+    button{cursor:pointer;touch-action:manipulation}
+    .action{appearance:none;border:1px solid transparent;border-radius:11px;background:transparent;color:#b8cedf;padding:10px 12px;white-space:nowrap;transition:background .17s,border-color .17s,color .17s;min-height:38px}
+    .action:hover{background:rgba(119,188,244,.12);color:#fff}
+    .action.primary{background:rgba(112,190,245,.13);color:#e1f7ff;border-color:rgba(145,219,255,.22)}
+    .action.primary:hover{background:rgba(112,190,245,.26)}
+    button:focus-visible,input:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+    .divider{width:1px;align-self:stretch;background:var(--line);margin:4px 2px;flex-shrink:0}
+    form#wordForm{display:flex;align-items:center;gap:5px;min-width:0}
+    #wordInput{width:126px;max-width:18vw;min-width:0;min-height:38px;border:0;border-radius:10px;background:rgba(1,9,26,.5);padding:0 11px;outline:none;font-size:12px;letter-spacing:.025em}
+    #wordInput::placeholder{color:#8298ae}
+    #wordInput:focus-visible{outline:2px solid var(--accent);outline-offset:0}
+    .mobile-hint{display:none}
+    .cursor{position:fixed;left:0;top:0;z-index:7;pointer-events:none;opacity:0;width:21px;height:21px;border:1px solid rgba(152,221,255,.8);border-radius:50%;box-shadow:0 0 28px rgba(94,201,255,.26);transform:translate(-200px,-200px);mix-blend-mode:screen}
+    @media (pointer:fine) {.cursor.active{opacity:.75} }
+    .screen-reader-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+    @media(max-width:820px){
+      .topbar{padding:20px 20px}.brand{font-size:11px}.top-right{gap:8px;font-size:9px}.top-right .optional{display:none}
+      .side{display:none}.status{top:15%}.footer{padding:0 20px 16px}.story{max-width:180px}.story p{font-size:10px}
+      .controls{bottom:100px;flex-wrap:wrap;justify-content:center;width:min(510px,calc(100vw - 24px));gap:3px;padding:8px}
+      #wordInput{max-width:none;width:116px}.action{padding:9px 10px;font-size:11px}
+    }
+    @media(max-width:520px){
+      .brand{letter-spacing:.12em;font-size:11px}.brand-mark{width:22px;height:22px}.brand small{font-size:8px}
+      .top-right .tiny-dot{display:none}.top-right{font-size:9px;letter-spacing:.06em}
+      .status{top:16%}.status strong{font-size:15px;line-height:1.5}.status p{font-size:9px}
+      .controls{bottom:90px}.controls .divider{display:none}.action{min-height:38px}.hud{min-width:100px}.hud .count{font-size:8px}.progress-track{width:96px}
+      .story{max-width:190px}.story .kicker{font-size:8px}.story p{font-size:10px;line-height:1.5}
+      #wordForm{flex:1 1 100%;display:flex}#wordInput{width:100%;flex:1}.mobile-hint{display:block}
+    }
+    @media(max-height:560px){.status{top:17%}.story{display:none}.controls{bottom:24px}.footer{display:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{scroll-behavior:auto!important;transition-duration:.01ms!important;animation-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <canvas id="universe" tabindex="0" aria-label="입자 우주. 포인터를 움직이면 입자가 반응하고 클릭하면 충격파가 생깁니다."></canvas>
+  <div class="aura" aria-hidden="true"></div>
+  <div class="focus" aria-hidden="true"></div>
+  <div class="cursor" id="cursor" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand"><div class="brand-mark" aria-hidden="true"></div><div>MINDSCAPE<small>BEYOND THE EDGE OF IMAGINATION</small></div></div>
+    <div class="top-right"><span class="tiny-dot" aria-hidden="true"></span><span id="phaseLabel">THOUGHT FORMING</span><span class="optional"> · </span><span class="optional" id="frameLabel">REAL-TIME CANVAS ENGINE</span></div>
+  </header>
+  <div class="side" aria-hidden="true"><div class="side-line"></div><div class="side-index">CONSCIOUSNESS / 001</div><div class="side-line"></div><div class="coord">∞ : ∞</div></div>
+  <div class="status" aria-live="polite" aria-atomic="true">
+    <div class="eyebrow">✦ THE SPACE BETWEEN THOUGHTS ✦</div>
+    <strong id="headline">당신의 마음이 우주입니다.</strong>
+    <p id="subline">가만히 있으면 단어가 피어나고, 움직이면 별이 됩니다.</p>
+  </div>
+  <section class="controls" aria-label="MINDSCAPE 조작 패널">
+    <form id="wordForm" autocomplete="off">
+      <label for="wordInput" class="screen-reader-only">입자로 표현할 단어 입력</label>
+      <input id="wordInput" type="text" maxlength="18" placeholder="당신의 생각을 입력" aria-label="표현할 단어">
+      <button class="action primary" type="submit" title="입력한 단어를 입자로 만듭니다">형상화 ↗</button>
+    </form>
+    <div class="divider"></div>
+    <button class="action" id="nextBtn" type="button" title="다음 단어 (N)">다음 단어 →</button>
+    <button class="action" id="burstBtn" type="button" title="중앙에 충격파 (Space)">충격파 ✧</button>
+    <div class="divider"></div>
+    <button class="action" id="paletteBtn" type="button" title="빛의 색상 변경">색상 ◇</button>
+    <button class="action" id="pauseBtn" type="button" title="일시정지 (P)" aria-pressed="false">일시정지 Ⅱ</button>
+    <button class="action" id="soundBtn" type="button" title="음향 켜고 끄기 (A)" aria-pressed="false">소리 꺼짐</button>
+    <button class="action" id="saveBtn" type="button" title="현재 화면 PNG 저장 (S)">저장 ↓</button>
+  </section>
+  <footer class="footer">
+    <div class="story"><span class="kicker">01 / A LIVING THOUGHT</span><p>움직이면 사라지고, 멈추면 다시 태어납니다.<span class="mobile-hint"> 화면을 터치해보세요.</span></p></div>
+    <div class="hud"><span id="wordNumber" class="count">01 / 07 · 1600 PARTICLES</span><div class="progress-track"><div id="progress"></div></div></div>
+  </footer>
+  <div id="liveAlert" class="screen-reader-only" role="status" aria-live="polite"></div>
+  <script>
+  (() => {
+    'use strict';
+    const $ = id => document.getElementById(id);
+    const canvas = $('universe');
+    const ctx = canvas.getContext('2d', { alpha:false });
+    const WORDS = ['상상', 'MIND', '∞', '우주', 'DREAM', '빛', 'I AM'];
+    const THEMES = [
+      { label:'빙하', accent:'#82dfff', hues:[194,210,230,258] },
+      { label:'성운', accent:'#c5a5ff', hues:[255,278,298,226] },
+      { label:'일출', accent:'#ffd296', hues:[32,45,14,198] }
+    ];
+    const $head = $('headline'), $sub = $('subline'), $phase = $('phaseLabel'), $wordNum = $('wordNumber');
+    const $progress = $('progress'), $pause = $('pauseBtn'), $sound = $('soundBtn');
+    const cursor = $('cursor'), wordInput = $('wordInput');
+    if (!ctx) {
+      $head.textContent = '이 브라우저에서는 Canvas 2D를 사용할 수 없습니다.';
+      $sub.textContent = '최신 Chrome, Edge, Firefox 또는 Safari에서 열어주세요.';
+      return;
+    }
+
+    const mobileLike = matchMedia('(pointer:coarse)').matches || Math.min(innerWidth,innerHeight)<600;
+    const COUNT = mobileLike ? 720 : 1600;
+    const REDUCE_MOTION = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const FIXED_STEP=1/60, TWO_PI=Math.PI*2;
+    let W=0,H=0,DPR=1,CX=0,CY=0,R=0,CAMERA=900;
+    let backdrop, particles=[], raf=0, lastNow=0, accumulator=0, lastRender=0;
+    let textTargets=[], themeIndex=0, soundOn=false, ac=null;
+    let playing = !REDUCE_MOTION, reduced = REDUCE_MOTION;
+    let phase='text', phaseAge=0, idleAge=0, elapsed=0, wordIndex=0, currentWord=WORDS[0], custom=false;
+    const mouse={ x:-9999, y:-9999, wx:0, wy:0, active:false, age:100, fine:false };
+    const shocks=[];
+    const spriteCache=new Map();
+    const textCanvas=document.createElement('canvas');
+    textCanvas.width=1024; textCanvas.height=360;
+    const textCtx=textCanvas.getContext('2d',{ willReadFrequently:true });
+    // Seeded noise keeps the star field stable between draws.
+    let noiseSeed=21745;
+    function noise(){noiseSeed=(Math.imul(noiseSeed,1664525)+1013904223)>>>0;return noiseSeed/4294967296;}
+    function clamp(v,lo,hi){return Math.max(lo,Math.min(hi,v));}
+    const random=(min,max)=>min+Math.random()*(max-min);
+
+    function drawBackdrop(){
+      backdrop=document.createElement('canvas');
+      const bw=Math.max(1,Math.min(W,2100)),bh=Math.max(1,Math.min(H,1400));
+      backdrop.width=Math.round(bw);backdrop.height=Math.round(bh);
+      const g=backdrop.getContext('2d'),x=bw*.5,y=bh*.45;
+      const bg=g.createRadialGradient(x,y,0,x,y,Math.max(bw,bh)*.75);
+      bg.addColorStop(0,'#0c1a32');bg.addColorStop(.43,'#071125');bg.addColorStop(.78,'#040919');bg.addColorStop(1,'#02040e');
+      g.fillStyle=bg;g.fillRect(0,0,bw,bh);
+      const halo=g.createRadialGradient(x,y,0,x,y,Math.min(bw,bh)*.54);
+      halo.addColorStop(0,'rgba(68,98,196,.115)');halo.addColorStop(1,'rgba(68,98,196,0)');
+      g.fillStyle=halo;g.fillRect(0,0,bw,bh);
+      noiseSeed=21745;
+      const starCount=Math.min(260,Math.floor(bw*bh/5200));
+      for(let i=0;i<starCount;i++){
+        const xx=noise()*bw, yy=noise()*bh, rr=.3+noise()*1, aa=.09+noise()*.32;
+        g.fillStyle=`rgba(188,215,255,${aa})`;
+        g.beginPath();g.arc(xx,yy,rr,0,TWO_PI);g.fill();
+      }
+    }
+
+    function resize(){
+      const oldW=W,oldH=H;
+      W=Math.max(1,innerWidth);H=Math.max(1,innerHeight);
+      DPR=Math.min(devicePixelRatio||1,mobileLike?1.5:1.75);
+      canvas.width=Math.max(1,Math.round(W*DPR)); canvas.height=Math.max(1,Math.round(H*DPR));
+      canvas.style.width=W+'px';canvas.style.height=H+'px';
+      ctx.setTransform(DPR,0,0,DPR,0,0);
+      CX=W*.5; CY=H*(W<620?.43:.48);
+      document.documentElement.style.setProperty('--scene-center-y',(CY/H*100)+'%');
+      R=Math.min(W*.35,H*.31,390);
+      CAMERA=clamp(Math.min(W,H)*1.4,650,1200); // recompute camera on EVERY resize
+      if(oldW&&oldH&&particles.length){
+        const sx=W/oldW,sy=H/oldH;
+        for(const p of particles){p.x*=sx;p.y*=sy;p.vx*=sx;p.vy*=sy;}
+      }
+      drawBackdrop();
+      if(textCtx) textTargets=sampleText(currentWord);
+      if(reduced) snapToTargets();
+      if(!playing || reduced) draw(true);
+    }
+
+    function makeParticles(){
+      particles=[];
+      for(let i=0;i<COUNT;i++){
+        const u=1-2*(i+.5)/COUNT,theta=i*Math.PI*(3-Math.sqrt(5));
+        const s=Math.sqrt(Math.max(0,1-u*u));
+        particles.push({
+          nx:Math.cos(theta)*s,ny:Math.sin(theta)*s,nz:u,
+          x:random(-W*.95,W*.95),y:random(-H*.9,H*.9),z:random(-380,380),
+          vx:0,vy:0,vz:0,size:random(.78,1.85),spin:random(0,TWO_PI),color:i%4
+        });
+      }
+    }
+
+    function sampleText(text){
+      // Use actual browser font rendering, including Korean and ∞.
+      if(!textCtx) return Array.from({length:COUNT},()=>({x:0,y:0,z:0}));
+      const tw=textCanvas.width,th=textCanvas.height;
+      textCtx.clearRect(0,0,tw,th);textCtx.fillStyle='#fff';
+      const family='"Malgun Gothic","Apple SD Gothic Neo","Segoe UI",system-ui,sans-serif';
+      let fs=265;
+      while(fs>36){
+        textCtx.font=`800 ${fs}px ${family}`;
+        if(textCtx.measureText(text).width<=tw*.9)break;
+        fs-=5;
+      }
+      textCtx.textAlign='center';textCtx.textBaseline='middle';
+      textCtx.fillText(text,tw*.5,th*.51);
+      let pixels;
+      try {pixels=textCtx.getImageData(0,0,tw,th).data;}
+      catch {pixels=null;}
+      const list=[];
+      if(pixels){
+        for(let yy=5;yy<th-5;yy+=3)for(let xx=5;xx<tw-5;xx+=3){
+          if(pixels[(yy*tw+xx)*4+3]>120)list.push([xx,yy]);
+        }
+      }
+      const out=[];
+      if(list.length){
+        // Shuffle to distribute samples uniformly over every glyph, not scanline order.
+        for(let i=list.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[list[i],list[j]]=[list[j],list[i]];}
+      }
+      const mx=Math.min(W*.83,870),my=Math.min(H*.30,270);
+      for(let i=0;i<COUNT;i++){
+        const q=list.length?list[i%list.length]:[tw*.5,th*.5];
+        out.push({
+          x:(q[0]-tw*.5)/tw*mx+random(-1.3,1.3),
+          y:(q[1]-th*.5)/th*my+random(-1.3,1.3),z:random(-14,14)
+        });
+      }
+      return out;
+    }
+
+    function targetFor(p,i){
+      if(phase==='text')return textTargets[i]||{x:0,y:0,z:0};
+      const breath=1+Math.sin(elapsed*1.18+p.spin)*.052;
+      const ang=elapsed*.18, co=Math.cos(ang),si=Math.sin(ang);
+      const x=p.nx*R*breath,y=p.ny*R*breath,z=p.nz*R*breath;
+      const xx=x*co-z*si,zz=x*si+z*co;
+      const tilt=.34+Math.sin(elapsed*.21)*.12,ct=Math.cos(tilt),st=Math.sin(tilt);
+      return {x:xx,y:y*ct-zz*st,z:y*st+zz*ct};
+    }
+    function snapToTargets(){
+      for(let i=0;i<particles.length;i++){
+        const t=targetFor(particles[i],i),p=particles[i];
+        p.x=t.x;p.y=t.y;p.z=t.z;p.vx=p.vy=p.vz=0;
+      }
+    }
+
+    function updateHUD(){
+      const label = phase==='text'?'THOUGHT / '+currentWord:'LIVING UNIVERSE';
+      $phase.textContent=label;
+      document.body.dataset.phase=phase;
+      $('headline').textContent=phase==='text'?'생각이 별이 되는 순간':'당신의 마음이 우주입니다.';
+      $('subline').textContent=phase==='text'?`「${currentWord}」 · 생각의 형태를 기억하는 중`:'3초간 머무르면 새로운 생각이 태어납니다.';
+      $wordNum.textContent=`${String(wordIndex+1).padStart(2,'0')} / 07 · ${COUNT} PARTICLES`;
+      if(reduced) $('frameLabel').textContent='REDUCED MOTION';
+      else $('frameLabel').textContent='REAL-TIME CANVAS ENGINE';
+    }
+    function setTextMode(newWord,manual=false){
+      if(newWord!==undefined){currentWord=newWord;custom=manual;}
+      textTargets=sampleText(currentWord);
+      phase='text';phaseAge=0;idleAge=0;
+      if(!reduced && particles.length){
+        for(const p of particles){p.vx+=random(-6,6);p.vy+=random(-5,5);p.vz+=random(-5,5);}
+      }else snapToTargets();
+      updateHUD();
+      if(!playing || reduced) draw(true);
+    }
+    function setSphereMode(){
+      phase='sphere';phaseAge=0;idleAge=0;
+      if(reduced)snapToTargets();
+      updateHUD();
+      if(!playing || reduced)draw(true);
+    }
+    function nextWord(){
+      wordIndex=(wordIndex+1)%WORDS.length;
+      custom=false;setTextMode(WORDS[wordIndex]);
+      softTone(392);
+    }
+
+    function markActivity(x,y,kind){
+      mouse.x=x;mouse.y=y;mouse.wx=x-CX;mouse.wy=y-CY;
+      mouse.active=true;mouse.age=0;idleAge=0;
+      mouse.fine=kind==='mouse'||kind==='pen';
+      if(phase==='text'&&!reduced)setSphereMode();
+      if(mouse.fine){cursor.classList.add('active');cursor.style.transform=`translate(${x-10}px,${y-10}px)`;}
+    }
+    function spawnShock(x,y){
+      if(!playing||reduced)return;
+      shocks.push({x:x-CX,y:y-CY,r:0,life:1});
+      if(shocks.length>7)shocks.shift();
+      softTone([261.63,329.63,392,523.25][Math.floor(Math.random()*4)]);
+    }
+    canvas.addEventListener('pointermove',e=>{
+      if(e.pointerType==='mouse'||e.pointerType==='pen'||e.buttons!==0){
+        markActivity(e.clientX,e.clientY,e.pointerType);
+      }
+    },{passive:true});
+    canvas.addEventListener('pointerdown',e=>{
+      if(e.pointerType==='mouse'&&e.button!==0)return;
+      markActivity(e.clientX,e.clientY,e.pointerType);
+      spawnShock(e.clientX,e.clientY);
+      try{canvas.setPointerCapture(e.pointerId);}catch{}
+    },{passive:true});
+    canvas.addEventListener('pointerup',e=>{try{canvas.releasePointerCapture(e.pointerId);}catch{}},{passive:true});
+    canvas.addEventListener('pointerleave',()=>{mouse.active=false;cursor.classList.remove('active');});
+
+    function makeSprite(theme,color){
+      const key=theme+':'+color;
+      if(spriteCache.has(key))return spriteCache.get(key);
+      const c=document.createElement('canvas');c.width=c.height=64;
+      const g=c.getContext('2d');const hue=THEMES[theme].hues[color];
+      const radial=g.createRadialGradient(32,32,0,32,32,32);
+      radial.addColorStop(0,'rgba(255,255,255,1)');
+      radial.addColorStop(.10,`hsla(${hue},100%,87%,.95)`);
+      radial.addColorStop(.27,`hsla(${hue},100%,69%,.57)`);
+      radial.addColorStop(.62,`hsla(${hue},100%,54%,.12)`);
+      radial.addColorStop(1,`hsla(${hue},100%,50%,0)`);
+      g.fillStyle=radial;g.fillRect(0,0,64,64);
+      spriteCache.set(key,c);return c;
+    }
+
+    function integrate(){
+      const spring=phase==='text'?.035:.019;
+      const damping=phase==='text'?.86:.91;
+      elapsed+=FIXED_STEP;phaseAge+=FIXED_STEP;idleAge+=FIXED_STEP;
+      mouse.age+=FIXED_STEP;
+      if(phase==='text'&&phaseAge>6.1)setSphereMode();
+      else if(phase==='sphere'&&idleAge>3.0&&phaseAge>2.0)nextWord();
+      for(let j=shocks.length-1;j>=0;j--){
+        const s=shocks[j];s.r+=11;s.life-=.019;
+        if(s.life<=0||s.r>Math.max(W,H)*1.7)shocks.splice(j,1);
+      }
+      const influence=mouse.active?clamp((2.4-mouse.age)/1.4,0,1):0;
+      const rsq=170*170;
+      // Rotations shared across all particles to avoid repeated trig calls.
+      const angle=elapsed*.18,co=Math.cos(angle),si=Math.sin(angle);
+      const tilt=.34+Math.sin(elapsed*.21)*.12,ct=Math.cos(tilt),st=Math.sin(tilt);
+      for(let i=0;i<particles.length;i++){
+        const p=particles[i];let tx,ty,tz;
+        if(phase==='text'){
+          const t=textTargets[i];tx=t.x;ty=t.y;tz=t.z;
+        }else{
+          const br=R*(1+Math.sin(elapsed*1.18+p.spin)*.052);
+          const x=p.nx*br,y=p.ny*br,z=p.nz*br;
+          const xx=x*co-z*si,zz=x*si+z*co;
+          tx=xx;ty=y*ct-zz*st;tz=y*st+zz*ct;
+        }
+        p.vx+=(tx-p.x)*spring;p.vy+=(ty-p.y)*spring;p.vz+=(tz-p.z)*spring;
+        if(influence>0){
+          const dx=p.x-mouse.wx,dy=p.y-mouse.wy,dz=p.z;
+          const d2=dx*dx+dy*dy+dz*dz;
+          if(d2<rsq&&d2>.001){
+            const d=Math.sqrt(d2),force=(1-d/170)*11*influence/d;
+            p.vx+=dx*force;p.vy+=dy*force;p.vz+=dz*force;
+          }
+        }
+        for(const s of shocks){
+          const dx=p.x-s.x,dy=p.y-s.y,dz=p.z;
+          const d=Math.sqrt(dx*dx+dy*dy+dz*dz)+.01;
+          const band=Math.abs(d-s.r);
+          if(band<45){const force=(1-band/45)*15*s.life/d;p.vx+=dx*force;p.vy+=dy*force;p.vz+=dz*force;}
+        }
+        p.vx=clamp(p.vx*damping,-34,34);p.vy=clamp(p.vy*damping,-34,34);p.vz=clamp(p.vz*damping,-34,34);
+        p.x+=p.vx;p.y+=p.vy;p.z+=p.vz;
+      }
+    }
+
+    function draw(clean=false){
+      if(!backdrop)return;
+      ctx.globalCompositeOperation='source-over';ctx.globalAlpha=1;
+      if(clean){ctx.clearRect(0,0,W,H);ctx.drawImage(backdrop,0,0,W,H);}
+      else{
+        ctx.fillStyle='rgba(2,4,13,.22)';ctx.fillRect(0,0,W,H);
+        ctx.globalAlpha=.18;ctx.drawImage(backdrop,0,0,W,H);ctx.globalAlpha=1;
+      }
+      // Slow breathing aura behind the constellation.
+      const glow=ctx.createRadialGradient(CX,CY,R*.09,CX,CY,R*1.7);
+      glow.addColorStop(0,'rgba(80,125,255,.043)');glow.addColorStop(1,'rgba(80,125,255,0)');
+      ctx.fillStyle=glow;ctx.fillRect(CX-R*1.7,CY-R*1.7,R*3.4,R*3.4);
+      ctx.globalCompositeOperation='lighter';
+      for(const p of particles){
+        const den=CAMERA+p.z;
+        if(den<130)continue;
+        const scale=clamp(CAMERA/den,.3,2.7);
+        const x=CX+p.x*scale,y=CY+p.y*scale;
+        if(x<-30||x>W+30||y<-30||y>H+30)continue;
+        const radius=clamp(p.size*scale*4.3,2.2,15);
+        const depth=clamp(p.z/(R||1),-1,1);
+        ctx.globalAlpha=clamp(.52-depth*.18,.23,.95);
+        ctx.drawImage(makeSprite(themeIndex,p.color),x-radius,y-radius,radius*2,radius*2);
+      }
+      ctx.globalAlpha=1;ctx.globalCompositeOperation='source-over';
+      if(!reduced){
+        for(const s of shocks){
+          ctx.lineWidth=1.5*s.life;ctx.strokeStyle=`rgba(161,222,255,${s.life*.48})`;
+          ctx.beginPath();ctx.arc(CX+s.x,CY+s.y,s.r,0,TWO_PI);ctx.stroke();
+          ctx.lineWidth=.9;ctx.strokeStyle=`rgba(215,171,255,${s.life*.24})`;
+          ctx.beginPath();ctx.arc(CX+s.x,CY+s.y,s.r*.86,0,TWO_PI);ctx.stroke();
+        }
+      }
+      if(mouse.active&&mouse.age<2&&!reduced){
+        const r=115,rad=ctx.createRadialGradient(mouse.x,mouse.y,0,mouse.x,mouse.y,r);
+        rad.addColorStop(0,`rgba(120,197,255,${(.11*clamp(2-mouse.age,0,1)).toFixed(3)})`);
+        rad.addColorStop(1,'rgba(120,197,255,0)');ctx.fillStyle=rad;ctx.fillRect(mouse.x-r,mouse.y-r,r*2,r*2);
+      }
+      $progress.style.width=(phase==='text'?clamp(phaseAge/6.1,0,1)*100:clamp(idleAge/3,0,1)*100)+'%';
+    }
+
+    function loop(now){
+      raf=0;
+      if(document.hidden||!playing)return;
+      if(!lastNow)lastNow=now;
+      const dt=Math.min((now-lastNow)/1000,.07);lastNow=now;
+      if(reduced){
+        if(now-lastRender>95){draw(true);lastRender=now;}
+      }else{
+        accumulator=Math.min(.08,accumulator+dt);
+        let steps=0;
+        while(accumulator>=FIXED_STEP&&steps<4){integrate();accumulator-=FIXED_STEP;steps++;}
+        draw();
+      }
+      raf=requestAnimationFrame(loop);
+    }
+    function startLoop(){
+      if(!raf&&!document.hidden&&playing){lastNow=0;accumulator=0;raf=requestAnimationFrame(loop);}
+    }
+    function stopLoop(){if(raf){cancelAnimationFrame(raf);raf=0;}lastNow=0;}
+    function togglePause(){
+      playing=!playing;
+      $pause.textContent=playing?'일시정지 Ⅱ':'재생 ▶';
+      $pause.setAttribute('aria-pressed',String(!playing));
+      if(playing)startLoop();else{stopLoop();draw(true);}
+      $('liveAlert').textContent=playing?'애니메이션 재생':'애니메이션 일시정지';
+    }
+
+    function makeAudio(){
+      if(ac)return ac;
+      try{const AC=window.AudioContext||window.webkitAudioContext;if(AC)ac=new AC();}catch{ac=null;}
+      return ac;
+    }
+    function softTone(freq){
+      if(!soundOn)return;
+      const a=makeAudio();if(!a)return;
+      if(a.state==='suspended')a.resume().catch(()=>{});
+      try{
+        const o=a.createOscillator(),g=a.createGain(),t=a.currentTime;
+        o.type='sine';o.frequency.setValueAtTime(freq,t);
+        g.gain.setValueAtTime(.0001,t);
+        g.gain.exponentialRampToValueAtTime(.055,t+.03);
+        g.gain.exponentialRampToValueAtTime(.0001,t+.92);
+        o.connect(g);g.connect(a.destination);o.start(t);o.stop(t+.94);
+        o.onended=()=>{o.disconnect();g.disconnect();};
+      }catch{}
+    }
+    function toggleSound(){
+      soundOn=!soundOn;
+      $sound.setAttribute('aria-pressed',String(soundOn));
+      $sound.textContent=soundOn?'소리 켜짐':'소리 꺼짐';
+      if(soundOn)softTone(440);
+      else if(ac&&ac.state==='running')ac.suspend().catch(()=>{});
+    }
+    function changePalette(){
+      themeIndex=(themeIndex+1)%THEMES.length;
+      const theme=THEMES[themeIndex];
+      document.documentElement.style.setProperty('--accent',theme.accent);
+      $('liveAlert').textContent='빛의 색상: '+theme.label;
+      if(!playing||reduced)draw(true);
+    }
+    function saveImage(){
+      // The canvas contains only procedural art; it has no cross-origin images.
+      draw(true);
+      const download=(blob)=>{
+        if(!blob)return;
+        const url=URL.createObjectURL(blob),a=document.createElement('a');
+        a.href=url;a.download='mindscape-'+new Date().toISOString().slice(0,10)+'.png';
+        document.body.appendChild(a);a.click();a.remove();
+        setTimeout(()=>URL.revokeObjectURL(url),1500);
+        $('liveAlert').textContent='MINDSCAPE 이미지 저장을 요청했습니다.';
+      };
+      if(canvas.toBlob)canvas.toBlob(download,'image/png');
+      else{
+        const a=document.createElement('a');a.href=canvas.toDataURL('image/png');a.download='mindscape.png';a.click();
+      }
+    }
+
+    $('wordForm').addEventListener('submit',e=>{
+      e.preventDefault();
+      const word=Array.from(wordInput.value.trim().replace(/\s+/g,' ')).slice(0,14).join('');
+      if(!word){wordInput.focus();return;}
+      setTextMode(word,true);wordInput.blur();
+      $('liveAlert').textContent='새로운 생각 '+word+' 을 입자로 형상화합니다.';
+      softTone(523.25);
+    });
+    $('nextBtn').addEventListener('click',nextWord);
+    $('burstBtn').addEventListener('click',()=>{
+      if(phase==='text'&&!reduced)setSphereMode();
+      spawnShock(CX,CY);
+    });
+    $('paletteBtn').addEventListener('click',changePalette);
+    $pause.addEventListener('click',togglePause);
+    $sound.addEventListener('click',toggleSound);
+    $('saveBtn').addEventListener('click',saveImage);
+    window.addEventListener('keydown',e=>{
+      const tag=document.activeElement?.tagName;
+      if(tag==='INPUT'||tag==='TEXTAREA'||tag==='BUTTON')return;
+      const k=e.key.toLowerCase();
+      if(e.code==='Space'){e.preventDefault();if(phase==='text'&&!reduced)setSphereMode();spawnShock(CX,CY);}
+      else if(k==='n')nextWord();
+      else if(k==='p')togglePause();
+      else if(k==='s')saveImage();
+      else if(k==='a')toggleSound();
+    });
+    window.addEventListener('resize',resize,{passive:true});
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden)stopLoop();else if(playing)startLoop();
+    });
+
+    resize();
+    makeParticles();
+    textTargets=sampleText(currentWord);
+    updateHUD();
+    if(reduced){
+      snapToTargets();
+      $pause.textContent='재생 ▶';$pause.setAttribute('aria-pressed','true');
+      $sub.textContent='움직임 감소 설정 감지 · 다음 단어 버튼으로 감상하세요.';
+      draw(true);
+    } else {ctx.drawImage(backdrop,0,0,W,H);startLoop();}
+  })();
+  </script>
+</body>
+</html>
