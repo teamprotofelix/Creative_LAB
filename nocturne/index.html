@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="description" content="클릭 한 번에 별꽃이 피어나는 나만의 밤 정원. 음악과 시, 별빛을 심고 간직하세요.">
+  <title>NOCTURNE — 별의 정원</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="audio.js"></script>
+  <script defer src="flower.js"></script>
+  <script defer src="world.js"></script>
+</head>
+<body>
+  <canvas id="world" aria-label="별과 빛나는 꽃들이 피어나는 밤의 정원" role="img"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand" aria-label="NOCTURNE 별의 정원">
+      <span class="brand-icon" aria-hidden="true">✧</span>
+      <span><strong>NOCTURNE</strong><small>GARDEN OF STARS</small></span>
+    </div>
+    <nav class="toolbar" aria-label="정원 도구">
+      <button id="btn-sound" class="tool" type="button" aria-label="배경 음악 켜기" aria-pressed="false" title="배경 음악 켜기"><span aria-hidden="true">♫</span></button>
+      <button id="btn-undo" class="tool" type="button" aria-label="마지막 꽃 되돌리기" title="마지막 꽃 되돌리기" disabled><span aria-hidden="true">↶</span></button>
+      <button id="btn-export" class="tool" type="button" aria-label="정원을 파일로 저장" title="정원을 파일로 저장"><span aria-hidden="true">⇩</span></button>
+      <button id="btn-import" class="tool" type="button" aria-label="저장된 정원 가져오기" title="저장된 정원 가져오기"><span aria-hidden="true">⇧</span></button>
+      <button id="btn-clear" class="tool" type="button" aria-label="정원 모두 비우기" title="정원 모두 비우기"><span aria-hidden="true">✕</span></button>
+      <input id="file-import" type="file" accept=".json,application/json" hidden>
+    </nav>
+  </header>
+
+  <main id="intro" class="intro">
+    <p class="eyebrow">A QUIET PLACE BEYOND THE STARS</p>
+    <h1>별들이 잠든 곳에<br><em>당신의 빛을 심으세요.</em></h1>
+    <div class="ornament" aria-hidden="true"><span></span>✧<span></span></div>
+    <p class="intro-copy">화면의 빈 곳을 누르면 별꽃이 자랍니다.<br>피어난 꽃을 누르면 그 꽃만의 시가 열립니다.</p>
+    <button id="btn-plant" class="start" type="button"><span aria-hidden="true">✦</span> 첫 번째 별꽃 심기</button>
+    <p class="intro-note">소리는 선택 사항입니다 · 정원은 이 브라우저에 자동 저장됩니다</p>
+  </main>
+
+  <aside id="poem" class="poem" aria-live="polite" aria-atomic="true">
+    <span class="poem-kicker">A VERSE FROM YOUR GARDEN</span>
+    <p class="poem-text"></p>
+    <button id="poem-close" class="poem-close" type="button" aria-label="시 닫기">닫기 ×</button>
+  </aside>
+
+  <div class="footerline">
+    <div id="counter" class="counter"><span class="counter-glyph" aria-hidden="true">✧</span> <strong class="count">0</strong><span> / 120 <span class="counter-label">BLOOMS</span></span></div>
+    <div id="hint" class="hint">빈 하늘을 클릭해 별꽃을 심어주세요</div>
+    <div id="time-label" class="time-label">NIGHT · 00:00</div>
+  </div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+  <dialog id="clear-dialog" class="confirm-dialog" aria-labelledby="dialog-title">
+    <form method="dialog">
+      <span class="dialog-spark" aria-hidden="true">✧</span>
+      <h2 id="dialog-title">정원을 비울까요?</h2>
+      <p>이 브라우저에 저장된 별꽃이 모두 사라집니다.<br>먼저 ⇩ 버튼으로 백업할 수 있습니다.</p>
+      <div class="dialog-actions">
+        <button type="submit" value="cancel">취소</button>
+        <button type="submit" value="clear" class="danger">모두 비우기</button>
+      </div>
+    </form>
+  </dialog>
+
+  <noscript><p class="noscript">이 정원은 JavaScript를 사용합니다. 브라우저 설정에서 JavaScript를 활성화해주세요.</p></noscript>
+</body>
+</html>
