@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06060a">
+  <meta name="description" content="빈 화면에서 시작되는 60초의 상호작용. 움직임을 기억하는 작은 디지털 설치 작품, someone.">
+  <title>someone — 당신을 보고 있는 웹사이트</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div id="presence" aria-hidden="true"></div>
+  <div id="cursor" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="hud" id="hud">
+    <div class="brand"><span class="signal-dot" aria-hidden="true"></span><span>someone<span class="brand-period">.</span></span></div>
+    <div id="time" class="time" aria-label="경험한 시간">00:00</div>
+    <button type="button" id="forget" class="text-button" title="이 브라우저에 저장한 방문 기억을 삭제합니다">기억 지우기</button>
+  </header>
+
+  <main id="stage" aria-label="someone 상호작용 경험">
+    <div class="message-group">
+      <p id="eyebrow" class="eyebrow" aria-hidden="true">A PRESENCE IN THE QUIET</p>
+      <p id="message" class="message" aria-hidden="true"></p>
+      <p id="subline" class="subline" aria-hidden="true"></p>
+    </div>
+  </main>
+  <div id="announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <footer class="bottom" id="bottom">
+    <div class="progress-area" aria-hidden="true"><span id="progress-fill"></span></div>
+    <div class="footer-row">
+      <span id="hint" class="hint">마우스를 움직이거나 화면을 터치하세요</span>
+      <button type="button" id="skip" class="text-button skip" title="60초를 기다리지 않고 마지막 장면으로 이동합니다">결말 보기 <span aria-hidden="true">↗</span></button>
+    </div>
+  </footer>
+
+  <div id="ending" class="ending" hidden>
+    <button type="button" id="restart" class="restart-button">다시 만나기 <span aria-hidden="true">↻</span></button>
+    <p>당신의 움직임은 저장되지 않습니다. 방문 횟수와 시각만 이 브라우저에 남습니다.</p>
+  </div>
+
+  <noscript><div class="no-script">이 경험에는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 활성화해 주세요.</div></noscript>
+</body>
+</html>

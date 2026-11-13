@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#05060d" />
+  <meta name="description" content="THE OUTSIDE — 인간의 인지 바깥을 탐험하는, 실시간 생성형 우주. 설치도 가입도 필요 없는 하나의 웹 실험." />
+  <meta property="og:title" content="THE OUTSIDE — 인지의 바깥" />
+  <meta property="og:description" content="당신이 바라보는 순간, 우주의 법칙이 바뀐다." />
+  <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg" />
+  <link rel="stylesheet" href="./style.css" />
+  <title>THE OUTSIDE — 인지의 바깥</title>
+</head>
+<body>
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <canvas id="particles" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="flash" aria-hidden="true"></div>
+  <div id="cursor-halo" aria-hidden="true"></div>
+  <div id="app" class="app is-intro">
+    <header class="topbar">
+      <a class="identity" href="#" id="brand" aria-label="처음으로">
+        <svg class="logo" width="30" height="30" viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="11.5" stroke="currentColor" stroke-width="1"/><ellipse cx="16" cy="16" rx="5.5" ry="14.5" stroke="currentColor" stroke-width="1" transform="rotate(36 16 16)"/><circle cx="16" cy="16" r="2" fill="currentColor"/></svg>
+        <span>THE <b>OUTSIDE</b><small>AN EXPERIMENT IN PERCEPTION</small></span>
+      </a>
+      <div class="top-right"><span class="top-status"><i class="status-dot"></i><span id="stateText">REALITY / STABLE</span></span><span class="vertical-rule"></span><button class="icon-text" id="soundBtn" type="button" aria-label="사운드 켜기 또는 끄기"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5ZM15 9c1 1 1.5 2 1.5 3s-.5 2-1.5 3M18 6c2 1.7 3 3.6 3 6s-1 4.3-3 6"/></svg><span id="soundText">SOUND OFF</span></button><button class="icon-only" id="fullBtn" aria-label="전체화면" title="전체화면" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5m13-5h5v5M3 16v5h5m13-5v5h-5"/></svg></button></div>
+    </header>
+
+    <main>
+      <section id="intro" class="intro-screen" aria-labelledby="introTitle">
+        <div class="intro-topline"><span class="mark-line"></span> YOUR MIND HAS AN EDGE. <span class="intro-topline-b">THIS IS WHAT LIES BEYOND.</span></div>
+        <div class="intro-core">
+          <div class="intro-kicker"><span class="tiny-star">✳</span> A PLACE THAT SHOULD NOT EXIST <span class="sci">/ 000 — ∞</span></div>
+          <h1 id="introTitle">인지의<br /><em>바깥.</em><span class="intro-outline">THE OUTSIDE</span></h1>
+          <p class="intro-description">여기는 보는 곳이 아닙니다.<br />당신의 존재가 세계를 <strong>변형하는 곳</strong>입니다.<br />다섯 개의 불가능한 공간과, 하나의 마지막 질문.</p>
+          <div class="intro-actions"><button class="enter-btn" id="enterBtn" type="button"><span>경계를 넘어가기</span><span class="enter-arrow">↗</span></button><span class="explore-hint">HEADPHONES RECOMMENDED <span>·</span> NO DOWNLOAD REQUIRED</span></div>
+        </div>
+        <div class="intro-footer"><span>EXPERIMENT NO. <b>∞ / 01</b></span><span class="scroll-indicator"><span class="mini-mouse"></span> MADE TO BE FELT, NOT EXPLAINED</span><span>BUILT FROM NOTHING BUT CODE</span></div>
+      </section>
+
+      <section id="expedition" class="expedition" aria-label="상호작용 가능한 우주 탐험" hidden>
+        <div class="chapter-top"><span id="chapterIndex">CHAPTER 01 / 05</span><span class="chapter-dash"></span><span id="chapterCategory">THE UNCREATED</span></div>
+        <div class="chapter-content">
+          <div class="eyebrow"><span class="eyebrow-cross">✳</span><span id="chapterLatin">I. THE ORIGIN</span></div>
+          <h2 id="chapterTitle">탄생 이전의<br /><i>형태.</i></h2>
+          <p id="chapterDesc">존재하지 않는 공간이 당신의 움직임에 반응합니다. 마우스를 움직이면, 아직 이름 붙여지지 않은 물리 법칙이 모습을 드러냅니다.</p>
+          <div class="chapter-actions"><button class="outline-btn" id="ruptureBtn" type="button"><span class="rupture-symbol">✳</span> 현실 균열시키기 <span class="keycap">R</span></button><button class="minimal-btn" id="lawBtn" type="button"><span class="plus-mark">＋</span> 우주의 법칙 다시 쓰기</button></div>
+        </div>
+        <div class="meta-stats"><div class="meta-row"><span>SPACETIME INTEGRITY</span><strong id="integrity">98.7%</strong></div><div class="meta-bar"><span id="integrityBar"></span></div><div class="meta-row minor"><span>SEED <b id="seedLabel">ORIGINAL</b></span><span>RENDERED LIVE</span></div></div>
+        <div class="nav-dock" aria-label="5개의 공간 선택"><div class="dock-heading"><span id="dockHeading">THE FIVE IMPOSSIBILITIES</span><span id="dockRange">01 — 05</span></div><div class="scene-nav" id="sceneNav"></div><div class="dock-bottom"><span>SCROLL TO TRAVEL</span><div class="dock-arrows"><button id="prevBtn" type="button" aria-label="이전 공간">←</button><button id="nextBtn" type="button" aria-label="다음 공간">→</button></div></div></div>
+        <div class="right-aside"><span class="coordinate" id="coordinates">X 0.000 / Y 0.000</span><div class="side-vertical">THE UNIVERSE IS NOT AN OBJECT. IT IS AN EVENT.</div></div>
+        <div class="bottom-help"><span><i></i> LIVE GENERATIVE SPACE</span><button id="helpBtn" type="button">조작법 <span>?</span></button></div>
+      </section>
+    </main>
+
+    <div id="transition" class="transition-overlay" aria-hidden="true"><div class="transition-line"></div><span id="transitionText">REALITY RECONSTRUCTING</span><span class="transition-count" id="transitionNum">02 / 05</span></div>
+
+    <div id="lawModal" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="lawTitle" hidden><div class="modal-backdrop" data-close="law"></div><div class="modal-panel law-panel"><button class="modal-close" id="lawClose" type="button" aria-label="닫기">×</button><span class="modal-kicker">A SMALL ACT OF COSMIC DISOBEDIENCE — 001</span><h3 id="lawTitle">당신만의<br /><em>물리 법칙.</em></h3><p>아무 문장이나 입력하세요. 텍스트가 고유한 숫자로 변환되고, 우주의 색과 구조, 움직임에 반영됩니다. 같은 문장은 같은 세계를 만듭니다.</p><label for="lawInput">YOUR IMPOSSIBLE LAW</label><input type="text" id="lawInput" maxlength="64" placeholder="예: 시간은 우리가 꿈꾸는 방향으로 흐른다" autocomplete="off" /><div class="law-presets"><button type="button" data-law="침묵에도 중력이 있다">침묵에도 중력이 있다</button><button type="button" data-law="모든 끝은 다른 시작을 기억한다">끝은 시작을 기억한다</button></div><button id="applyLaw" type="button" class="enter-btn law-apply"><span>이 법칙으로 우주 생성</span><span class="enter-arrow">↗</span></button><small>※ 입력 문장은 외부 서버로 전송되지 않습니다. 이 브라우저에만 저장됩니다.</small></div></div>
+    <div id="helpModal" class="modal-wrap" role="dialog" aria-modal="true" aria-labelledby="helpTitle" hidden><div class="modal-backdrop" data-close="help"></div><div class="modal-panel help-panel"><button class="modal-close" id="helpClose" type="button" aria-label="닫기">×</button><span class="modal-kicker">FIELD GUIDE / NOT A USER MANUAL</span><h3 id="helpTitle">불가능한 세계의<br /><em>항해법.</em></h3><div class="help-grid"><div><kbd>마우스 이동</kbd><span>세계가 시선을 따라 휘어집니다.</span></div><div><kbd>드래그</kbd><span>공간을 잡아당겨 보세요.</span></div><div><kbd>스크롤 / ← →</kbd><span>다섯 세계를 넘나듭니다.</span></div><div><kbd>R / SPACE</kbd><span>현실을 깨뜨립니다.</span></div><div><kbd>M</kbd><span>생성형 앰비언트 사운드를 전환합니다.</span></div><div><kbd>F / P</kbd><span>전체화면 / 현재 세계 사진 저장.</span></div><div><kbd>L</kbd><span>자신만의 물리 법칙을 정의합니다.</span></div><div><kbd>1 — 5</kbd><span>해당 차원으로 즉시 이동합니다.</span></div></div><button class="help-close-action" id="helpDone" type="button">탐험으로 돌아가기 ↗</button></div></div>
+    <div id="toast" role="status" aria-live="polite"></div>
+  </div>
+  <script src="./renderer.js"></script>
+  <script src="./audio.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>

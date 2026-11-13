@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050814">
+  <meta name="description" content="AETHER — 살아 숨 쉬는 빛의 유기체. 손끝으로 우주의 형태를 바꿔 보세요.">
+  <title>AETHER — 생명의 언어</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="assets/styles.css">
+  <script defer src="assets/app.js"></script>
+</head>
+<body>
+  <div class="universe" aria-hidden="true"></div>
+  <canvas id="universeCanvas" aria-label="마우스나 손가락으로 반응하는 3차원 빛 입자 구체"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+
+  <header class="header">
+    <a class="brand" href="./" aria-label="AETHER 홈, 새로고침">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span>AETHER<span class="brand-point">·</span></span>
+    </a>
+    <div class="header-right"><span class="live-dot" aria-hidden="true"></span> <span id="statusLabel">LIVING SYSTEM · 001</span></div>
+  </header>
+
+  <div class="coordinate coordinate-left" aria-hidden="true">FIELD / 01<br>PARTICLES IN HARMONY</div>
+  <div class="coordinate coordinate-right" aria-hidden="true">∞<br>YOU ARE THE SIGNAL</div>
+
+  <section class="intro" id="intro" aria-label="AETHER 소개">
+    <p class="intro-kicker">A FIELD THAT FEELS YOU</p>
+    <h1>AETHER</h1>
+    <p class="intro-subtitle">생명의 언어</p>
+    <p class="intro-description">우주는 당신의 움직임을 기억합니다.</p>
+    <div class="intro-line" aria-hidden="true"></div>
+  </section>
+
+  <div class="upper-label" id="shapeCaption" aria-live="polite">
+    <span class="caption-index">01 / 03</span>
+    <span class="caption-title">숨 쉬는 우주</span>
+    <span class="caption-desc">BREATHING UNIVERSE</span>
+  </div>
+
+  <section class="message-wrap" aria-live="polite" aria-atomic="true">
+    <p class="message" id="message"></p>
+  </section>
+
+  <div class="gesture-hint" id="gestureHint"><span class="gesture-symbol" aria-hidden="true">✳</span> <span id="gestureText">움직여 보세요 · 클릭하면 공명합니다</span></div>
+
+  <footer class="dock" aria-label="우주 조작 패널">
+    <div class="mode-switch" role="group" aria-label="입자 형태 선택">
+      <button type="button" class="mode-btn is-active" data-mode="sphere" aria-pressed="true"><span class="mode-number">01</span> 호흡</button>
+      <button type="button" class="mode-btn" data-mode="bloom" aria-pressed="false"><span class="mode-number">02</span> 개화</button>
+      <button type="button" class="mode-btn" data-mode="orbit" aria-pressed="false"><span class="mode-number">03</span> 궤도</button>
+    </div>
+    <div class="dock-divider" aria-hidden="true"></div>
+    <button type="button" class="icon-btn" id="soundButton" aria-label="사운드 켜기" aria-pressed="false" title="사운드 켜기 (M)">
+      <svg class="sound-on-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="M15.4 8.6a5 5 0 0 1 0 6.8M18 5a10 10 0 0 1 0 14"/></svg>
+      <svg class="sound-off-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path d="m16 9 5 6m0-6-5 6"/></svg>
+    </button>
+    <button type="button" class="icon-btn" id="motionButton" aria-label="움직임 일시정지" aria-pressed="false" title="움직임 일시정지 (P)">
+      <svg class="pause-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M8 5v14M16 5v14"/></svg>
+      <svg class="play-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" aria-hidden="true"><path d="m7 4 13 8-13 8V4Z"/></svg>
+    </button>
+    <button type="button" class="icon-btn" id="reseedButton" aria-label="다시 태어나기" title="입자 재생성 (R)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 6.2M20 4v7h-7"/></svg>
+    </button>
+  </footer>
+
+  <div class="bottom-note" aria-hidden="true"><span>DRAG TO DISTURB</span><span class="note-divider">/</span><span>DOUBLE TAP TO TRANSCEND</span></div>
+  <div class="sr-only" id="systemStatus" role="status" aria-live="polite"></div>
+  <noscript><div class="no-script">이 사이트의 입자 세계를 체험하려면 JavaScript를 활성화해 주세요.</div></noscript>
+</body>
+</html>
