@@ -1,0 +1,146 @@
+{
+  "results": [
+    [
+      "Home title",
+      "PASS"
+    ],
+    [
+      "Brand / greeting",
+      "PASS"
+    ],
+    [
+      "Canvas initialized",
+      "PASS"
+    ],
+    [
+      "First visit badge",
+      "PASS"
+    ],
+    [
+      "time opens",
+      "PASS"
+    ],
+    [
+      "time canvas",
+      "PASS"
+    ],
+    [
+      "time closes",
+      "PASS"
+    ],
+    [
+      "life opens",
+      "PASS"
+    ],
+    [
+      "life canvas",
+      "PASS"
+    ],
+    [
+      "life closes",
+      "PASS"
+    ],
+    [
+      "mind opens",
+      "PASS"
+    ],
+    [
+      "mind canvas",
+      "PASS"
+    ],
+    [
+      "mind closes",
+      "PASS"
+    ],
+    [
+      "perception opens",
+      "PASS"
+    ],
+    [
+      "perception canvas",
+      "PASS"
+    ],
+    [
+      "perception closes",
+      "PASS"
+    ],
+    [
+      "Five repeats no errors",
+      "PASS"
+    ],
+    [
+      "Escape closes room",
+      "PASS"
+    ],
+    [
+      "Focus restored",
+      "PASS"
+    ],
+    [
+      "Memory dialog opens",
+      "PASS"
+    ],
+    [
+      "Memory delete confirmation",
+      "PASS"
+    ],
+    [
+      "Memory cancel",
+      "PASS"
+    ],
+    [
+      "Memory cleared",
+      "PASS"
+    ],
+    [
+      "Escape closes memory",
+      "PASS"
+    ],
+    [
+      "Audio on",
+      "PASS"
+    ],
+    [
+      "Audio off",
+      "PASS"
+    ],
+    [
+      "Storage writes retained",
+      "PASS"
+    ],
+    [
+      "No browser exceptions",
+      "PASS"
+    ],
+    [
+      "21st visit",
+      "PASS"
+    ],
+    [
+      "Mobile no horizontal overflow",
+      "PASS"
+    ],
+    [
+      "Mobile touch opens room",
+      "PASS"
+    ],
+    [
+      "Mobile close room",
+      "PASS"
+    ],
+    [
+      "Mobile no exceptions",
+      "PASS"
+    ],
+    [
+      "Storage blocked gracefully",
+      "PASS"
+    ],
+    [
+      "Reduced motion still visible",
+      "PASS"
+    ]
+  ],
+  "passed": 35,
+  "total": 35
+}

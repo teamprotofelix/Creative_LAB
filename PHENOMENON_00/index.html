@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070a15">
+  <meta name="description" content="호흡, 시간, 생명, 이름, 그리고 한 번뿐인 지금을 마주하는 여섯 장의 명상적 인터랙티브 경험.">
+  <meta name="color-scheme" content="dark">
+  <title>당신이라는 현상 · PHENOMENON</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문 바로가기</a>
+  <canvas id="sky" aria-hidden="true"></canvas>
+  <div class="ambient-glow" aria-hidden="true"></div>
+  <div id="pointer-light" aria-hidden="true"></div>
+
+  <header class="site-head">
+    <a class="brand" href="#intro" aria-label="당신이라는 현상 처음으로">
+      <span class="brand-mark" aria-hidden="true">◉</span>
+      <span>PHENOMENON <small>당신이라는 현상</small></span>
+    </a>
+    <nav class="chapter-nav" aria-label="장면 탐색">
+      <a href="#intro" aria-label="1장 들어가며" class="current" aria-current="location">01</a>
+      <a href="#breath" aria-label="2장 호흡">02</a>
+      <a href="#time" aria-label="3장 시간">03</a>
+      <a href="#life" aria-label="4장 생명">04</a>
+      <a href="#cosmos" aria-label="5장 우주">05</a>
+      <a href="#ending" aria-label="6장 지금">06</a>
+    </nav>
+    <div class="head-actions">
+      <button id="motion-toggle" class="icon-button" type="button" aria-label="움직임 제한 켜기" aria-pressed="false" title="움직임 효과 켜기/끄기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 15c3-8 5-8 8 0s5 8 8 0"/><circle cx="12" cy="7" r="2"/></svg></button>
+      <button id="sound-toggle" class="icon-button" type="button" aria-label="앰비언트 소리 켜기" aria-pressed="false" title="소리 켜기/끄기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M4 10v4h4l5 4V6l-5 4H4Z"/><path class="sound-waves" d="M16 9c2 2 2 4 0 6M18.5 6.5c4 3 4 8 0 11"/></svg></button>
+    </div>
+    <div id="reading-progress" aria-hidden="true"></div>
+  </header>
+
+  <main id="main">
+    <section class="chapter chapter-intro" id="intro" aria-labelledby="intro-title" data-index="0">
+      <div class="intro-art" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+        <div class="orb-shine"></div><div class="seed-orb"></div>
+        <div class="orbit-label orbit-label-a">NOW · 00</div><div class="orbit-label orbit-label-b">BEING · ∞</div>
+      </div>
+      <div class="chapter-content intro-copy">
+        <p class="eyebrow">AN INTERACTIVE MEDITATION · 01 / 06</p>
+        <h1 id="intro-title">당신이라는<br><em>현상</em></h1>
+        <p class="intro-desc">우주는 당신에게 설명을 요구하지 않습니다.<br>지금, 여기에 있다는 사실로 충분합니다.</p>
+        <a class="primary-link" href="#breath">이 순간 안으로 <span aria-hidden="true">↗</span></a>
+        <p class="small-note" id="visit-note">처음 만나는 순간입니다.</p>
+      </div>
+      <div class="scroll-cue" aria-hidden="true"><span>SCROLL TO EXPERIENCE</span><i></i></div>
+    </section>
+
+    <section class="chapter chapter-breath" id="breath" aria-labelledby="breath-title" data-index="1">
+      <div class="chapter-content two-column">
+        <div class="chapter-heading">
+          <p class="eyebrow">CHAPTER 02 <span class="bar"></span> THE BREATH</p>
+          <h2 id="breath-title">숨은 매 순간<br><em>처음입니다.</em></h2>
+          <p>의식하지 않아도 이어지는 리듬.<br>이제 그 리듬을 잠시 바라봅니다.</p>
+          <div class="breath-panel">
+            <p class="kicker">함께 한 호흡</p>
+            <strong class="hero-number" id="breath-count">0</strong><span class="unit">번</span>
+            <p class="tiny-caption">이 화면에서 완료한 안내 주기 · 실제 호흡 측정값이 아닙니다.</p>
+          </div>
+        </div>
+        <div class="breath-experience">
+          <div class="breath-visual" role="img" aria-label="안내에 맞춰 커졌다 작아지는 원">
+            <div class="breath-ring ring-outer"></div><div class="breath-ring ring-inner"></div>
+            <div class="breath-core" id="breath-core"></div>
+            <div class="breath-center"><span class="kicker">BREATHING SPACE</span><strong id="breath-phase">준비</strong><span id="breath-timer">04 : 06</span></div>
+          </div>
+          <div class="breath-controls">
+            <button class="filled-button" id="breath-play" type="button">호흡 시작</button>
+            <button class="quiet-button" id="breath-reset" type="button">초기화</button>
+          </div>
+          <p class="guidance" id="breath-guidance" aria-live="polite">편안한 호흡을 유지하세요. 안내가 불편하면 멈춰도 됩니다.</p>
+        </div>
+      </div>
+      <a class="next-chapter" href="#time">03 / 시간 보기 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-time" id="time" aria-labelledby="time-title" data-index="2">
+      <div class="chapter-content time-content">
+        <p class="eyebrow">CHAPTER 03 <span class="bar"></span> THE TIME</p>
+        <h2 id="time-title">살아온 시간은<br><em>사라지지 않습니다.</em></h2>
+        <p>태어난 날을 선택하면, 그날부터 흐른 시간을 숫자로 바라볼 수 있습니다.</p>
+        <form id="birth-form" class="birth-form" novalidate>
+          <label for="birth-date">태어난 날짜 <span class="label-aside">선택 사항 · 저장되지 않음</span></label>
+          <div class="birth-input-row"><input type="date" id="birth-date" autocomplete="bday" required><button class="filled-button" type="submit">시간 살펴보기</button><button class="quiet-button" id="birth-clear" type="button">지우기</button></div>
+          <p class="form-error" id="birth-error" role="status"></p>
+        </form>
+        <div class="time-results" id="time-results" hidden>
+          <div class="time-main"><div class="eyebrow">당신이 지나온 날들</div><strong id="days-lived" class="time-days">0</strong><span class="unit">일</span></div>
+          <div class="time-stats">
+            <div><span>가정한 심장 박동</span><strong id="heart-est">0</strong></div>
+            <div><span>가정한 호흡 횟수</span><strong id="breath-est">0</strong></div>
+            <div><span>지구 공전 기간</span><strong id="orbit-est">0</strong></div>
+            <div><span>태어난 뒤 흐른 시간</span><strong id="hour-est">0</strong></div>
+          </div>
+          <p class="fine-print">※ 예술적 추정치입니다. 박동은 분당 72회, 호흡은 분당 16회를 평생 일정하다고 단순 가정한 계산입니다. 실제 건강 정보 또는 개인 측정값이 아닙니다. 공전은 365.2425일을 1년으로 계산합니다.</p>
+        </div>
+        <div class="time-placeholder" id="time-placeholder"><span class="clock-glyph" aria-hidden="true">◴</span><p>당신의 하루를 세지 않아도,<br>그 하루는 여전히 소중합니다.</p></div>
+      </div>
+      <a class="next-chapter" href="#life">04 / 생명 보기 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-life" id="life" aria-labelledby="life-title" data-index="3">
+      <canvas id="life-canvas" aria-label="화면을 누르면 빛의 새싹이 자라는 예술적 캔버스" role="img"></canvas>
+      <div class="chapter-overline"><p class="eyebrow">CHAPTER 04 <span class="bar"></span> THE LIFE</p><h2 id="life-title">한 번의 접촉이<br><em>하나의 세계를 엽니다.</em></h2></div>
+      <div class="life-toolbar">
+        <div><span class="kicker">지금 피어난 생명</span><strong id="life-alive">0</strong><span class="kicker muted">남긴 씨앗 <b id="life-total">0</b></span></div>
+        <div class="life-buttons"><button type="button" class="filled-button" id="plant-button">빛의 씨앗 심기 <span aria-hidden="true">✦</span></button><button type="button" class="quiet-button" id="clear-life">지우기</button></div>
+      </div>
+      <p class="life-hint">빈 공간을 클릭하거나 터치해도 새싹이 태어납니다. 실제 생명체가 아닌 생성 예술입니다.</p>
+      <a class="next-chapter" href="#cosmos">05 / 우주 보기 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-cosmos" id="cosmos" aria-labelledby="cosmos-title" data-index="4">
+      <canvas id="cosmos-canvas" aria-label="별들이 입력한 글자 형태로 모이는 인터랙티브 화면" role="img"></canvas>
+      <div class="cosmos-heading"><p class="eyebrow">CHAPTER 05 <span class="bar"></span> THE COSMOS</p><h2 id="cosmos-title">수많은 별 사이,<br><em>단 한 번의 당신.</em></h2><p>어떤 이름이든 빛으로 바꿀 수 있습니다.<br>이 화면에서만 머무는 이름입니다.</p></div>
+      <div class="cosmos-toolbar">
+        <label for="cosmos-name">빛으로 쓰고 싶은 이름 또는 단어</label>
+        <div class="cosmos-input-row"><input type="text" id="cosmos-name" maxlength="16" placeholder="예: 지금 여기" autocomplete="off" spellcheck="false"><button type="button" id="scatter-button" class="quiet-button">흩뜨리기</button></div>
+        <div class="cosmos-buttons"><button type="button" id="cosmos-example" class="text-button">✧ 예시로 빛 만들기</button><button type="button" id="save-cosmos" class="text-button">이미지 저장 <span aria-hidden="true">↗</span></button></div>
+        <p class="tiny-caption">이름은 서버로 전송하거나 브라우저 기록에 저장하지 않습니다. PNG 파일은 직접 선택할 때만 생성됩니다.</p>
+      </div>
+      <a class="next-chapter" href="#ending">06 / 지금 보기 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-ending" id="ending" aria-labelledby="ending-title" data-index="5">
+      <div class="ending-halo" aria-hidden="true"><div></div></div>
+      <div class="chapter-content ending-content">
+        <p class="eyebrow">CHAPTER 06 <span class="bar"></span> THE NOW</p>
+        <h2 id="ending-title">당신이 없는 우주도<br>있었습니다.</h2>
+        <p class="ending-verse">하지만 지금, 이 우주에는 당신이 있습니다.<br>이 순간은 복제할 수 없지만,<br>그 감각은 마음에 남을 수 있습니다.</p>
+        <div class="memory-card">
+          <p class="kicker">A SMALL REMAINDER</p><h3>이 순간에 남기고 싶은 한 단어</h3>
+          <form id="memory-form" class="memory-form"><label for="memory-word" class="sr-only">마음에 남길 단어</label><input type="text" id="memory-word" maxlength="24" placeholder="예: 평안" autocomplete="off" required><button type="submit" class="filled-button">이곳에 남기기</button></form>
+          <p class="tiny-caption">저장을 누른 단어와 방문·호흡·씨앗 횟수만 이 브라우저에 남습니다. 언제든 지울 수 있습니다.</p>
+          <div class="memory-result" id="memory-result" aria-live="polite"></div>
+          <div class="memory-actions"><button type="button" class="text-button" id="clear-memory">내 기록 모두 지우기</button><span id="storage-status" class="tiny-caption"></span></div>
+        </div>
+        <a class="primary-link" href="#intro" id="return-link">다시, 처음으로 <span aria-hidden="true">↑</span></a>
+      </div>
+      <footer><span>PHENOMENON · 당신이라는 현상</span><span>NO TRACKING · NO EXTERNAL REQUESTS</span></footer>
+    </section>
+  </main>
+  <div id="idle-message" class="idle-message" aria-hidden="true">멈춘 시간도, 당신의 시간입니다.</div>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

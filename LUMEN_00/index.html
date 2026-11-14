@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#060c17">
+  <meta name="description" content="당신이 심은 빛이 자라고 별이 되는 기억의 정원. 브라우저 안에 남는 인터랙티브 작품, Lumen.">
+  <meta name="color-scheme" content="dark">
+  <title>LUMEN — 빛의 기억</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
+</head>
+<body>
+  <canvas id="world" aria-label="빛의 정원. 화면을 클릭하거나 탭하여 빛의 씨앗을 심을 수 있습니다."></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="topbar">
+    <div class="brand" aria-label="Lumen 빛의 기억"><span class="brand-symbol" aria-hidden="true">✳</span><span>LUMEN <small>빛의 기억</small></span></div>
+    <nav class="top-actions" aria-label="정원 도구">
+      <button id="soundButton" class="tool" type="button" aria-pressed="false" aria-label="소리 켜기" title="소리 켜기"> <span aria-hidden="true">♫</span><span class="tool-label">소리 꺼짐</span></button>
+      <button id="motionButton" class="tool" type="button" aria-pressed="false" aria-label="움직임 줄이기" title="움직임 줄이기"><span aria-hidden="true">◌</span><span class="tool-label">고요 모드</span></button>
+      <button id="memoryButton" class="tool prominent" type="button"><span aria-hidden="true">▤</span><span class="tool-label">기억의 서랍</span></button>
+    </nav>
+  </header>
+
+  <main class="hero" id="hero">
+    <div class="hero-inner">
+      <p class="overline"><span class="overline-line"></span> A GARDEN OF REMEMBERED LIGHT <span class="overline-line"></span></p>
+      <h1>LUMEN<span class="period">.</span></h1>
+      <p class="hero-ko">빛은 사라지지 않습니다.<br>다른 모습으로 기억될 뿐.</p>
+      <p class="hero-desc">작은 빛을 심어 보세요.<br>씨앗은 나무가 되고, 시간이 흐르면 별이 됩니다.</p>
+      <button type="button" id="firstSeed" class="primary"><span aria-hidden="true">✦</span> 첫 번째 빛 심기</button>
+    </div>
+  </main>
+
+  <div class="status-bar" role="status" aria-live="polite" aria-atomic="true">
+    <div class="status-left">
+      <span class="live-dot" aria-hidden="true"></span>
+      <span id="whisper">이곳은 당신의 손길을 기억합니다.</span>
+    </div>
+    <div class="status-right"><span id="phaseLabel">아직 심지 않은 정원</span> <span class="status-separator">/</span> <span id="visitLabel">첫 번째 방문</span></div>
+  </div>
+
+  <footer class="bottom-bar">
+    <div class="garden-stats"><span class="index-label">GARDEN MEMORY</span><strong id="count">00 <span>/ 60</span></strong><span class="count-label">남아 있는 빛</span></div>
+    <div class="bottom-actions">
+      <button class="subtle" id="plantButton" type="button"><span aria-hidden="true">✧</span> <span>빛 심기</span></button>
+      <button class="subtle" id="saveImageButton" type="button"><span aria-hidden="true">↓</span> <span>장면 저장</span></button>
+    </div>
+    <div class="instruction">빈 곳을 눌러 씨앗을 심으세요 <span class="sep">·</span> <kbd>Space</kbd> 씨앗 <span class="sep">·</span> <kbd>M</kbd> 기억</div>
+  </footer>
+
+  <dialog id="memoryDialog" aria-labelledby="dialogTitle">
+    <div class="dialog-layout">
+      <div class="dialog-heading"><div><p class="micro">A PRIVATE CONSTELLATION</p><h2 id="dialogTitle">기억의 서랍</h2></div><button type="button" id="closeDialog" class="close" aria-label="기억의 서랍 닫기">×</button></div>
+      <p class="dialog-intro">이 세계의 기억은 당신의 브라우저 안에만 머뭅니다. 다른 기기로 이어가려면 정원 기록을 내려받아 가져오세요.</p>
+      <div class="memory-grid">
+        <div class="memory-stat"><span>재방문</span><strong id="memoryVisits">1</strong><small>번째 만남</small></div>
+        <div class="memory-stat"><span>남아 있는 빛</span><strong id="memoryCount">0</strong><small>최대 60개의 기억</small></div>
+        <div class="memory-stat"><span>이번 방문</span><strong id="memorySession">0</strong><small>새로 심은 씨앗</small></div>
+      </div>
+      <div class="memory-poem"><p class="micro">LETTER FROM THE GARDEN</p><p id="memoryPoem">아직 빛 하나 없는 정원에도 새로운 이야기가 기다립니다.</p></div>
+      <p class="storage-status" id="storageStatus">기록은 브라우저에만 저장됩니다.</p>
+      <div class="dialog-actions">
+        <button type="button" class="dialog-btn" id="exportButton">기억 내보내기 · JSON</button>
+        <label class="dialog-btn file-label" for="importFile">기억 가져오기 · JSON<input id="importFile" type="file" accept=".json,application/json"></label>
+        <button type="button" class="dialog-btn danger" id="clearButton">모든 기억 지우기</button>
+      </div>
+      <p class="footnote">처음부터 저장하지 않으려면 브라우저의 저장 공간을 차단할 수 있습니다. 이 작품은 이름, 위치, 개인 식별 정보를 요구하지 않습니다.</p>
+    </div>
+  </dialog>
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

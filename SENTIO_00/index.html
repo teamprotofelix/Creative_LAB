@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090918">
+  <meta name="description" content="시간·생명·마음·인식을 탐색하는 네 개의 방. 이 브라우저에 남는 방문의 기억과 함께하는 인터랙티브 명상 사이트 SENTIO.">
+  <meta name="color-scheme" content="dark">
+  <title>SENTIO — 당신을 기억하는 풍경</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <canvas id="field" aria-hidden="true"></canvas>
+  <div id="breath" aria-hidden="true"></div>
+  <div id="grain" aria-hidden="true"></div>
+  <header class="topbar">
+    <div class="brand" aria-label="SENTIO">
+      <span class="brand-symbol" aria-hidden="true">◌</span>
+      <span class="brand-name">S E N T I O</span>
+      <span class="brand-sub">to feel, to perceive</span>
+    </div>
+    <div class="header-right">
+      <span id="timelabel" class="time-label">…</span>
+      <button id="memory-btn" class="header-button" type="button" aria-haspopup="dialog" title="방문 기억 열기">기억 <span id="visit-badge">01</span></button>
+      <button id="sound" class="icon-button" type="button" aria-pressed="false" aria-label="명상 사운드 켜기" title="명상 사운드 켜기"><span aria-hidden="true">♪</span></button>
+    </div>
+  </header>
+
+  <main id="stage">
+    <div class="hero">
+      <p class="overline">AN INNER UNIVERSE <span class="overline-line" aria-hidden="true"></span> 한 사람의 우주</p>
+      <h1>당신을 기억하는<br><em>풍경</em></h1>
+      <div class="hero-rule" aria-hidden="true"><span></span></div>
+      <p id="greeting" class="greeting" aria-live="polite"></p>
+      <p id="poetry" class="poetry" aria-live="off"></p>
+      <p class="hero-note">움직이면 바람이 됩니다. 머무르면, 빛이 됩니다.</p>
+    </div>
+  </main>
+
+  <footer class="bottom-ui">
+    <div class="index-label"><span class="tiny-dot"></span> FOUR ROOMS OF BEING</div>
+    <nav id="rooms" aria-label="명상의 네 개 방">
+      <button type="button" data-room="time"><span>01</span> 시간</button>
+      <button type="button" data-room="life"><span>02</span> 생명</button>
+      <button type="button" data-room="mind"><span>03</span> 마음</button>
+      <button type="button" data-room="perception"><span>04</span> 인식</button>
+    </nav>
+    <div class="footer-note">THE SPACE BETWEEN KNOWING AND BEING</div>
+  </footer>
+
+  <section id="overlay" class="room-overlay" role="dialog" aria-modal="true" aria-labelledby="roomTitle" aria-describedby="roomText" hidden>
+    <canvas id="roomCanvas" aria-hidden="true"></canvas>
+    <div class="room-top">
+      <div class="room-id"><span id="roomNumber">01</span><span> / FOUR ROOMS</span></div>
+      <button id="closeRoom" type="button" class="close-button" aria-label="방 닫기">× <span>나가기</span></button>
+    </div>
+    <div class="room-heading">
+      <p class="overline" id="roomCaption">THE FLOW OF TIME</p>
+      <h2 id="roomTitle">시간</h2>
+    </div>
+    <div class="room-footer">
+      <p id="roomText"></p>
+      <div class="room-footer-bottom">
+        <p id="roomHint" class="room-hint">화면을 눌러 보세요.</p>
+        <button id="roomReset" class="reset-button" type="button">이 방 다시 그리기 <span aria-hidden="true">↻</span></button>
+      </div>
+    </div>
+  </section>
+
+  <section id="memory-panel" class="memory-overlay" role="dialog" aria-modal="true" aria-labelledby="memory-title" hidden>
+    <div class="memory-card">
+      <button id="close-memory" type="button" class="memory-close" aria-label="기억 창 닫기">×</button>
+      <p class="overline">THE TRACE YOU LEAVE</p>
+      <h2 id="memory-title">남겨진 기억</h2>
+      <p class="memory-intro">이 기록은 이 브라우저에만 남습니다.<br>서버로 전송되지 않으며, 지울 수도 있습니다.</p>
+      <dl class="memory-stats">
+        <div><dt>이 브라우저의 방문 횟수</dt><dd id="mem-visits">—</dd></div>
+        <div><dt>처음 방문한 날</dt><dd id="mem-first">—</dd></div>
+        <div><dt>직전 방문</dt><dd id="mem-last">—</dd></div>
+      </dl>
+      <div class="memory-actions">
+        <button type="button" id="forget-btn" class="danger-button">기억 지우기</button>
+        <button type="button" id="cancel-forget" class="ghost-button" hidden>취소</button>
+      </div>
+      <p id="memory-message" class="memory-message" role="status" aria-live="polite"></p>
+      <p class="memory-footnote">브라우저 저장소가 차단되면 현재 방문에서만 기억합니다.</p>
+    </div>
+  </section>
+
+  <noscript><div class="no-js">이 경험에는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 켜주세요.</div></noscript>
+</body>
+</html>

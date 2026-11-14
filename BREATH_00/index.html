@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050814">
+  <meta name="description" content="움직이면 빛이 태어나고, 머물면 뿌리가 자라고, 별은 당신을 기억합니다. 숨 — 관찰과 존재에 관한 인터랙티브 아트.">
+  <meta name="color-scheme" content="dark">
+  <title>숨 — BREATH · 관찰될 때 피어나는 세계</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main-content">체험 안내로 이동</a>
+  <canvas id="world" aria-hidden="true"></canvas>
+  <div id="vignette" aria-hidden="true"></div>
+  <div id="whisper-layer" aria-hidden="true"></div>
+  <div id="quiet-message" aria-live="off" aria-hidden="true"></div>
+
+  <header class="header">
+    <a class="identity" href="#main-content" aria-label="숨, 첫 화면으로">
+      <span class="logo-glyph" aria-hidden="true"><svg viewBox="0 0 42 42" fill="none"><circle cx="21" cy="21" r="18" stroke="currentColor" stroke-opacity=".36"/><path d="M7 21c7-11 21-11 28 0M7 21c7 11 21 11 28 0" stroke="currentColor" stroke-width="1.2"/><circle cx="21" cy="21" r="3" fill="currentColor"/></svg></span>
+      <span class="identity-name">숨 <span class="identity-english">/ B R E A T H</span></span>
+    </a>
+    <nav class="top-controls" aria-label="체험 설정">
+      <button type="button" id="motion-toggle" class="control-button" aria-pressed="false" title="움직임 줄이기"><span class="btn-symbol" aria-hidden="true">◌</span><span class="control-label">고요 모드</span></button>
+      <button type="button" id="poem-open-top" class="control-button" title="개인화된 시 보기"><span class="btn-symbol" aria-hidden="true">✧</span><span class="control-label">나의 시</span></button>
+      <button type="button" id="memory-open" class="control-button" title="저장된 별과 기억 보기"><span class="btn-symbol" aria-hidden="true">✦</span><span class="control-label">기억</span></button>
+    </nav>
+  </header>
+
+  <main id="main-content" tabindex="-1">
+    <div class="eyebrow"><span class="eyebrow-rule"></span> THE ART OF ATTENTION <span class="eyebrow-rule"></span></div>
+    <section class="intro" aria-label="숨의 세계">
+      <h1>당신이 바라보는 동안<span class="title-break"></span><em>세계는 숨을 쉽니다.</em></h1>
+      <p class="lead">움직이면 빛이 태어나고, 머물면 작은 뿌리가 자랍니다.<br>이곳에 남긴 별은 다음 방문에도 당신을 기다립니다.</p>
+    </section>
+    <div class="orb-instruction" aria-hidden="true"><span class="orbit-ring"></span><span class="orbit-tick"></span></div>
+    <div class="side-note" aria-hidden="true"><span class="side-numeral">01 / ∞</span><span class="side-line"></span><span class="side-text">존재는<br>관계 속에서<br>피어난다</span></div>
+    <section class="hud" aria-label="현재 경험 기록">
+      <p class="hud-top"><span class="status-light" aria-hidden="true"></span><span id="world-status">세계가 깨어나고 있습니다</span></p>
+      <div class="hud-measures">
+        <div><strong id="star-count">0</strong><span>남겨진 별</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong id="visit-count">1</strong><span>방문</span></div>
+        <i aria-hidden="true"></i>
+        <div><strong id="session-time">00:00</strong><span>머문 시간</span></div>
+      </div>
+    </section>
+
+    <section class="action-bar" aria-label="세계와 상호작용">
+      <div class="action-hint"><span class="pulse-dot" aria-hidden="true"></span><span id="context-hint">화면을 누르면 빛의 별이 남습니다.</span><span class="mobile-star-indicator" aria-label="현재 별의 수">✦ <strong id="mobile-star-count">0</strong></span></div>
+      <div class="action-buttons">
+        <button type="button" id="plant-button" class="button-primary"><span aria-hidden="true">✳</span> 별 하나 심기</button>
+        <button type="button" id="poem-open" class="button-outline"><span aria-hidden="true">↗</span> 나의 시 만나기</button>
+      </div>
+      <p class="subtle-disclaimer">* 상호작용과 존재의 관계를 표현한 예술적 은유입니다. 실제 양자역학 관찰 효과를 재현하지 않습니다.</p>
+    </section>
+  </main>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+
+  <dialog id="poem-dialog" class="dialog" aria-labelledby="poem-heading">
+    <div class="dialog-head"><span class="dialog-eyebrow">YOUR PERSONAL CONSTELLATION</span><button type="button" class="close-button" data-close="poem-dialog" aria-label="시 창 닫기">×</button></div>
+    <h2 id="poem-heading">당신이 지나간 자리에서<br><em>한 편의 시가 태어났습니다.</em></h2>
+    <p class="dialog-description">움직임과 머무름, 당신이 남긴 별의 수로 구성한 작은 시입니다. 성격이나 심리를 진단하지 않습니다.</p>
+    <div class="poem-card"><span class="poem-ornament" aria-hidden="true">✦</span><p id="poem-text" class="poem-text"></p><div class="poem-meta" id="poem-meta"></div></div>
+    <div class="dialog-actions"><button type="button" id="poem-regenerate" class="button-outline">다른 시 만들기</button><button type="button" id="poem-copy" class="button-primary">시 복사하기</button></div>
+  </dialog>
+
+  <dialog id="memory-dialog" class="dialog" aria-labelledby="memory-heading">
+    <div class="dialog-head"><span class="dialog-eyebrow">WHAT THE WORLD REMEMBERS</span><button type="button" class="close-button" data-close="memory-dialog" aria-label="기억 창 닫기">×</button></div>
+    <h2 id="memory-heading">작은 빛은<br><em>여기 머무릅니다.</em></h2>
+    <p class="dialog-description">별과 방문 횟수는 이 브라우저에만 저장됩니다. 계정, 외부 서버, 분석 도구로 전송하지 않습니다.</p>
+    <div class="memory-grid"><div><span>이곳을 방문한 횟수</span><strong id="memory-visits">0</strong></div><div><span>남긴 별의 개수</span><strong id="memory-stars">0</strong></div><div><span>이번 방문 동안</span><strong id="memory-duration">00:00</strong></div></div>
+    <p class="memory-extra" id="memory-note">별은 화면 크기가 바뀌어도 같은 자리에 남습니다.</p>
+    <div class="dialog-actions"><button type="button" id="export-button" class="button-primary">별자리 PNG 저장</button><button type="button" id="clear-button" class="button-outline danger">기억 지우기</button></div>
+    <p id="memory-confirmation" class="confirm-message" hidden>이 브라우저에 저장된 별과 방문 기록을 모두 지울까요?<br><button type="button" id="clear-confirm" class="inline-confirm">네, 모두 지우기</button><button type="button" id="clear-cancel" class="inline-cancel">취소</button></p>
+  </dialog>
+  <noscript><p class="noscript-message">이 페이지는 움직임으로 반응하는 예술 작품입니다. 체험하려면 브라우저에서 JavaScript를 활성화해 주세요.</p></noscript>
+</body>
+</html>

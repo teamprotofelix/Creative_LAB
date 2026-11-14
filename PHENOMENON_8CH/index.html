@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05070d">
+  <meta name="description" content="당신이 보고 있습니다. 그런데 누가 보고 있나요? 빛, 시간, 기억, 호흡, 관찰을 따라가는 여덟 장의 조용한 우주 체험.">
+  <title>당신이라는 현상 · A Phenomenon Called You</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#chapter-1">본문으로 건너뛰기</a>
+  <noscript><p style="position:relative;z-index:80;padding:1rem;text-align:center;color:#f0cf9a;">JavaScript가 꺼져 있어도 여덟 장의 글은 읽을 수 있습니다. 빛·호흡·소리 등 움직이는 기능을 사용하려면 JavaScript가 필요합니다.</p></noscript>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div id="cursor-glow" class="cursor-glow" aria-hidden="true"></div>
+  <div class="reading-progress" aria-hidden="true"><div id="reading-fill"></div></div>
+  <header class="site-header">
+    <a href="#chapter-1" class="brand" aria-label="당신이라는 현상, 처음으로 이동">
+      <span class="brand-symbol" aria-hidden="true">◌</span>
+      <span>당신이라는 현상 <small>PHENOMENON</small></span>
+    </a>
+    <div class="header-actions">
+      <button type="button" id="audio-toggle" class="tool-button" aria-label="소리 켜기" aria-pressed="false" title="소리 켜기"> <span aria-hidden="true">♫</span><span class="tool-label">소리 켜기</span></button>
+      <button type="button" id="motion-toggle" class="tool-button" aria-label="움직임 줄이기" aria-pressed="false" title="움직임 줄이기"><span aria-hidden="true">◉</span><span class="tool-label">움직임 줄이기</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="chapter chapter-intro" id="chapter-1" aria-labelledby="title-1" data-chapter="1">
+      <div class="chapter-content intro-content">
+        <p class="eyebrow reveal">PROLOGUE <span>·</span> 01 / 08</p>
+        <div class="singularity reveal" aria-hidden="true"><span></span></div>
+        <h1 class="chapter-heading hero-heading reveal" id="title-1">당신이 보고 있습니다.</h1>
+        <p class="chapter-verse reveal intro-pause">···</p>
+        <p class="chapter-verse reveal">그런데, <em>누가</em> 보고 있나요?</p>
+        <p class="small-note reveal">대답하지 않아도 좋습니다. 그저 머물러 보세요.</p>
+      </div>
+      <a class="scroll-cue" href="#chapter-2" aria-label="다음 장으로 이동"><span>SCROLL TO EXPLORE</span><span class="scroll-arrow" aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-light" id="chapter-2" aria-labelledby="title-2" data-chapter="2">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">THE FIRST LIGHT <span>·</span> 02 / 08</p>
+        <h2 class="chapter-heading reveal" id="title-2">당신이 움직일 때마다</h2>
+        <p class="chapter-verse reveal">우리는 <em>별을 그립니다.</em></p>
+        <p class="small-note reveal">아래의 어둠을 만지거나 움직여 보세요.</p>
+        <div id="light-field" class="light-field reveal" aria-label="마우스, 손가락 또는 Enter 키로 빛의 흔적을 그리는 영역" role="button" tabindex="0">
+          <span class="light-orbit orbit-one" aria-hidden="true"></span>
+          <span class="light-orbit orbit-two" aria-hidden="true"></span>
+          <span id="light-prompt" class="light-prompt">TOUCH THE UNKNOWN</span>
+          <span id="light-count" class="light-count">0개의 빛</span>
+        </div>
+        <p class="quiet-caption">빛은 잠시 태어났다가 사라집니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-time" id="chapter-3" aria-labelledby="title-3" data-chapter="3">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">THE TIME YOU INHABIT <span>·</span> 03 / 08</p>
+        <h2 class="chapter-heading reveal" id="title-3">시간은 흐르지 않습니다.</h2>
+        <p class="chapter-verse reveal">당신이 흐르는 것입니다.</p>
+        <div class="time-card reveal" role="timer" aria-live="off" aria-label="이 페이지를 열어 둔 시간">
+          <div class="time-halo" aria-hidden="true"></div>
+          <p class="metric-kicker">이곳에서 함께 흘러간 시간</p>
+          <p id="time-display" class="time-display">00:00</p>
+          <p class="time-units">MINUTES <span>:</span> SECONDS</p>
+        </div>
+        <p class="quiet-caption">탭을 벗어나면 이 시계는 멈춥니다. 이는 생물학적 시간이 아닌 관람 시간입니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-memory" id="chapter-4" aria-labelledby="title-4" data-chapter="4">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">FRAGMENTS OF MEMORY <span>·</span> 04 / 08</p>
+        <h2 class="chapter-heading reveal" id="title-4">이것들은 당신의 기억입니다.</h2>
+        <p class="chapter-verse muted reveal">아니, 기억이라 불리는 것들입니다.</p>
+        <p class="small-note reveal">여덟 개의 빛 중 하나를 선택해 보세요.</p>
+        <div class="memory-world reveal">
+          <div id="memory-field" class="memory-field" role="group" aria-label="기억의 빛 8개">
+            <button type="button" class="memory-star" style="--x:13%;--y:23%;--delay:0s" aria-label="기억 1 펼치기" data-memory="0"><span></span></button>
+            <button type="button" class="memory-star" style="--x:70%;--y:16%;--delay:-2.2s" aria-label="기억 2 펼치기" data-memory="1"><span></span></button>
+            <button type="button" class="memory-star" style="--x:36%;--y:44%;--delay:-1.3s" aria-label="기억 3 펼치기" data-memory="2"><span></span></button>
+            <button type="button" class="memory-star" style="--x:83%;--y:56%;--delay:-3s" aria-label="기억 4 펼치기" data-memory="3"><span></span></button>
+            <button type="button" class="memory-star" style="--x:18%;--y:75%;--delay:-0.8s" aria-label="기억 5 펼치기" data-memory="4"><span></span></button>
+            <button type="button" class="memory-star" style="--x:58%;--y:82%;--delay:-1.9s" aria-label="기억 6 펼치기" data-memory="5"><span></span></button>
+            <button type="button" class="memory-star" style="--x:8%;--y:49%;--delay:-2.7s" aria-label="기억 7 펼치기" data-memory="6"><span></span></button>
+            <button type="button" class="memory-star" style="--x:89%;--y:28%;--delay:-0.3s" aria-label="기억 8 펼치기" data-memory="7"><span></span></button>
+          </div>
+          <div id="memory-detail" class="memory-detail" role="status" aria-live="polite">빛 하나를 선택하면 문장이 나타납니다.</div>
+        </div>
+        <p class="quiet-caption">이 문장들은 누구에게나 열려 있는 상상의 파편입니다. 실제 개인 기억을 읽거나 수집하지 않습니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-breath" id="chapter-5" aria-labelledby="title-5" data-chapter="5">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">THE BREATHING MOMENT <span>·</span> 05 / 08</p>
+        <h2 class="chapter-heading reveal" id="title-5">당신은 지금 숨을 쉬고 있습니다.</h2>
+        <p class="chapter-verse muted reveal">이것을 의식했나요?</p>
+        <div class="breath-stage reveal">
+          <div id="breath-visual" class="breath-visual" aria-hidden="true"><span class="breath-ring ring-a"></span><span class="breath-ring ring-b"></span><span class="breath-center"></span></div>
+          <div class="breath-center-label"><p id="breath-text">들이쉬세요</p><p id="breath-count">4</p></div>
+        </div>
+        <div class="breath-controls reveal"><button type="button" id="breath-toggle" class="pill-button" aria-pressed="false">호흡 가이드 일시정지</button></div>
+        <p class="quiet-caption">4초 들숨 · 4초 머무름 · 4초 날숨 · 4초 머무름. 편안한 속도만 따라 하세요. 불편하면 중단해도 됩니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-observer" id="chapter-6" aria-labelledby="title-6" data-chapter="6">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">THE ONE WHO SEES <span>·</span> 06 / 08</p>
+        <div id="eye" class="eye reveal" aria-hidden="true"><span class="eye-iris"><span id="pupil" class="eye-pupil"></span></span></div>
+        <h2 class="chapter-heading reveal" id="title-6">당신이 이 글을 읽고 있습니다.</h2>
+        <p class="chapter-verse muted reveal">이것은 사실이 아닙니다.</p>
+        <p class="chapter-verse reveal">당신이 이 글을 읽고 있다고 <em>‘생각’</em>하고 있습니다.</p>
+        <p class="chapter-verse reveal">그 생각을 관찰하는 것은 누구입니까?</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-one" id="chapter-7" aria-labelledby="title-7" data-chapter="7">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">THE WHOLE <span>·</span> 07 / 08</p>
+        <div class="unity-glyph reveal" aria-hidden="true"><div></div><div></div><div></div></div>
+        <h2 class="chapter-heading reveal" id="title-7">당신의 모든 세포는 우주에서 왔습니다.</h2>
+        <p class="chapter-verse reveal">우리 몸의 여러 원소는 오래전 <em>별의 내부에서</em> 만들어졌습니다.</p>
+        <p class="chapter-verse reveal">당신은 우주가 자신을 바라보는 방식입니다.</p>
+        <p class="quiet-caption">마지막 문장은 과학적 단정이 아닌 하나의 철학적 비유입니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-end" id="chapter-8" aria-labelledby="title-8" data-chapter="8">
+      <div class="chapter-content">
+        <p class="eyebrow reveal">EPILOGUE <span>·</span> 08 / 08</p>
+        <h2 class="chapter-heading grand reveal" id="title-8">당신은 지금,</h2>
+        <p class="chapter-heading grand gold reveal">살아 있습니다.</p>
+        <p class="chapter-verse muted reveal">이것으로 충분합니다.</p>
+        <div class="final-star reveal" aria-hidden="true"></div>
+        <p class="chapter-verse final-message reveal">당신이 이 페이지를 떠나도,<br>이 순간을 기억할 수 있습니다.</p>
+        <div class="end-actions reveal"><button type="button" id="save-moment" class="pill-button prominent">이 순간을 이미지로 남기기 <span aria-hidden="true">↗</span></button><a class="pill-button" href="#chapter-1">처음으로 돌아가기</a></div>
+        <p id="save-feedback" class="quiet-caption" role="status" aria-live="polite">이미지는 이 기기에서 생성하며 서버로 전송하지 않습니다.</p>
+        <p class="footer-mark reveal">당신이라는 현상 <span>·</span> PHENOMENON</p>
+      </div>
+    </section>
+  </main>
+
+  <nav class="chapter-navigation" aria-label="장 바로 가기">
+    <a href="#chapter-1" aria-label="1장 어둠" aria-current="location" data-nav="1"><span>01</span><i></i></a>
+    <a href="#chapter-2" aria-label="2장 첫 빛" data-nav="2"><span>02</span><i></i></a>
+    <a href="#chapter-3" aria-label="3장 시간" data-nav="3"><span>03</span><i></i></a>
+    <a href="#chapter-4" aria-label="4장 기억" data-nav="4"><span>04</span><i></i></a>
+    <a href="#chapter-5" aria-label="5장 호흡" data-nav="5"><span>05</span><i></i></a>
+    <a href="#chapter-6" aria-label="6장 관찰자" data-nav="6"><span>06</span><i></i></a>
+    <a href="#chapter-7" aria-label="7장 하나" data-nav="7"><span>07</span><i></i></a>
+    <a href="#chapter-8" aria-label="8장 끝" data-nav="8"><span>08</span><i></i></a>
+  </nav>
+  <p id="live-announcement" class="sr-only" role="status" aria-live="polite"></p>
+</body>
+</html>

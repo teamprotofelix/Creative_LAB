@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#06070b">
+  <meta name="description" content="당신이라는 현상 — 호흡, 시간, 생명, 이름과 우주에 관한 여섯 장의 느린 체험.">
+  <meta name="color-scheme" content="dark">
+  <title>당신이라는 현상 · PHENOMENON</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#ch-intro">본문으로 건너뛰기</a>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div id="cursor-glow" aria-hidden="true"></div>
+  <div id="scroll-progress" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <a class="brand" href="#ch-intro" aria-label="처음으로 이동">
+      <span class="brand-symbol" aria-hidden="true">◉</span>
+      <span><strong>현상</strong><small>PHENOMENON / 당신이라는 현상</small></span>
+    </a>
+    <div class="header-actions">
+      <button type="button" class="utility-button" id="motion-toggle" aria-pressed="false" aria-label="움직임 줄이기">움직임 <span id="motion-state">켜짐</span></button>
+      <button type="button" class="utility-button" id="sound-toggle" aria-pressed="false" aria-label="앰비언트 소리 켜기">♫ <span id="sound-state">소리 끔</span></button>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="여섯 장 이동">
+    <a href="#ch-intro" data-chapter="ch-intro" aria-label="1장, 들어가며" aria-current="location"><i>01</i><span>들어가며</span></a>
+    <a href="#ch-breath" data-chapter="ch-breath" aria-label="2장, 호흡"><i>02</i><span>호흡</span></a>
+    <a href="#ch-time" data-chapter="ch-time" aria-label="3장, 시간"><i>03</i><span>시간</span></a>
+    <a href="#ch-life" data-chapter="ch-life" aria-label="4장, 생명"><i>04</i><span>생명</span></a>
+    <a href="#ch-cosmos" data-chapter="ch-cosmos" aria-label="5장, 이름과 우주"><i>05</i><span>이름과 우주</span></a>
+    <a href="#ch-ending" data-chapter="ch-ending" aria-label="6장, 끝"><i>06</i><span>끝</span></a>
+  </nav>
+
+  <main id="content">
+    <section id="ch-intro" class="chapter chapter-intro" aria-labelledby="intro-title">
+      <div class="intro-sigil" aria-hidden="true"><div class="intro-orb"></div><div class="orb-orbit orbit-one"></div><div class="orb-orbit orbit-two"></div></div>
+      <p class="eyebrow">01 · THE THRESHOLD</p>
+      <h1 id="intro-title">당신이라는 <em>현상</em></h1>
+      <p class="intro-lead" id="intro-lead">이 페이지는 당신의 시간을 요구합니다.</p>
+      <p class="intro-sub" id="intro-sub">서두르지 않아도 됩니다.<br>페이지가 당신의 속도를 기다립니다.</p>
+      <a class="next-link" href="#ch-breath">천천히, 아래로 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section id="ch-breath" class="chapter chapter-breath" aria-labelledby="breath-title">
+      <div class="section-heading">
+        <p class="eyebrow">02 · BREATH</p>
+        <h2 id="breath-title">당신은 이미 <em>숨 쉬고 있습니다.</em></h2>
+        <p>따라 하지 않아도 좋습니다. 원이 커지고 작아지는 리듬을 느껴 보세요.</p>
+      </div>
+      <div class="breath-system">
+        <div class="breath-halo halo-two" aria-hidden="true"></div>
+        <div class="breath-halo halo-one" aria-hidden="true"></div>
+        <div class="breath-circle" id="breath-circle" aria-hidden="true"></div>
+        <div class="breath-center"><span id="breath-label">들이쉬세요</span><small id="breath-phase">4초 들숨 · 6초 날숨</small></div>
+      </div>
+      <div class="breath-info">
+        <p>이곳에서 함께 지나간 호흡 주기 <strong id="breath-count">0</strong><span class="unit">회</span></p>
+        <button class="ghost-button" id="breath-toggle" type="button" aria-pressed="false">호흡 일시정지</button>
+      </div>
+      <p class="fineprint">10초 주기의 시각적 안내입니다. 불편하면 따라 하지 않고 편안하게 자연 호흡하세요.</p>
+      <a class="next-link" href="#ch-time">시간을 바라보기 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section id="ch-time" class="chapter chapter-time" aria-labelledby="time-title">
+      <div class="section-heading">
+        <p class="eyebrow">03 · TIME</p>
+        <h2 id="time-title">당신이 지나온 <em>시간의 모양</em></h2>
+        <p>태어난 날짜를 선택하면, 시간의 흐름을 숫자로 상상할 수 있습니다.</p>
+      </div>
+      <form id="birth-form" class="birth-form" novalidate>
+        <label for="birth-input">태어난 날짜</label>
+        <div class="birth-controls">
+          <input type="date" id="birth-input" name="birth-date" required autocomplete="bday">
+          <button class="primary-button" type="submit">시간 펼치기 <span aria-hidden="true">↗</span></button>
+        </div>
+        <p class="form-error" id="birth-error" role="alert" hidden></p>
+        <p class="fineprint">입력한 날짜는 서버에 전송되거나 저장되지 않습니다. 이 화면에서만 계산합니다.</p>
+      </form>
+      <div id="time-facts" class="facts" aria-live="off" hidden>
+        <div class="fact"><span class="fact-label">지나온 시간</span><strong id="fact-days" class="fact-value">—</strong><small>일, 약</small></div>
+        <div class="fact"><span class="fact-label">심장 박동</span><strong id="fact-heart" class="fact-value">—</strong><small>회, 추정</small></div>
+        <div class="fact"><span class="fact-label">호흡</span><strong id="fact-breath" class="fact-value">—</strong><small>회, 추정</small></div>
+        <div class="fact"><span class="fact-label">지구 공전</span><strong id="fact-earth" class="fact-value">—</strong><small>회, 근사</small></div>
+        <div class="fact"><span class="fact-label">달의 공전 주기</span><strong id="fact-moon" class="fact-value">—</strong><small>회, 근사</small></div>
+        <div class="fact"><span class="fact-label">눈 깜박임</span><strong id="fact-blink" class="fact-value">—</strong><small>회, 추정</small></div>
+      </div>
+      <p id="facts-note" class="facts-note" hidden>이 숫자들은 개인의 신체 측정값이 아닌 사유를 위한 예시입니다. 심장 72회/분, 호흡 16회/분, 눈 깜박임 15회/분, 지구 공전 365.2422일, 달의 항성공전 27.3217일을 가정했습니다. 출생 시각을 모르므로 실제 값과 차이가 있습니다.</p>
+      <a class="next-link" href="#ch-life">생명의 정원으로 <span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section id="ch-life" class="chapter chapter-canvas chapter-life" aria-labelledby="life-title">
+      <canvas id="life-canvas" aria-hidden="true"></canvas>
+      <div class="canvas-top">
+        <p class="eyebrow">04 · LIFE</p>
+        <h2 id="life-title">빛 하나에서 <em>생명이 자랍니다.</em></h2>
+        <p>어디든 터치하거나 클릭하면 작은 나선이 피어납니다.</p>
+      </div>
+      <div class="canvas-bottom">
+        <span class="counter-label">지금 피어난 빛 <strong id="life-count">0</strong></span>
+        <div class="canvas-buttons"><button id="plant-button" class="ghost-button" type="button">중앙에 빛 심기</button><button id="clear-life" class="ghost-button" type="button">정원 비우기</button></div>
+        <a class="next-link" href="#ch-cosmos">우주로 이동 <span aria-hidden="true">↓</span></a>
+      </div>
+    </section>
+
+    <section id="ch-cosmos" class="chapter chapter-canvas chapter-cosmos" aria-labelledby="cosmos-title">
+      <canvas id="cosmos-canvas" aria-hidden="true"></canvas>
+      <div class="canvas-top">
+        <p class="eyebrow">05 · NAME / COSMOS</p>
+        <h2 id="cosmos-title">수많은 빛 가운데 <em>하나의 이름</em></h2>
+        <p>별은 당신의 이름을 알지 못합니다.<br>하지만 이 빛들은 당신이 적은 이름의 모양을 그립니다.</p>
+      </div>
+      <form id="name-form" class="cosmos-input-wrap" autocomplete="off">
+        <label for="cosmos-name-input">이곳에 남기고 싶은 이름이나 단어</label>
+        <div class="name-controls">
+          <input type="text" id="cosmos-name-input" maxlength="12" placeholder="예: 지금, 은하, 나" spellcheck="false" aria-describedby="name-help">
+          <button class="primary-button" type="submit">빛으로 쓰기</button>
+        </div>
+        <p id="name-help" class="fineprint">입력한 글자는 이 화면에서만 빛으로 바뀝니다. 저장하거나 전송하지 않습니다.</p>
+        <button id="clear-name" class="text-button" type="button">이름 흩뜨리기</button>
+      </form>
+    </section>
+
+    <section id="ch-ending" class="chapter chapter-ending" aria-labelledby="ending-title">
+      <p class="eyebrow">06 · THE RETURN</p>
+      <div class="ending-symbol" aria-hidden="true">✧</div>
+      <h2 id="ending-title" class="visually-hidden">당신이 여기 있다는 것</h2>
+      <div class="ending-lines">
+        <p>당신이 없는 우주도 있었습니다.</p>
+        <p>하지만 지금, 이 우주에는 당신이 있습니다.</p>
+        <p>당신이 보고 있는 빛은 사라질 수 있습니다.</p>
+        <p>그러나 이 순간을 느낀 것은, 분명 당신입니다.</p>
+        <p>그러니 잠시, 여기 머물러 보세요.</p>
+      </div>
+      <div class="ending-actions">
+        <button class="primary-button" id="save-moment" type="button">이 순간을 이미지로 남기기 <span aria-hidden="true">↗</span></button>
+        <button class="ghost-button" id="return-btn" type="button">처음으로 돌아가기 ↑</button>
+      </div>
+      <p class="fineprint">다운로드는 기기 안에서 생성됩니다. 어디에도 업로드되지 않습니다.</p>
+    </section>
+  </main>
+
+  <div class="idle-notice" id="idle-notice" role="status" aria-live="polite">지금 이 순간, 당신은 살아 있습니다.</div>
+  <div id="status-line" class="visually-hidden" role="status" aria-live="polite"></div>
+  <noscript><p class="noscript-note">JavaScript를 켜면 별빛, 호흡, 생명, 이름의 애니메이션을 체험할 수 있습니다. 글과 각 장의 안내는 JavaScript 없이도 읽을 수 있습니다.</p></noscript>
+</body>
+</html>

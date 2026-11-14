@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b17">
+  <meta name="description" content="사이 · Between — 관찰, 창조, 시간, 기억을 담은 상호작용 명상 우주. 브라우저에서만 당신의 별을 기억합니다.">
+  <meta name="color-scheme" content="dark">
+  <title>사이 · BETWEEN — 관찰이 남기는 별</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <canvas id="world" aria-label="시간에 따라 색이 달라지는 입자 우주. 화면을 터치하거나 클릭하면 나무가 자랍니다." role="img"></canvas>
+  <div id="vignette" aria-hidden="true"></div>
+  <div id="cursor" aria-hidden="true"></div>
+
+  <div id="app">
+    <header class="topbar">
+      <div class="brand" aria-label="사이 Between">
+        <span class="brand-mark" aria-hidden="true">✳</span>
+        <span>사이 <i>/</i> BETWEEN</span>
+      </div>
+      <div class="top-meta" aria-live="off">
+        <span class="small-label">NOW / <span id="phase-name">새벽</span></span>
+        <span class="status-separator" aria-hidden="true"></span>
+        <span class="small-label">MEMORIES / <strong id="memory-count">0</strong><span class="muted">·40</span></span>
+      </div>
+    </header>
+
+    <main class="center" id="center">
+      <div id="intro" class="intro">
+        <div class="halo" aria-hidden="true"><span class="halo-core"></span><span class="halo-ring"></span></div>
+        <p class="eyebrow">A SPACE BETWEEN YOU AND THE WORLD</p>
+        <h1>사이</h1>
+        <p class="en-title">B E T W E E N</p>
+        <div class="fine-rule" aria-hidden="true"></div>
+        <p class="lead">당신이 보는 순간, 세계가 깨어납니다.</p>
+        <p class="intro-guide" id="intro-guide">마우스를 움직이거나 화면을 터치해 주세요.</p>
+        <button id="enter-button" class="enter-button">우주를 깨우기 <span aria-hidden="true">↗</span></button>
+      </div>
+      <div id="whisper" class="whisper" aria-live="off"></div>
+    </main>
+
+    <div id="pointer-hint" class="pointer-hint" aria-hidden="true">✳ &nbsp;닿는 곳이 빛납니다</div>
+
+    <footer class="bottom-ui">
+      <section class="time-panel" aria-label="시간 탐험">
+        <div class="time-heading">
+          <div><span class="micro-label">CYCLE OF LIGHT</span><span class="time-name" id="day-caption">새벽의 숨</span></div>
+          <span class="time-value" id="time-value">00:00</span>
+        </div>
+        <label for="time-slider" class="sr-only">하루의 시간 위치</label>
+        <input id="time-slider" type="range" min="0" max="1000" value="0" step="1" aria-valuetext="새벽" title="드래그하여 시간 이동">
+        <div class="time-foot">
+          <span>DAWN</span>
+          <span>DAY</span>
+          <span>DUSK</span>
+          <span>NIGHT</span>
+        </div>
+      </section>
+
+      <p id="instructions" class="instructions">마우스 이동 · 관찰 <span>✦</span> 클릭 / 터치 · 나무 심기 <span>✦</span> 휠 · 시간 이동</p>
+
+      <div class="controls" role="group" aria-label="우주 조작">
+        <button id="play-toggle" class="tool" aria-label="시간 흐름 멈추기" aria-pressed="false" title="시간 흐름 멈추기"><span aria-hidden="true">Ⅱ</span></button>
+        <button id="sound-toggle" class="tool" aria-label="소리 켜기" aria-pressed="false" title="소리 켜기"><span aria-hidden="true">♫</span></button>
+        <button id="motion-toggle" class="tool" aria-label="움직임 줄이기" aria-pressed="false" title="움직임 줄이기"><span aria-hidden="true">◌</span></button>
+        <button id="capture-button" class="tool" aria-label="현재 우주 이미지 저장" title="현재 우주 이미지 저장"><span aria-hidden="true">▧</span></button>
+        <button id="clear-button" class="tool" aria-label="저장된 기억의 별 삭제" title="저장된 기억의 별 삭제"><span aria-hidden="true">⌫</span></button>
+        <button id="help-button" class="tool" aria-label="사용법과 기록 안내" aria-expanded="false" aria-controls="help-panel" title="사용법과 기록 안내"><span aria-hidden="true">?</span></button>
+      </div>
+    </footer>
+
+    <aside id="help-panel" class="help-panel" hidden aria-labelledby="help-title">
+      <div class="help-heading"><h2 id="help-title">이 우주를 만나는 방법</h2><button id="help-close" aria-label="안내 닫기">×</button></div>
+      <p>커서를 움직이거나 화면을 스치면 입자들이 연결됩니다. 빈 공간을 클릭하거나 터치하면 빛의 나무가 자라나고, 그곳에 기억의 별이 남습니다.</p>
+      <p>휠이나 시간 막대로 하루를 여행하세요. <kbd>←</kbd> <kbd>→</kbd> 시간 이동, <kbd>Space</kbd> 나무 심기, <kbd>M</kbd> 소리, <kbd>P</kbd> 시간 일시정지, <kbd>Esc</kbd> 안내 닫기.</p>
+      <p><strong>기록 안내:</strong> 별의 위치(화면에 대한 상대 좌표), 색과 생성 시각을 이 브라우저의 <code>localStorage</code>에 최대 40개 보관합니다. 외부 전송은 하지 않습니다. 삭제 버튼으로 언제든 지울 수 있습니다. 브라우저 저장이 차단되면 이 페이지에서만 보입니다.</p>
+      <p class="help-note">관찰은 상호작용의 은유입니다. 양자역학의 관측을 재현하거나 의식이 물리적 세계를 만든다고 주장하는 실험은 아닙니다.</p>
+    </aside>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </div>
+  <noscript><div class="noscript">이 경험은 JavaScript가 필요합니다. 브라우저에서 JavaScript를 활성화해주세요.</div></noscript>
+</body>
+</html>

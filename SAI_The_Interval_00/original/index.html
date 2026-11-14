@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>사이 · The Space Between</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@200;300;400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='30' fill='none' stroke='%23cfd8ff' stroke-width='2'/></svg>">
+</head>
+<body>
+<canvas id="bg-canvas"></canvas>
+<div id="vignette"></div>
+
+<button id="sound-toggle" aria-label="소리 켜기">◦</button>
+
+<main>
+
+  <!-- 0. LANDING -->
+  <section class="chapter" id="landing">
+    <div class="pulse-wrap">
+      <div class="pulse"></div>
+      <div class="pulse delay"></div>
+    </div>
+    <div class="text-center">
+      <p class="fade-line">이것은,</p>
+      <p class="fade-line">어떤 것들 <em>사이</em>에 대한 이야기입니다.</p>
+      <p class="fade-line hint">천천히, 스크롤을 내려주세요</p>
+    </div>
+  </section>
+
+  <!-- 1. BREATH -->
+  <section class="chapter" id="breath">
+    <div class="breath-orb"></div>
+    <div class="text-side">
+      <p class="fade-line">숨을 들이쉬세요.</p>
+      <p class="fade-line">그리고, 내쉬세요.</p>
+      <p class="fade-line gap">그 사이에</p>
+      <p class="fade-line">아주 작은 멈춤이 있습니다.</p>
+      <p class="fade-line dim">그것이 당신이 살아있다는 증거입니다.</p>
+    </div>
+  </section>
+
+  <!-- 2. THOUGHT -->
+  <section class="chapter" id="thought">
+    <div class="thought-field" aria-hidden="true"></div>
+    <div class="text-center">
+      <p class="fade-line">생각이 떠오릅니다.</p>
+      <p class="fade-line">그리고 사라집니다.</p>
+      <p class="fade-line gap">당신은 생각이 아닙니다.</p>
+      <p class="fade-line">당신은 생각이 흐르는 <em>자리</em>입니다.</p>
+    </div>
+  </section>
+
+  <!-- 3. TIME -->
+  <section class="chapter" id="time">
+    <div class="live-clock">
+      <div class="clock-num" id="minutes">0</div>
+      <div class="clock-label">분</div>
+      <div class="clock-num" id="seconds">00</div>
+      <div class="clock-label">초</div>
+    </div>
+    <div class="text-center">
+      <p class="fade-line">이곳에 머무는 동안,</p>
+      <p class="fade-line">당신은 약 <span id="breath-count">0</span>번 숨을 쉬었습니다.</p>
+      <p class="fade-line gap">시간은 흐릅니다.</p>
+      <p class="fade-line">그러나 당신은 시간이 아닙니다.</p>
+    </div>
+  </section>
+
+  <!-- 4. OTHERS -->
+  <section class="chapter" id="others">
+    <div class="constellation" id="constellation"></div>
+    <div class="text-center">
+      <p class="fade-line">당신이 이곳에 있는 동안,</p>
+      <p class="fade-line">세상 어딘가에서 누군가도</p>
+      <p class="fade-line">같은 고요를 찾고 있을 것입니다.</p>
+      <p class="fade-line gap dim">당신은 이곳에 <span id="visit-count">1</span>번째 머물고 있습니다.</p>
+      <p class="fade-line dim">당신의 별자리는 조금 더 자랐습니다.</p>
+    </div>
+  </section>
+
+  <!-- 5. SELF -->
+  <section class="chapter" id="self">
+    <div class="mirror" id="mirror"></div>
+    <div class="text-center">
+      <p class="fade-line">거울을 보세요.</p>
+      <p class="fade-line">그 안에 무엇이 보입니까?</p>
+      <p class="fade-line gap">당신은 당신의 이야기가 아닙니다.</p>
+      <p class="fade-line">당신은 지금, 이 순간입니다.</p>
+    </div>
+  </section>
+
+  <!-- 6. RETURN -->
+  <section class="chapter" id="return">
+    <div class="return-orb"></div>
+    <div class="text-center">
+      <p class="fade-line">당신은 이곳에 <span id="final-time">0분</span> 머물렀습니다.</p>
+      <p class="fade-line">그 사이, 당신은 <span id="final-scroll">0</span>번 스크롤했습니다.</p>
+      <p class="fade-line">그리고 그 사이,</p>
+      <p class="fade-line">당신은 <em>아무것도 하지 않았습니다.</em></p>
+      <p class="fade-line gap">그것이, 살아있음입니다.</p>
+      <p class="fade-line dim">다시, 이 순간으로.</p>
+      <button id="restart" class="soft-btn">처음으로</button>
+    </div>
+  </section>
+
+</main>
+
+<script src="script.js"></script>
+</body>
+</html>

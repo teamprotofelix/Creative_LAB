@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="숨과 숨, 생각과 생각, 나와 너 사이. 일곱 개의 공간을 지나며 당신의 별자리를 만드는 고요한 명상 경험.">
+  <meta name="color-scheme" content="dark">
+  <title>사이 · THE INTERVAL — 존재와 존재 사이</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="script.js"></script>
+</head>
+<body class="night">
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <a class="skip-link" href="#landing">본문으로 바로 가기</a>
+
+  <header class="site-header" aria-label="사이트 도구">
+    <a class="brand" href="#landing" aria-label="사이, 처음으로 이동">
+      <span class="brand-mark" aria-hidden="true">◌</span>
+      <span>사이 <small>THE INTERVAL</small></span>
+    </a>
+    <div class="site-tools">
+      <button type="button" id="sound-toggle" class="tool-btn" aria-label="소리 켜기" aria-pressed="false" title="앰비언트 소리 켜기">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4zm12-1a6 6 0 0 1 0 8m2-11a10 10 0 0 1 0 14"/></svg>
+        <span class="tool-label">소리</span>
+      </button>
+      <button type="button" id="motion-toggle" class="tool-btn" aria-label="움직임 멈추기" aria-pressed="false" title="시각적 움직임 조절">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="8"/><path d="M9 8v8m6-8v8"/></svg>
+        <span class="tool-label">움직임</span>
+      </button>
+      <button type="button" id="memory-open" class="tool-btn" aria-label="나의 기록 관리" title="브라우저에 저장한 별과 방문 기록 관리">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 2 2.4 6.7L21 11l-6.6 2.3L12 20l-2.4-6.7L3 11l6.6-2.3L12 2Z"/></svg>
+        <span class="tool-label">기록</span>
+      </button>
+    </div>
+  </header>
+  <div class="progress-track" aria-hidden="true"><div id="progress-bar"></div></div>
+  <nav class="chapter-nav" aria-label="일곱 장 바로가기">
+    <a href="#landing" data-chapter="landing" aria-current="step"><span>01</span><b>입구</b></a>
+    <a href="#breath" data-chapter="breath"><span>02</span><b>호흡</b></a>
+    <a href="#thought" data-chapter="thought"><span>03</span><b>생각</b></a>
+    <a href="#time" data-chapter="time"><span>04</span><b>시간</b></a>
+    <a href="#others" data-chapter="others"><span>05</span><b>타인</b></a>
+    <a href="#self" data-chapter="self"><span>06</span><b>자아</b></a>
+    <a href="#return" data-chapter="return"><span>07</span><b>회귀</b></a>
+  </nav>
+
+  <main id="main-content">
+    <section class="chapter chapter-landing" id="landing" aria-labelledby="landing-heading">
+      <div class="chapter-content landing-content">
+        <div class="eyebrow reveal">PROLOGUE <span class="eyebrow-line"></span> 01 / 07</div>
+        <div class="landing-sigil reveal" aria-hidden="true">
+          <div class="sigil-ring ring-one"></div><div class="sigil-ring ring-two"></div>
+          <div class="sigil-core"></div>
+          <span class="sigil-orbit orbit-one"></span><span class="sigil-orbit orbit-two"></span>
+        </div>
+        <h1 id="landing-heading" class="hero-title reveal">사<span>이</span></h1>
+        <div class="hero-english reveal">THE INTERVAL</div>
+        <div class="hairline reveal"></div>
+        <p class="hero-copy reveal">이것은,<br>어떤 것들 <em>사이</em>에 대한 이야기입니다.</p>
+        <p class="hero-note reveal">존재하는 것만이 세계의 전부는 아닙니다.<br>존재와 존재 사이에도, 무언가 흐르고 있습니다.</p>
+        <a class="begin-link reveal" href="#breath">여정 시작하기 <span aria-hidden="true">↓</span></a>
+      </div>
+      <div class="chapter-foot" aria-hidden="true">THE SPACE BETWEEN EVERYTHING <span>SCROLL TO EXPLORE</span></div>
+    </section>
+
+    <section class="chapter chapter-breath" id="breath" aria-labelledby="breath-heading">
+      <div class="chapter-content dual-layout">
+        <div class="visual-column reveal">
+          <div class="orb-stage">
+            <div class="orbit orbit-a" aria-hidden="true"></div>
+            <div class="orbit orbit-b" aria-hidden="true"></div>
+            <div class="breath-orb" id="breath-orb" aria-hidden="true"></div>
+            <div class="breath-orb-core" aria-hidden="true"></div>
+            <span class="orbit-tick tick-n" aria-hidden="true"></span><span class="orbit-tick tick-s" aria-hidden="true"></span>
+          </div>
+          <div class="breath-monitor" aria-live="off">
+            <span id="breath-phase">들이쉬기</span><span class="breath-divider" aria-hidden="true">/</span>
+            <span id="breath-progress">01 / 08</span>
+          </div>
+          <button type="button" id="breath-toggle" class="outline-btn" aria-pressed="false">호흡 안내 잠시 멈추기</button>
+        </div>
+        <div class="story-column">
+          <div class="eyebrow reveal">02 <span class="eyebrow-line"></span> BETWEEN BREATHS</div>
+          <h2 id="breath-heading" class="chapter-title reveal">숨과 <em>숨</em> 사이</h2>
+          <p class="story-line reveal">숨을 들이쉬세요.</p>
+          <p class="story-line reveal">그리고, 내쉬세요.</p>
+          <p class="story-line gap reveal">그 사이에<br>아주 작은 멈춤이 있습니다.</p>
+          <p class="story-line muted reveal">우리는 종종 그 고요를 알아차리지 못합니다.</p>
+          <p class="microcopy reveal">8초 호흡 리듬 예시입니다. 실제 호흡을 측정하지 않으며, 편안한 속도로 이용하거나 건너뛰어도 됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter-thought" id="thought" aria-labelledby="thought-heading">
+      <div class="thought-field" id="thought-field" aria-hidden="true"></div>
+      <div class="chapter-content centered-story">
+        <div class="eyebrow reveal">03 <span class="eyebrow-line"></span> BETWEEN THOUGHTS</div>
+        <div class="thought-symbol reveal" aria-hidden="true"><span></span><span></span><span></span></div>
+        <h2 id="thought-heading" class="chapter-title reveal">생각과 <em>생각</em> 사이</h2>
+        <p class="story-line reveal">생각이 떠오릅니다.</p>
+        <p class="story-line reveal">그리고 사라집니다.</p>
+        <p class="story-line gap reveal">당신은 생각이 아닙니다.</p>
+        <p class="story-line reveal">당신은 생각이 흐르는 <em>자리</em>입니다.</p>
+        <p class="microcopy reveal">떠오르는 단어를 붙잡을 필요가 없습니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-time" id="time" aria-labelledby="time-heading">
+      <div class="chapter-content centered-story">
+        <div class="eyebrow reveal">04 <span class="eyebrow-line"></span> BETWEEN MOMENTS</div>
+        <h2 id="time-heading" class="chapter-title reveal">지금이라는 <em>간격</em></h2>
+        <div class="time-dial reveal" aria-label="현재 방문 중 활성 상태로 머문 시간">
+          <div class="dial-halo" aria-hidden="true"></div>
+          <div class="time-digits"><span id="minutes">00</span><small>분</small><span id="seconds">00</span><small>초</small></div>
+          <div class="dial-subtitle">TIME SPENT HERE</div>
+        </div>
+        <p class="story-line reveal">이곳에 머무는 동안,<br>당신은 약 <strong id="breath-count">0</strong>번의 호흡에 해당하는 시간을 보냈습니다.</p>
+        <p class="story-line gap reveal">시간은 흐릅니다.</p>
+        <p class="story-line reveal">그러나 당신은 시간이 아닙니다.</p>
+        <p class="microcopy reveal">호흡 횟수는 8초 예시 주기로 환산한 값입니다. 탭을 벗어난 시간은 제외합니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-others" id="others" aria-labelledby="others-heading">
+      <div class="chapter-content dual-layout reverse">
+        <div class="visual-column reveal constellation-column">
+          <div class="constellation-wrap">
+            <div class="constellation-halo" aria-hidden="true"></div>
+            <svg id="constellation" viewBox="0 0 100 100" role="img" aria-label="이 브라우저에 저장된 방문 별자리"><g id="guide-stars"></g><g id="constellation-lines"></g><g id="constellation-stars"></g></svg>
+            <span class="constellation-label">AN ARCHIVE OF PRESENCE</span>
+          </div>
+          <p class="star-counter">이곳에 남겨진 별 <strong id="star-count">1</strong>개</p>
+        </div>
+        <div class="story-column">
+          <div class="eyebrow reveal">05 <span class="eyebrow-line"></span> BETWEEN US</div>
+          <h2 id="others-heading" class="chapter-title reveal">나와 <em>너</em> 사이</h2>
+          <p class="story-line reveal">당신이 이곳에 있는 동안,</p>
+          <p class="story-line reveal">세상 어딘가에서 누군가도<br>같은 고요를 찾고 있을 것입니다.</p>
+          <p class="story-line gap muted reveal">당신은 이 브라우저로 <strong id="visit-count">1</strong>번째 이곳을 찾았습니다.</p>
+          <p class="story-line reveal">당신의 별자리는<br>조금 더 자랐습니다.</p>
+          <p class="microcopy reveal" id="storage-note">별은 이 브라우저에만 보관됩니다. 다른 사람이나 기기로 전송되지 않습니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter chapter-self" id="self" aria-labelledby="self-heading">
+      <div class="chapter-content centered-story">
+        <div class="eyebrow reveal">06 <span class="eyebrow-line"></span> BETWEEN SELVES</div>
+        <div class="mirror-wrap reveal" id="mirror-wrap" aria-hidden="true">
+          <div class="mirror-shine"></div><div class="mirror-inner"></div><div class="mirror-center"></div>
+        </div>
+        <h2 id="self-heading" class="chapter-title reveal">나와 <em>나</em> 사이</h2>
+        <p class="story-line reveal">거울을 보세요.</p>
+        <p class="story-line reveal">그 안에 무엇이 보입니까?</p>
+        <p class="story-line gap reveal">당신은 당신의 이야기가 아닙니다.</p>
+        <p class="story-line reveal">당신은 지금, 이 순간입니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter chapter-return" id="return" aria-labelledby="return-heading">
+      <div class="chapter-content return-content">
+        <div class="eyebrow reveal">07 <span class="eyebrow-line"></span> RETURN TO NOW</div>
+        <div class="return-sigil reveal" aria-hidden="true"><span></span></div>
+        <h2 id="return-heading" class="chapter-title reveal">다시, <em>이 순간</em>으로.</h2>
+        <p class="return-copy reveal">당신은 이곳에 <strong id="final-time">0초</strong> 머물렀습니다.<br>화면을 <strong id="final-scroll">0</strong>장 높이만큼 건넜습니다.</p>
+        <div class="poem reveal" aria-labelledby="poem-title">
+          <div class="poem-heading"><span>당신에게 돌아온 시</span><span id="poem-era">NIGHT · 07</span></div>
+          <h3 id="poem-title" class="visually-hidden">이번 방문의 짧은 시</h3>
+          <p id="personal-poem" aria-live="polite">숨과 숨 사이에,<br>말하지 않은 하나의 별이 있습니다.</p>
+        </div>
+        <p class="story-line muted reveal">그 사이, 당신은 <em>아무것도 증명할 필요가 없었습니다.</em></p>
+        <p class="story-line reveal">그것이, 살아있음입니다.</p>
+        <div class="ending-actions reveal">
+          <button class="outline-btn" type="button" id="download-poem">시를 글로 저장</button>
+          <button class="outline-btn" type="button" id="download-image">별자리 이미지 저장</button>
+          <button class="outline-btn primary" type="button" id="restart">처음으로</button>
+        </div>
+        <p class="microcopy reveal">방문 횟수는 이 브라우저 기준입니다. ‘처음으로’는 새 방문으로 집계되지 않습니다.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span>사이 · THE INTERVAL</span><span>아무것도 재촉하지 않는 공간</span></footer>
+
+  <dialog id="memory-dialog" class="memory-dialog" aria-labelledby="memory-dialog-title">
+    <div class="dialog-top"><span class="eyebrow">YOUR PRIVATE SKY</span><button id="memory-close" class="icon-close" aria-label="닫기" type="button">×</button></div>
+    <h2 id="memory-dialog-title">기억의 별자리</h2>
+    <p>별과 방문 횟수는 이 브라우저의 로컬 저장소에만 보관됩니다. 계정이나 서버가 없으며, 다른 기기에서는 이어지지 않습니다.</p>
+    <div class="memory-stats"><span>방문 <strong id="memory-visits">1</strong>회</span><span>별 <strong id="memory-stars">1</strong>개</span></div>
+    <p id="memory-status" class="memory-status" role="status"></p>
+    <div class="dialog-actions">
+      <button type="button" class="outline-btn" id="remember-toggle">앞으로 기억하지 않기</button>
+      <button type="button" class="outline-btn danger" id="memory-reset">방문 기록과 별 삭제</button>
+    </div>
+    <p class="microcopy">‘기억하지 않기’를 누르면 기존 방문 기록도 삭제됩니다. 저장 기능을 꺼도 현재 화면의 체험은 계속됩니다.</p>
+  </dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>
