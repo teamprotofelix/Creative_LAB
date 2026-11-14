@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#070c13">
+  <meta name="description" content="관찰, 흔적, 호흡, 시간, 질문, 기억, 소멸, 그리고 귀환. 움직임과 선택으로 완성되는 8막의 사유 경험.">
+  <meta property="og:title" content="인지의 거울 — MIRROR OF COGNITION">
+  <meta property="og:description" content="당신의 움직임은 흔적이 되고, 당신의 대답은 한 편의 시가 됩니다.">
+  <title>인지의 거울 · MIRROR OF COGNITION</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="style.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <div class="film" aria-hidden="true"></div>
+  <a class="skip-link" href="#experience">본문으로 건너뛰기</a>
+
+  <header class="topbar">
+    <a href="#experience" id="brandHome" class="brand" aria-label="인지의 거울, 첫 장면으로 이동">
+      <span class="brand-mark" aria-hidden="true"><span></span></span>
+      <span class="brand-lines"><b>MIRROR</b><small>OF COGNITION</small></span>
+    </a>
+    <div class="top-status" aria-hidden="true"><span class="status-point"></span><span id="topStatus">OBSERVATION / 01</span></div>
+    <div class="top-actions">
+      <button type="button" id="motionToggle" class="utility" aria-pressed="true" title="애니메이션 켜기/끄기">움직임 <span id="motionText">켜짐</span></button>
+      <button type="button" id="soundToggle" class="utility" aria-pressed="false" title="소리 켜기/끄기">소리 <span id="soundText">꺼짐</span></button>
+    </div>
+  </header>
+
+  <aside class="chapter-rail" aria-label="장면 탐색">
+    <span class="rail-title">THE JOURNEY</span>
+    <nav id="chapterNav" aria-label="8개의 장면">
+      <button type="button" data-go="0" aria-current="step"><span>01</span><span>관찰</span></button>
+      <button type="button" data-go="1"><span>02</span><span>흔적</span></button>
+      <button type="button" data-go="2"><span>03</span><span>호흡</span></button>
+      <button type="button" data-go="3"><span>04</span><span>시간</span></button>
+      <button type="button" data-go="4"><span>05</span><span>질문</span></button>
+      <button type="button" data-go="5"><span>06</span><span>기억</span></button>
+      <button type="button" data-go="6"><span>07</span><span>소멸</span></button>
+      <button type="button" data-go="7"><span>08</span><span>귀환</span></button>
+    </nav>
+    <span class="rail-foot">8 ACTS, ONE OBSERVER</span>
+  </aside>
+
+  <main id="experience" tabindex="-1">
+    <section class="chapter chapter--opening is-active" id="act0" aria-labelledby="title0">
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT I <span class="serif-dot">·</span> THE OBSERVER</p>
+          <h1 id="title0" tabindex="-1">당신이 보는 순간,<br><em>세계가 태어납니다.</em></h1>
+          <p class="lead">관찰되지 않은 세계는 어디에 있을까요.<br>아직 아무것도 정해지지 않은 공간에, 당신이 도착했습니다.</p>
+          <div class="action-group"><button type="button" id="startButton" class="primary-action">관찰을 시작합니다 <span aria-hidden="true">↗</span></button></div>
+          <p class="microcopy">마우스를 움직이거나 화면을 만져보세요.<br>가만히 있어도 시작할 수 있습니다.</p>
+        </div>
+        <div class="chapter-art hero-art" aria-hidden="true"><div class="observer-eye"><span class="eye-orbit eye-orbit--one"></span><span class="eye-orbit eye-orbit--two"></span><span class="eye-orbit eye-orbit--three"></span><span class="eye-center" id="eyeCenter"></span><span class="eye-axis"></span></div><span class="art-index">01 — TO OBSERVE IS TO CHANGE</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act1" aria-labelledby="title1" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT II <span class="serif-dot">·</span> THE TRACE</p>
+          <h2 id="title1" tabindex="-1">지나간 자리마다<br><em>당신이 남습니다.</em></h2>
+          <p class="lead">손끝의 궤적이 하나의 문양이 됩니다.<br>모양은 당신의 움직임을 재료로 태어나고, 이 브라우저에 남습니다.</p>
+          <div class="metrics"><div><strong id="distanceValue">0</strong><span>움직임 / px</span></div><div><strong id="touchValue">0</strong><span>접촉 / 회</span></div></div>
+          <div class="action-group"><button type="button" class="primary-action" id="sealButton">이 문양을 간직하기 <span aria-hidden="true">↗</span></button><button type="button" class="secondary-action" id="newSigilButton">새 문양 구상</button></div>
+          <p class="microcopy" id="sigilFeedback" role="status" aria-live="polite">움직여도 좋고, 곧바로 문양을 남겨도 좋습니다.</p>
+        </div>
+        <div class="chapter-art sigil-art"><div class="sigil-frame"><span class="frame-corner a"></span><span class="frame-corner b"></span><span class="frame-corner c"></span><span class="frame-corner d"></span><div id="sigilSvg" class="sigil-svg" role="img" aria-label="방문자의 움직임을 바탕으로 만들어지는 기하학적 문양"></div><div class="sigil-caption">COGNITIVE TRACE <span id="sigilCode">· UNSEALED</span></div></div><span class="art-index">02 — EVERY MOTION LEAVES A TRACE</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act2" aria-labelledby="title2" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT III <span class="serif-dot">·</span> THE BREATH</p>
+          <h2 id="title2" tabindex="-1">존재한다는 것은<br><em>리듬을 갖는 것.</em></h2>
+          <p class="lead">화면의 빛과 함께 잠시 호흡해 보세요.<br>들이쉬기 4초, 내쉬기 6초. 서두를 필요는 없습니다.</p>
+          <div class="action-group"><button type="button" class="primary-action" id="breatheButton" aria-pressed="false">호흡 시작 <span aria-hidden="true">↗</span></button><button type="button" class="secondary-action" id="breathReset">처음으로</button></div>
+          <p class="microcopy">호흡은 선택 사항입니다. 불편하다면 평소처럼 편하게 숨 쉬세요.</p>
+        </div>
+        <div class="chapter-art breath-art"><div id="breathOrb" class="breath-orb"><div class="breath-halo"></div><div class="breath-inner"><span class="breath-count" id="breathCount">—</span><span class="breath-phase" id="breathPhase">고요하게 머무르기</span></div></div><span class="art-index">03 — INHALE / EXHALE / EXIST</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act3" aria-labelledby="title3" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT IV <span class="serif-dot">·</span> THE TIME</p>
+          <h2 id="title3" tabindex="-1">시계는 하나.<br><em>시간의 느낌은 여럿.</em></h2>
+          <p class="lead">하나는 실제로 지난 시간, 다른 하나는 움직임과 머무름을 다르게 반영한 가상의 시간입니다.</p>
+          <div class="clocks"><div><span class="clock-label">REAL / 실제 경과</span><strong id="realClock">00:00</strong></div><div><span class="clock-label">PERCEIVED / 가상 시간</span><strong id="subjectiveClock">00:00</strong></div></div>
+          <p class="microcopy">가상 시간은 체험용 수학적 은유이며 실제 시간 지각이나 인지 상태를 측정하지 않습니다.</p>
+        </div>
+        <div class="chapter-art time-art"><div class="time-orbit"><div class="time-circle time-circle--one"></div><div class="time-circle time-circle--two"></div><div class="time-line"></div><div class="time-hand time-hand--real" id="timeHandReal"></div><div class="time-hand time-hand--felt" id="timeHandFelt"></div><div class="time-pin"></div></div><div class="time-key"><span><i class="key-real"></i> 실제 시간</span><span><i class="key-felt"></i> 가상 시간</span></div><span class="art-index">04 — A MOMENT HAS MANY LENGTHS</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act4" aria-labelledby="title4" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT V <span class="serif-dot">·</span> THE QUESTIONS</p>
+          <h2 id="title4" tabindex="-1">정답이 없는<br><em>세 개의 물음.</em></h2>
+          <p class="lead">당신의 선택은 정답도, 진단도 아닙니다.<br>오직 지금 이 순간의 언어를 짓는 작은 재료입니다.</p>
+          <p class="microcopy">답을 고르지 않고 다음 장면으로 넘어가도 됩니다.</p>
+        </div>
+        <div class="chapter-art question-art"><div class="question-card" id="questionCard"><div class="question-top"><span id="questionStep">QUESTION 01 / 03</span><span aria-hidden="true">✳</span></div><h3 id="questionTitle">당신이 가장 두려워하는 것은?</h3><div class="question-options" id="questionOptions"></div><div class="question-bottom"><button type="button" id="questionBack" class="text-action" disabled>이전 질문</button><span id="questionProgress">● ○ ○</span><button type="button" id="questionSkip" class="text-action">건너뛰기</button></div></div><span class="art-index">05 — YOUR ANSWERS BECOME POETRY</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act5" aria-labelledby="title5" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT VI <span class="serif-dot">·</span> THE MEMORY</p>
+          <h2 id="title5" tabindex="-1">기억은<br><em>작은 형태로 남습니다.</em></h2>
+          <p class="lead">당신이 이곳에 남긴 선택들을 시로 엮었습니다. 이 기억은 서버가 아닌 지금 사용 중인 브라우저에만 보관됩니다.</p>
+          <div class="poem-block" id="poemOutput" aria-label="당신의 답으로 만들어진 시"></div>
+          <div class="action-group"><button type="button" class="primary-action" id="exportButton">나의 기록 저장 <span aria-hidden="true">↓</span></button><button type="button" class="secondary-action" id="eraseButton">기억 지우기</button></div>
+        </div>
+        <div class="chapter-art memory-art"><div class="memory-card"><div class="memory-card-head"><span>THE LOCAL ARCHIVE</span><span>✧</span></div><div class="archive-number" id="visitNumber">01<small>번째 관찰</small></div><div class="archive-rule"></div><dl><div><dt>LAST ENCOUNTER</dt><dd id="lastVisitValue">처음 만남</dd></div><div><dt>YOUR SIGIL</dt><dd id="archiveSigil">아직 남기지 않음</dd></div><div><dt>YOUR POEM</dt><dd id="archivePoemStatus">대답을 기다리는 중</dd></div></dl><p class="archive-disclaimer" id="archiveStatus">저장 위치: 이 브라우저의 localStorage</p></div><span class="art-index">06 — MEMORY IS A SHAPE OF TIME</span></div>
+      </div>
+    </section>
+
+    <section class="chapter" id="act6" aria-labelledby="title6" hidden>
+      <div class="chapter-inner">
+        <div class="chapter-copy">
+          <p class="eyebrow"><span class="eyebrow-line"></span> ACT VII <span class="serif-dot">·</span> THE DISSOLUTION</p>
+          <h2 id="title6" tabindex="-1">모든 흔적은<br><em>언젠가 옅어집니다.</em></h2>
+          <p class="lead">사라진다는 것은 없었던 일이 된다는 뜻일까요. 빛을 천천히 놓아주고, 그 자리를 바라보세요.</p>
+          <div class="action-group"><button type="button" id="dissolveButton" class="primary-action">빛을 놓아주기 <span aria-hidden="true">↗</span></button><button type="button" id="restoreButton" class="secondary-action">다시 피우기</button></div>
+          <p class="microcopy" id="dissolveNote" aria-live="polite">사라지는 것은 화면의 빛입니다. 당신의 기억은 지워지지 않습니다.</p>
+        </div>
+        <div class="chapter-art dissolve-art"><div class="dissolve-orbit" id="dissolveOrbit"><div class="dissolve-light"></div><span class="dissolve-ring one"></span><span class="dissolve-ring two"></span><span class="dissolve-ring three"></span></div><span class="art-index">07 — TO RELEASE IS ALSO TO REMEMBER</span></div>
+      </div>
+    </section>
+
+    <section class="chapter chapter--final" id="act7" aria-labelledby="title7" hidden>
+      <div class="final-composition"><p class="eyebrow">ACT VIII <span class="serif-dot">·</span> THE RETURN</p><div class="final-light" aria-hidden="true"></div><h2 id="title7" tabindex="-1">결국, 남는 것은<br><em>당신이 바라본 순간입니다.</em></h2><p class="final-subtitle">세계는 닫히지 않았습니다.<br>당신이 다시 바라보면, 언제든 시작됩니다.</p><button type="button" id="returnButton" class="primary-action">다시 관찰하기 <span aria-hidden="true">↗</span></button><p class="final-note">THE END IS ANOTHER BEGINNING</p></div>
+    </section>
+  </main>
+
+  <footer class="bottom-bar">
+    <button type="button" id="prevButton" class="footer-button" disabled><span aria-hidden="true">←</span> 이전 장면</button>
+    <div class="bottom-center"><div class="bottom-progress" id="bottomProgress" aria-label="전체 8막 중 1막"><span></span></div><div class="footer-label" id="footerLabel">01 / 08 <span>관찰</span></div></div>
+    <button type="button" id="nextButton" class="footer-button">다음 장면 <span aria-hidden="true">→</span></button>
+  </footer>
+  <div id="liveToast" class="toast" role="status" aria-live="polite"></div>
+  <noscript><div class="noscript">이 작품에는 JavaScript가 필요합니다. 브라우저에서 JavaScript를 활성화해 주세요.</div></noscript>
+</body>
+</html>

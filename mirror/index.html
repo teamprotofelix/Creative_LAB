@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090b0c">
+  <meta name="description" content="MIRROR · 거울. 읽는 동안 읽히는 경험. 소비, 시간, 주의, 자아, 침묵, 기억에 관한 일곱 개의 작은 실험.">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:title" content="MIRROR — 당신이 '당신'이라고 부르는 것">
+  <meta property="og:description" content="읽는 사이트가 아닙니다. 읽히는 사이트입니다.">
+  <meta property="og:type" content="website">
+  <title>MIRROR — 당신이 '당신'이라고 부르는 것</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#ch1">본문으로 건너뛰기</a>
+  <canvas id="bg" aria-hidden="true"></canvas>
+  <div class="screen-noise" aria-hidden="true"></div>
+  <div id="cursor-ring" aria-hidden="true"></div><div id="cursor-dot" aria-hidden="true"></div>
+
+  <header id="site-head">
+    <div id="progress-track" role="progressbar" aria-label="전체 읽기 진행도" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><span id="progress-bar"></span></div>
+    <div class="head-inner">
+      <a href="#ch0" class="brand" aria-label="MIRROR 시작으로 이동"><span class="brand-symbol">◈</span> MIRROR <span class="brand-ko">/ 거울</span></a>
+      <div class="head-right">
+        <span class="chapter-counter" id="chapter-counter" aria-live="off">00 <span>/</span> 07</span>
+        <button id="audio-toggle" class="icon-button" type="button" aria-pressed="false" title="명상음 켜기"><span class="audio-mark" aria-hidden="true">♫</span><span class="audio-label">소리 끔</span></button>
+      </div>
+    </div>
+  </header>
+
+  <nav id="chapter-nav" aria-label="장별 이동">
+    <a href="#ch0" aria-label="시작" aria-current="location"><span class="nav-dot"></span><span class="nav-tip">시작</span></a>
+    <a href="#ch1" aria-label="1장 소비"><span class="nav-dot"></span><span class="nav-tip">소비</span></a>
+    <a href="#ch2" aria-label="2장 시간"><span class="nav-dot"></span><span class="nav-tip">시간</span></a>
+    <a href="#ch3" aria-label="3장 주의"><span class="nav-dot"></span><span class="nav-tip">주의</span></a>
+    <a href="#ch4" aria-label="4장 자아"><span class="nav-dot"></span><span class="nav-tip">자아</span></a>
+    <a href="#ch5" aria-label="5장 침묵"><span class="nav-dot"></span><span class="nav-tip">침묵</span></a>
+    <a href="#ch6" aria-label="6장 거울"><span class="nav-dot"></span><span class="nav-tip">거울</span></a>
+    <a href="#ch7" aria-label="7장 끝"><span class="nav-dot"></span><span class="nav-tip">끝</span></a>
+  </nav>
+
+  <main id="content">
+    <section class="chapter intro" id="ch0" aria-labelledby="intro-title">
+      <div class="intro-orbit orbit-outer" aria-hidden="true"></div><div class="intro-orbit orbit-inner" aria-hidden="true"></div>
+      <div class="chapter-body intro-body">
+        <div class="eyebrow intro-appear" style="--delay:.1s"><span class="tiny-line"></span> AN EXPERIMENT IN BEING</div>
+        <div class="hero-glyph intro-appear" style="--delay:.35s" aria-hidden="true">◈</div>
+        <h1 id="intro-title" class="hero-title intro-appear" style="--delay:.6s">당신이 <em>‘당신’</em>이라고<br>부르는 것<span class="title-period">.</span></h1>
+        <p class="hero-sub intro-appear" style="--delay:1.2s">당신은 지금 이 문장을 읽고 있습니다.<br>그리고 이 문장은 당신의 <strong>주의</strong>를 기다립니다.</p>
+        <p class="intro-after intro-appear" style="--delay:1.9s">여기에는 일곱 개의 질문이 있습니다.<br>답을 찾아야 할 필요는 없습니다.</p>
+        <a href="#ch1" class="enter-link intro-appear" style="--delay:2.4s">경험 시작 <span aria-hidden="true">↘</span></a>
+      </div>
+      <div class="intro-bottom" aria-hidden="true"><span>SCROLL TO OBSERVE</span><span class="down-arrow">↓</span><span>00 — 07</span></div>
+    </section>
+
+    <section class="chapter" id="ch1" aria-labelledby="title-1">
+      <div class="chapter-body">
+        <div class="chapter-label reveal"><span class="chapter-index">01 / 07</span><span class="label-rule"></span> CONSUMPTION</div>
+        <h2 id="title-1" class="chapter-title reveal">지나간 자리에는<br><em>흔적이 남습니다.</em></h2>
+        <p class="prose reveal">우리는 읽고, 소비하고, 잊습니다.<br>그러나 사라진 것은 정말 없어진 걸까요?</p>
+        <div class="experiment-card sacrifice-card reveal">
+          <div class="experiment-head"><span class="experiment-no">EXPERIMENT 01</span><span class="experiment-kind">TOUCH / HOVER / KEYBOARD</span></div>
+          <p class="experiment-instruction">아래 문장을 지나가거나 단어를 눌러보세요. 한 번 흐려진 단어는 새로고침 후에도 이 기기에 남습니다.</p>
+          <p id="sacrifice" class="sacrifice-text" aria-label="지나가거나 누르면 단어가 흐려지는 문장">당신이 지나가는 자리마다 문장이 사라집니다. 이것은 잔인함이 아니라 정직함입니다. 우리는 매일 이렇게 살아갑니다. 읽고, 소비하고, 잊습니다. 다시는 같은 문장을 만나지 못합니다. 당신도, 나도.</p>
+          <div class="sacrifice-footer"><span id="consumed-counter" aria-live="polite">사라진 단어 0 / 0</span><button type="button" class="text-button" id="reset-words">흔적 초기화 <span aria-hidden="true">↺</span></button></div>
+        </div>
+        <p class="footnote reveal"><span class="footnote-star">✳</span> 사라진 단어의 번호만 브라우저의 로컬 저장소에 보관합니다. 서버 전송은 없습니다. 위 버튼으로 언제든 지울 수 있습니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch2" aria-labelledby="title-2">
+      <div class="chapter-body">
+        <div class="chapter-label reveal"><span class="chapter-index">02 / 07</span><span class="label-rule"></span> TIME</div>
+        <h2 id="title-2" class="chapter-title reveal">시간은 흐르지 않습니다.<br><em>우리가 지나갑니다.</em></h2>
+        <p class="prose reveal">이 페이지에 머문 시간</p>
+        <div class="time-display reveal" id="elapsed" aria-label="방문 후 경과 시간">00:00.0</div>
+        <div class="time-divider reveal"></div>
+        <p class="prose reveal">가상의 80년을 이 순간부터 시작한다면, 남은 시간은</p>
+        <div class="time-remaining reveal"><span id="remaining">2,524,608,000</span><span class="unit">초</span></div>
+        <p class="time-disclaimer reveal">※ 개인의 수명 예측이 아닌, 80 × 365.25일을 가정한 단순한 시간 비유입니다.</p>
+        <div class="experiment-card breath-card reveal">
+          <div class="experiment-head"><span class="experiment-no">EXPERIMENT 02</span><span class="experiment-kind">FIVE SECONDS</span></div>
+          <h3>아무것도 하지 않는 5초</h3>
+          <p class="experiment-instruction">시작 버튼을 누르고 움직임을 멈춰보세요. 큰 움직임을 감지하면 다시 셉니다.</p>
+          <div class="breath-wrap"><div class="breath-orbit" id="breath-5"><div class="breath-number" id="breath-num">05</div></div></div>
+          <button type="button" class="action-button" id="breath-start">5초의 정지 시작 <span aria-hidden="true">→</span></button>
+          <p class="exercise-result" id="breath-result" role="status" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch3" aria-labelledby="title-3">
+      <div class="chapter-body">
+        <div class="chapter-label reveal"><span class="chapter-index">03 / 07</span><span class="label-rule"></span> ATTENTION</div>
+        <h2 id="title-3" class="chapter-title reveal">당신의 주의는<br><em>어디에 머무나요?</em></h2>
+        <p class="prose reveal">지금 이 글자 위에 있나요? 3분 전 대화에, 내일의 걱정에, 혹은 아직 오지 않은 대답에 있나요?</p>
+        <div class="experiment-card attention-card reveal" id="attention-card">
+          <div class="experiment-head"><span class="experiment-no">EXPERIMENT 03</span><span class="experiment-kind">THE WAIT</span></div>
+          <div class="loading-stage" id="loading-stage" aria-live="off">
+            <div class="loading-emblem" aria-hidden="true"><span></span><span></span><span></span></div>
+            <p class="loading-word">잠시만 기다려 주세요</p>
+            <div class="loading-line"><i id="loading-progress"></i></div>
+          </div>
+          <div id="loading-result" class="loading-result" hidden role="status"><div class="loading-big" id="loading-seconds">—</div><p>당신은 방금 그만큼의 시간을 기다렸습니다.<br><strong>아무것도 다운로드하거나 불러오지 않았습니다.</strong><br>기다림을 느낀 것은 누구였을까요?</p><button class="text-button" type="button" id="replay-wait">다시 기다리기 ↺</button></div>
+          <p class="attention-note" id="attention-note">이 장면에 머무르면 작은 실험이 시작됩니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch4" aria-labelledby="title-4">
+      <div class="chapter-body">
+        <div class="chapter-label reveal"><span class="chapter-index">04 / 07</span><span class="label-rule"></span> THE SELF</div>
+        <h2 id="title-4" class="chapter-title reveal">누가<br><em>선택했을까요?</em></h2>
+        <p class="prose reveal">리벳의 실험에서는 단순 동작을 의식적으로 의도했다고 보고하기 전, 뇌의 준비 활동이 관찰되었습니다. 하지만 이것이 자유의지의 부재를 증명하는지는 여전히 논쟁 중입니다.</p>
+        <p class="prose subtle reveal">이번에는 정답 대신 다섯 개의 질문을 남겨봅니다.</p>
+        <div class="experiment-card ritual-card reveal" id="click-ritual">
+          <div class="experiment-head"><span class="experiment-no">EXPERIMENT 04</span><span class="experiment-kind">FIVE CHOICES</span></div>
+          <p class="experiment-instruction">아래 버튼을 다섯 번 누르세요. 매번 또 다른 생각이 나타납니다.</p>
+          <div id="click-lines" class="click-lines" aria-live="polite"></div>
+          <div id="click-indicator" class="ritual-indicator" aria-label="다섯 번 중 0번 완료">○ ○ ○ ○ ○</div>
+          <button type="button" id="ritual-button" class="action-button">하나의 질문 꺼내기 <span aria-hidden="true">→</span></button>
+        </div>
+        <p class="footnote reveal"><span class="footnote-star">✳</span> 신경과학의 측정 결과와 자유의지에 대한 철학적 해석은 같은 것이 아닙니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter silence" id="ch5" aria-labelledby="title-5">
+      <div class="silence-field" aria-hidden="true"></div>
+      <div class="chapter-body silence-body">
+        <div class="chapter-label reveal"><span class="chapter-index">05 / 07</span><span class="label-rule"></span> SILENCE</div>
+        <h2 id="title-5" class="chapter-title reveal">아무 말도<br><em>하지 않겠습니다.</em></h2>
+        <p class="silence-prompt reveal" id="silence-prompt">이 장에서 스크롤을 멈추면 15초의 침묵이 시작됩니다.<br>떠나거나 스크롤하면 처음부터 다시 셉니다.</p>
+        <div class="silence-center"><div class="silence-ring" id="silence-ring" aria-hidden="true"><span class="silence-core"></span></div><div class="silence-progress" id="silence-progress" aria-hidden="true"><span></span></div><p class="silence-status" id="silence-status" role="status" aria-live="polite">여기에 잠시 머물러 주세요.</p></div>
+        <p class="silence-revelation" id="silence-text" hidden>다시 돌아왔습니다.<br>당신은 15초 동안 이 장에 머물렀습니다.<br><br>그 시간이 길었나요, 짧았나요?<br><strong>침묵도 하나의 경험입니다.</strong></p>
+      </div>
+    </section>
+
+    <section class="chapter" id="ch6" aria-labelledby="title-6">
+      <div class="chapter-body">
+        <div class="chapter-label reveal"><span class="chapter-index">06 / 07</span><span class="label-rule"></span> THE MIRROR</div>
+        <h2 id="title-6" class="chapter-title reveal">이것이<br><em>당신의 초상화입니다.</em></h2>
+        <p class="prose reveal">지금 이 순간까지, 이 탭에서 일어난 작은 사건들입니다. 숫자가 당신의 전부를 설명할 수는 없습니다.</p>
+        <div class="portrait-card reveal" id="portrait">
+          <div class="portrait-top"><span>LIVE PORTRAIT / <span id="portrait-seed">·····</span></span><span class="portrait-live"><i></i> SESSION ONLY</span></div>
+          <div class="portrait-art" aria-hidden="true"><canvas id="portrait-canvas"></canvas></div>
+          <div class="p-row"><span>머문 시간</span><b id="p-time">—</b></div>
+          <div class="p-row"><span>스크롤한 거리</span><b id="p-scroll">—</b></div>
+          <div class="p-row"><span>커서가 움직인 거리</span><b id="p-mouse">—</b></div>
+          <div class="p-row"><span>화면 클릭</span><b id="p-clicks">—</b></div>
+          <div class="p-row"><span>가장 길었던 스크롤 멈춤</span><b id="p-pause">—</b></div>
+          <div class="p-row"><span>탭을 벗어난 횟수</span><b id="p-hidden">—</b></div>
+          <div class="portrait-actions"><button type="button" id="save-portrait" class="action-button">초상화 PNG 저장 <span aria-hidden="true">↗</span></button><button type="button" id="copy-portrait" class="text-button">기록 복사 <span aria-hidden="true">⧉</span></button></div>
+          <p id="portrait-action-status" class="portrait-action-status" role="status" aria-live="polite"></p>
+        </div>
+        <p class="footnote reveal"><span class="footnote-star">✳</span> 초상화 수치는 이 페이지의 세션에서만 계산합니다. 방문 기록을 서버에 전송하거나 보관하지 않습니다.</p>
+      </div>
+    </section>
+
+    <section class="chapter end" id="ch7" aria-labelledby="title-7">
+      <div class="chapter-body end-body">
+        <div class="chapter-label reveal"><span class="chapter-index">07 / 07</span><span class="label-rule"></span> AFTERIMAGE</div>
+        <div class="end-symbol reveal" aria-hidden="true">◌</div>
+        <h2 id="title-7" class="chapter-title reveal">우리가 떠난 자리에는<br><em>무엇이 남을까요?</em></h2>
+        <p class="prose reveal">이 탭을 닫으면 지금의 움직임과 시간 측정은 사라집니다. 단, 지우지 않은 문장의 흔적은 이 브라우저에 남습니다.</p>
+        <p class="end-statement reveal">기억하지 않아도 괜찮습니다.<br>다시 읽지 않아도 괜찮습니다.<br><strong>이제, 살아가세요.</strong></p>
+        <div class="end-actions reveal"><button type="button" id="finish-btn" class="action-button">여기서 마치기 <span aria-hidden="true">→</span></button><a href="#ch0" class="outline-link" id="again-link">처음으로 돌아가기 ↺</a></div>
+        <p id="final-message" class="final-message" role="status" aria-live="polite"></p>
+        <p class="end-colophon">MIRROR · 이 페이지는 사용자를 식별하지 않습니다 · 100% STATIC EXPERIENCE</p>
+      </div>
+    </section>
+  </main>
+  <div class="end-curtain" id="end-curtain" aria-hidden="true"><span>당신의 다음 순간은<br>이 페이지 밖에 있습니다.</span><button type="button" id="curtain-return">다시 돌아오기 ↺</button></div>
+  <noscript><div class="noscript-note">JavaScript 없이도 글을 읽을 수 있습니다. 상호작용과 계측 실험은 JavaScript를 활성화한 경우에만 동작합니다.</div></noscript>
+</body>
+</html>

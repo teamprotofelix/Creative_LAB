@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050711">
+  <meta name="description" content="당신의 움직임이 별자리가 되는 7막의 체험. 우주는 누군가 바라볼 때 하나의 이야기가 됩니다.">
+  <meta property="og:title" content="관찰자 — THE OBSERVER">
+  <meta property="og:description" content="당신이 지나온 자리가 하나의 우주가 됩니다.">
+  <meta property="og:type" content="website">
+  <title>관찰자 — THE OBSERVER · 우주가 자신을 바라보는 순간</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <canvas id="universe" aria-hidden="true"></canvas>
+  <div class="film-grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+
+  <header class="site-head" aria-label="사이트 도구">
+    <div class="brand">
+      <span class="brand-mark" aria-hidden="true"><span></span></span>
+      <span class="brand-name">THE <strong>OBSERVER</strong><small>관 찰 자 · 01 / ∞</small></span>
+    </div>
+    <div class="head-actions">
+      <button class="head-btn" id="motionBtn" type="button" title="애니메이션 움직임 줄이기" aria-label="움직임 줄이기" aria-pressed="false"><span aria-hidden="true">◌</span><span class="wide-label">움직임</span></button>
+      <button class="head-btn" id="memoryBtn" type="button"><span aria-hidden="true">✧</span><span class="wide-label">기억 보관소</span></button>
+      <button class="head-btn" id="helpBtn" type="button" aria-label="사용 도움말"><span aria-hidden="true">?</span><span class="wide-label">안내</span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section id="welcome" class="welcome" aria-labelledby="welcomeTitle">
+      <div class="welcome-orbit" aria-hidden="true"><span class="welcome-core"></span></div>
+      <p class="eyebrow">AN EXPERIMENT IN THE ACT OF SEEING</p>
+      <h1 id="welcomeTitle">당신이 바라보는 순간,<br><em>우주는 자신을 기억합니다.</em></h1>
+      <p class="welcome-description">당신의 움직임은 빛이 되고,<br>빛은 연결되고, 마침내 하나의 별자리가 됩니다.</p>
+      <button class="primary-button" id="startBtn" type="button"><span>관측 시작하기</span><span aria-hidden="true">↗</span></button>
+      <p class="welcome-foot">약 80초의 여정 · 마우스와 터치, 키보드 지원 · 소리 없음</p>
+    </section>
+
+    <section id="experience" class="experience" aria-label="우주 관찰 체험" hidden>
+      <div class="chapter-heading" id="chapterHeading" aria-live="polite" aria-atomic="true">
+        <p class="chapter-sup" id="chapterSup">CHAPTER 01 — THE BEGINNING</p>
+        <h2 id="chapterTitle">관측의 시작</h2>
+        <p id="chapterText" class="chapter-text">이 사이트는 당신을 관찰합니다.</p>
+      </div>
+      <div class="center-note" id="centerNote" aria-live="polite"></div>
+      <div class="revelation-panel" id="revelationPanel" hidden>
+        <p class="revelation-label">A MAP OF YOUR PRESENCE</p>
+        <p class="revelation-quote" id="revelationQuote">한 번의 움직임도 우주에서는 하나의 사건입니다.</p>
+        <p class="revelation-caption" id="revelationCaption"></p>
+        <button class="glass-button" type="button" id="saveImageBtn">내 별자리 이미지 저장 <span aria-hidden="true">↗</span></button>
+      </div>
+      <button class="interact-hint" id="interactHint" type="button" aria-label="우주에 흔적 하나 남기기"><span class="hint-mark" aria-hidden="true">✳</span><span id="hintCopy">화면을 움직이거나 터치하세요</span></button>
+    </section>
+  </main>
+
+  <footer id="hud" class="hud" hidden>
+    <div class="hud-meta">
+      <div class="session-label"><span class="live-dot" aria-hidden="true"></span><span id="sessionStatus">OBSERVING</span><span class="meta-divider">/</span><span id="sessionClock">00:00</span></div>
+      <div class="hud-controls">
+        <button id="pauseBtn" class="text-btn" type="button" aria-pressed="false">Ⅱ 일시정지</button>
+        <button id="restartBtn" class="text-btn" type="button">↺ 다시 시작</button>
+      </div>
+    </div>
+    <nav class="timeline" aria-label="일곱 장면 이동" id="sceneNav">
+      <button type="button" data-scene="0" class="scene-step" aria-label="1장 시작으로 이동" aria-current="step"><span class="step-number">01</span><span class="step-label">시작</span><span class="step-track"></span></button>
+      <button type="button" data-scene="1" class="scene-step" aria-label="2장 각성으로 이동"><span class="step-number">02</span><span class="step-label">각성</span><span class="step-track"></span></button>
+      <button type="button" data-scene="2" class="scene-step" aria-label="3장 출현으로 이동"><span class="step-number">03</span><span class="step-label">출현</span><span class="step-track"></span></button>
+      <button type="button" data-scene="3" class="scene-step" aria-label="4장 생명으로 이동"><span class="step-number">04</span><span class="step-label">생명</span><span class="step-track"></span></button>
+      <button type="button" data-scene="4" class="scene-step" aria-label="5장 회귀로 이동"><span class="step-number">05</span><span class="step-label">회귀</span><span class="step-track"></span></button>
+      <button type="button" data-scene="5" class="scene-step" aria-label="6장 계시로 이동"><span class="step-number">06</span><span class="step-label">계시</span><span class="step-track"></span></button>
+      <button type="button" data-scene="6" class="scene-step" aria-label="7장 소멸로 이동"><span class="step-number">07</span><span class="step-label">소멸</span><span class="step-track"></span></button>
+    </nav>
+    <div class="footer-line"><span id="traceCount">흔적 0개</span><span id="memoryStatus">기억은 이 브라우저 안에만 남습니다</span><span class="desktop-only">← / → 장면 이동 · SPACE 일시정지</span></div>
+  </footer>
+
+  <dialog id="helpDialog" class="modal" aria-labelledby="helpTitle">
+    <div class="modal-inside">
+      <button type="button" class="close-btn" data-close="helpDialog" aria-label="도움말 닫기">×</button>
+      <p class="modal-eyebrow">THE OBSERVER / FIELD GUIDE</p>
+      <h2 id="helpTitle">이 우주를 관찰하는 법</h2>
+      <p>시작 버튼을 누르면 일곱 장면이 약 80초 동안 이어집니다. 손끝의 움직임과 클릭, 터치가 빛의 흔적으로 기록됩니다. 별이 되는 순간에는 지금의 흔적과 이전 방문의 기억이 함께 나타납니다.</p>
+      <dl class="help-grid">
+        <div><dt>마우스 · 터치</dt><dd>움직이면 별과 궤적이 남습니다. 클릭이나 탭만으로도 기록할 수 있습니다.</dd></div>
+        <div><dt>← →</dt><dd>이전 장면 / 다음 장면으로 이동합니다.</dd></div>
+        <div><dt>Space</dt><dd>잠시 멈추거나 다시 재생합니다.</dd></div>
+        <div><dt>180초의 비밀</dt><dd>실제로 열린 탭에서 체험한 시간이 3분을 넘으면 나타납니다. 일시정지 시간은 포함하지 않습니다.</dd></div>
+      </dl>
+      <p class="modal-note">카메라·마이크·위치·로그인·외부 서버는 사용하지 않습니다. 기록은 이 기기의 브라우저 저장소에만 남으며, 기억 보관소에서 저장을 끄거나 삭제할 수 있습니다. 움직임을 줄여도 장면 이동과 기록은 가능합니다.</p>
+      <button class="modal-primary" type="button" data-close="helpDialog">관측으로 돌아가기</button>
+    </div>
+  </dialog>
+
+  <dialog id="memoryDialog" class="modal" aria-labelledby="memoryTitle">
+    <div class="modal-inside">
+      <button type="button" class="close-btn" data-close="memoryDialog" aria-label="기억 보관소 닫기">×</button>
+      <p class="modal-eyebrow">PERSONAL CONSTELLATION ARCHIVE</p>
+      <h2 id="memoryTitle">당신이 남긴 우주의 기록</h2>
+      <p id="archiveSummary">아직 저장된 별자리가 없습니다. 화면을 움직이고 새로운 별자리를 만들어 보세요.</p>
+      <div class="archive-preview"><canvas id="archiveCanvas" width="720" height="250" aria-label="별자리 미리보기" role="img"></canvas></div>
+      <label class="memory-toggle"><input id="rememberToggle" type="checkbox" checked><span>다음 방문을 위해 이 브라우저에 별자리 저장</span></label>
+      <div class="archive-actions">
+        <button id="exportBtn" type="button" class="modal-primary">PNG 이미지로 저장</button>
+        <button id="clearMemoryBtn" type="button" class="modal-secondary">이전 방문 기록 삭제</button>
+      </div>
+      <p class="modal-note" id="storageNotice">현재 방문의 움직임은 화면에서만 이용하고, 이전 방문과의 비교를 위해 선택적으로 로컬에 저장합니다. 서버로 전송하지 않습니다.</p>
+    </div>
+  </dialog>
+
+  <noscript><div class="noscript">이 관측소의 별자리와 상호작용을 실행하려면 JavaScript가 필요합니다. JavaScript를 켜면 7막의 체험을 시작할 수 있습니다.</div></noscript>
+</body>
+</html>
