@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050812">
+  <meta name="description" content="당신의 움직임이 생명을 깨우고, 고요함이 그 궤적을 드러냅니다. 브라우저 안에서 펼쳐지는 작은 거울.">
+  <title>거울 · MIRROR — 당신이 보는 것은, 당신이 만드는 것입니다</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="styles.css">
+  <script src="app.js" defer></script>
+</head>
+<body>
+  <main id="experience" aria-label="거울, 인터랙티브 우주 체험">
+    <canvas id="life" aria-hidden="true"></canvas>
+    <canvas id="trace" aria-hidden="true"></canvas>
+    <div class="atmosphere" aria-hidden="true"></div>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+
+    <header class="topbar">
+      <div class="brand" aria-label="거울 MIRROR">
+        <span class="brand-symbol" aria-hidden="true"><span></span></span>
+        <span class="brand-word">MIRROR</span>
+        <span class="brand-ko">거울</span>
+      </div>
+      <div class="topright">
+        <span class="session" id="sessionText">SESSION 01</span>
+        <span class="live-beacon" id="statusLight" aria-hidden="true"></span>
+        <span class="state-text" id="statusText">관찰 중</span>
+      </div>
+    </header>
+
+    <div class="chapter-rail" aria-label="체험 진행 단계">
+      <span class="chapter-rail-label">THE JOURNEY</span>
+      <div class="chapter-stops" id="chapterStops" role="list" aria-label="여섯 개의 장"></div>
+    </div>
+
+    <section class="narrative" aria-live="polite" aria-atomic="true" aria-label="이야기">
+      <div class="eyebrow"><span id="actIndex">01</span><span class="eyebrow-rule"></span><span id="actName">침묵</span></div>
+      <p id="line" class="line on">이 방에는 아무것도 없습니다.</p>
+      <p class="narrative-detail" id="detail">당신의 움직임이 이야기를 시작합니다.</p>
+      <div id="stillCard" class="still-card" hidden>
+        <div class="still-dial" aria-hidden="true"><svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="51" class="dial-bg"/><circle id="stillProgress" cx="60" cy="60" r="51" class="dial-fill"/></svg><span id="stillSeconds">9</span></div>
+        <div><strong>움직임을 잠시 멈춰 주세요</strong><span>9초의 고요함 뒤에 거울이 열립니다.</span></div>
+      </div>
+      <div id="metrics" class="metrics" hidden aria-label="시간에 관한 예시 카운터">
+        <div class="metric"><span id="v-heart">0</span><small>심장박동 추정 · 72회/분 가정</small></div>
+        <div class="metric"><span id="v-earth">0</span><small>지구 공전 이동 거리 · km</small></div>
+        <div class="metric"><span id="v-light">0</span><small>빛이 이동한 거리 · km</small></div>
+        <div class="metric"><span id="v-cells">측정하지 않음</span><small>개인의 세포 변화 · 측정 불가</small></div>
+        <p class="metric-note">모든 수치는 예시 계산입니다. 신체 센서나 개인 데이터를 사용하지 않습니다.</p>
+      </div>
+    </section>
+
+    <div class="quiet-note" id="hint" role="status">화면 위로 손끝을 움직여 보세요</div>
+    <div class="endmark" id="endmark" aria-hidden="true"><span></span><small>THE END IS A BEGINNING</small></div>
+
+    <footer class="bottombar">
+      <div class="footer-left">
+        <span class="foot-index">NOEMA / EXPERIENCE 03</span>
+        <span class="foot-divider" aria-hidden="true"></span>
+        <span id="visitInfo">이 브라우저의 1번째 방문</span>
+      </div>
+      <nav class="actions" aria-label="체험 조작">
+        <button id="pauseBtn" type="button" title="일시정지 (스페이스)" aria-label="일시정지"><span aria-hidden="true">Ⅱ</span><span class="btn-text">일시정지</span></button>
+        <button id="nextBtn" type="button" title="다음 장면 (N)"><span aria-hidden="true">↗</span><span class="btn-text">다음 장면</span></button>
+        <button id="saveBtn" type="button" title="현재 거울을 PNG로 저장"><span aria-hidden="true">↓</span><span class="btn-text">이미지 저장</span></button>
+        <button id="restartBtn" type="button" title="처음부터 다시 시작"><span aria-hidden="true">↺</span><span class="btn-text">다시 시작</span></button>
+        <button id="helpBtn" type="button" title="설명 및 개인정보"><span aria-hidden="true">?</span><span class="btn-text">안내</span></button>
+      </nav>
+    </footer>
+    <div class="progress-line" aria-hidden="true"><span id="progressBar"></span></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  </main>
+
+  <dialog id="helpDialog" class="help-dialog" aria-labelledby="helpTitle">
+    <div class="dialog-head"><span class="micro-label">FIELD NOTES · 001</span><button id="closeHelp" type="button" class="close" aria-label="닫기">×</button></div>
+    <h2 id="helpTitle">거울을 마주하는 방법</h2>
+    <p>손끝을 움직이면 물결 같은 패턴이 태어납니다. 가만히 있으면 점차 사라집니다. 이야기가 요청할 때 9초간 멈추면 지금까지 움직인 궤적이 선명해집니다.</p>
+    <p>방향키로 움직임 만들기 <kbd>↑ ↓ ← →</kbd> · 일시정지 <kbd>Space</kbd> · 다음 장면 <kbd>N</kbd> · 도움말 <kbd>?</kbd> · 닫기 <kbd>Esc</kbd></p>
+    <div class="dialog-rule"></div>
+    <h3>개인정보와 숫자</h3>
+    <p>서버 전송은 없습니다. <strong>방문 횟수만</strong> 이 브라우저의 로컬 저장소에 보관합니다. 움직임의 궤적은 현재 탭의 메모리에만 남으며 페이지를 닫으면 사라집니다. 신체 카운터는 센서 측정값이 아닌 수학적 예시입니다. 세포 사멸률은 개인마다 다르며 측정값이 없어 숫자로 표시하지 않습니다.</p>
+    <div class="dialog-actions"><button id="eraseBtn" class="secondary" type="button">이 브라우저 방문 기록 삭제</button><button id="doneHelp" class="primary" type="button">체험으로 돌아가기</button></div>
+  </dialog>
+  <noscript><div class="noscript">이 체험에는 JavaScript가 필요합니다. 브라우저 설정에서 JavaScript를 켜 주세요. 외부 API나 로그인은 사용하지 않습니다.</div></noscript>
+</body>
+</html>

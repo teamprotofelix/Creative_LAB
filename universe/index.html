@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b13">
+  <meta name="description" content="당신이라는 우주. 7개의 장면에서 시간, 기억, 관찰, 정체성, 연결을 체험하는 인터랙티브 명상.">
+  <title>당신이라는 우주 · The Universe Called You</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23070b13'/%3E%3Ccircle cx='32' cy='32' r='16' fill='none' stroke='%23b8d7ff' stroke-width='1.5'/%3E%3Ccircle cx='32' cy='32' r='4' fill='%23f1dfb7'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script defer src="main.js"></script>
+</head>
+<body>
+  <a class="skip-link" href="#ch1">본문으로 건너뛰기</a>
+  <div class="page-glow" aria-hidden="true"></div>
+  <canvas id="trail" class="trail-canvas" aria-hidden="true"></canvas>
+  <div id="cursor" class="custom-cursor" aria-hidden="true"></div>
+
+  <div id="intro" class="intro" aria-hidden="true">
+    <div class="intro-symbol"><span></span></div>
+    <p>당신이 도착하자, 우주가 시작되었습니다.</p>
+    <button id="skip-intro" type="button">건너뛰기 <span aria-hidden="true">↗</span></button>
+  </div>
+
+  <header class="site-header">
+    <a class="wordmark" href="#ch1" aria-label="처음 장으로 이동"><span class="mark-orbit" aria-hidden="true">◌</span><span>NOEMA <em>/</em> UNIVERSE</span></a>
+    <nav class="chapter-nav" aria-label="챕터 이동">
+      <a href="#ch1" data-nav="1" aria-label="1장 부재">I</a>
+      <a href="#ch2" data-nav="2" aria-label="2장 시간">II</a>
+      <a href="#ch3" data-nav="3" aria-label="3장 반복">III</a>
+      <a href="#ch4" data-nav="4" aria-label="4장 관찰">IV</a>
+      <a href="#ch5" data-nav="5" aria-label="5장 마음">V</a>
+      <a href="#ch6" data-nav="6" aria-label="6장 타인">VI</a>
+      <a href="#ch7" data-nav="7" aria-label="7장 침묵">VII</a>
+    </nav>
+    <div class="header-actions">
+      <button id="motion-toggle" class="tiny-button" type="button" aria-pressed="false" title="움직임 줄이기">정적인 우주</button>
+      <span id="chapter-now" class="chapter-now" aria-live="off">01 / 07</span>
+    </div>
+    <div id="progress" class="progress" aria-hidden="true"></div>
+  </header>
+
+  <main>
+    <section class="section opening" id="ch1" data-chapter="1" aria-labelledby="heading-1">
+      <div class="section-ornament" aria-hidden="true">01 — THE UNSEEN</div>
+      <div class="chapter-heading">
+        <p class="eyebrow">I · 부재 / The Unseen</p>
+        <h1 id="heading-1">당신이 바라보는 곳에<br><span class="shimmer-text">하나의 세계가 열립니다.</span></h1>
+        <p class="sub">빛으로 가려진 영역을 드러내 보세요.<br>당신이 만드는 것은 실재의 증명이 아니라, <strong>관찰의 흔적</strong>입니다.</p>
+      </div>
+      <div class="reveal-world" id="reveal-world" aria-label="어둠 속 우주를 드러내는 영역">
+        <canvas id="star-map" aria-hidden="true"></canvas>
+        <canvas id="reveal-veil" aria-hidden="true"></canvas>
+        <div class="world-label" aria-hidden="true"><span>PERCEPTION FIELD</span><span>NO. 01</span></div>
+      </div>
+      <div class="interaction-bar">
+        <span class="micro-label" id="reveal-stat">드러난 빛 0회</span>
+        <button id="reveal-button" class="outline-button" type="button">빛 한 조각 발견하기 <span aria-hidden="true">✦</span></button>
+        <button id="reveal-reset" class="text-button" type="button">어둠 되돌리기</button>
+      </div>
+      <p class="section-note">마우스로 문지르거나 손가락으로 터치하세요. 키보드에서는 ‘빛 한 조각 발견하기’를 사용하세요.</p>
+      <div class="scroll-cue" aria-hidden="true"><span>SCROLL TO CONTINUE</span><span class="scroll-line"></span></div>
+    </section>
+
+    <section class="section time-section" id="ch2" data-chapter="2" aria-labelledby="heading-2">
+      <div class="section-ornament" aria-hidden="true">02 — THE PASSING</div>
+      <div class="section-content">
+        <p class="eyebrow">II · 시간 / The Passing</p>
+        <h2 id="heading-2">지금도 세계는<br>당신 없이 흘러갑니다.</h2>
+        <p class="sub">이 페이지가 보이는 동안에 흐른 시간을 바탕으로 계산한 대략적인 장면입니다.</p>
+        <div class="time-display" aria-label="현재 체험 시간"><div id="timer">00:00</div><span>IN THIS MOMENT</span></div>
+        <div class="metrics">
+          <div class="metric"><span class="metric-label">지구가 태양 둘레를 이동한 거리 <small>평균 공전 속도 기준</small></span><strong id="earth-move">0</strong><span class="metric-unit">km</span></div>
+          <div class="metric"><span class="metric-label">약 326만 광년의 거리에서 늘어난 간격 <small>허블 상수 70 km/s/Mpc 가정</small></span><strong id="cosmic-expand">0</strong><span class="metric-unit">km</span></div>
+          <div class="metric"><span class="metric-label">심장이 뛴 횟수 <small>분당 70회 예시</small></span><strong id="heartbeats">0</strong><span class="metric-unit">회</span></div>
+          <div class="metric"><span class="metric-label">세계에서 태어난 사람 <small>초당 약 4.2명 가정</small></span><strong id="born-people">0</strong><span class="metric-unit">명</span></div>
+        </div>
+        <p class="scientific-note">※ 과학 수치는 교육적 예시를 위한 근삿값입니다. 우주 전체가 일정 속도로 팽창한다는 뜻이 아니며, 실제 심박·출생 건수를 측정하지 않습니다.</p>
+        <p id="local-info" class="timestamp">—</p>
+      </div>
+    </section>
+
+    <section class="section ship-section" id="ch3" data-chapter="3" aria-labelledby="heading-3">
+      <div class="section-ornament" aria-hidden="true">03 — THE SAME SHIP</div>
+      <div class="section-content">
+        <p class="eyebrow">III · 반복 / Theseus</p>
+        <h2 id="heading-3">모든 부분이 바뀌어도,<br>여전히 같은 배일까요?</h2>
+        <p class="sub">선체를 이루는 스물네 장의 나무판을 하나씩 교체합니다. 새 판자가 늘어날 때, 정체성은 어디에 남을까요?</p>
+        <div class="canvas-frame ship-frame"><canvas id="ship-canvas" aria-label="부품을 교체하는 테세우스의 배"></canvas><span class="corner top-left" aria-hidden="true"></span><span class="corner bottom-right" aria-hidden="true"></span></div>
+        <div class="ship-stats"><p>남아 있는 원본 <strong id="original-count">24 / 24</strong></p><div class="plank-progress" role="progressbar" aria-label="교체한 판자 비율" aria-valuemin="0" aria-valuemax="24" aria-valuenow="0" id="plank-progress"><span id="plank-progress-fill"></span></div></div>
+        <div class="interaction-bar"><button type="button" id="replace-plank" class="outline-button">나무판 하나 교체하기 <span aria-hidden="true">↻</span></button><button type="button" id="reset-ship" class="text-button">처음의 배로 돌아가기</button></div>
+        <p class="section-note">이 장에서 스크롤해도 판자가 교체됩니다. 변경은 이 탭에서만 유지됩니다.</p>
+      </div>
+    </section>
+
+    <section class="section observe-section" id="ch4" data-chapter="4" aria-labelledby="heading-4">
+      <div class="section-ornament" aria-hidden="true">04 — THE OBSERVER</div>
+      <div class="section-content">
+        <p class="eyebrow">IV · 관찰 / The Observer</p>
+        <h2 id="heading-4">보는 행위는<br>무엇을 바꾸는가.</h2>
+        <p class="sub">흐르는 파형 위에 커서를 놓거나 화면을 터치하면 빛이 한 지점에 모입니다.</p>
+        <div class="canvas-frame quantum-frame"><canvas id="quantum-canvas" aria-label="파형에서 빛의 점이 모이는 시각적 실험"></canvas><div class="canvas-status"><span id="observe-state">가능성의 물결</span><span id="observe-led" class="led" aria-hidden="true"></span></div></div>
+        <div class="interaction-bar"><button type="button" id="observe-button" class="outline-button">관찰 실행 <span aria-hidden="true">◎</span></button><span class="micro-label">GESTURE / EXPERIMENT</span></div>
+        <p class="section-note">이는 철학적·시각적 은유입니다. 사람의 시선이 물리적인 양자 상태를 직접 붕괴시킨다는 과학적 증명은 아닙니다.</p>
+      </div>
+    </section>
+
+    <section class="section mind-section" id="ch5" data-chapter="5" aria-labelledby="heading-5">
+      <div class="section-ornament" aria-hidden="true">05 — THE NETWORK</div>
+      <div class="section-content">
+        <p class="eyebrow">V · 마음 / The Mind</p>
+        <h2 id="heading-5">생각은 하나의 점이 아니라,<br>연결 사이에서 떠오릅니다.</h2>
+        <p class="sub">지나는 자리에 빛의 점을 남겨 보세요. 가까운 점들은 서로를 발견합니다.</p>
+        <div class="canvas-frame mind-frame"><canvas id="neural-canvas" aria-label="커서나 터치에 따라 연결되는 마음의 신경망"></canvas><div class="canvas-status"><span>연결의 수</span><strong id="neural-count">0</strong></div></div>
+        <div class="interaction-bar"><button type="button" id="add-node" class="outline-button">새로운 생각 만들기 <span aria-hidden="true">＋</span></button><button type="button" id="reset-neural" class="text-button">흐름 비우기</button></div>
+        <p class="section-note">실제 뇌를 모사하는 신경망이 아니라, 관계가 자라나는 모습을 표현한 생성 그래픽입니다.</p>
+      </div>
+    </section>
+
+    <section class="section others-section" id="ch6" data-chapter="6" aria-labelledby="heading-6">
+      <div class="section-ornament" aria-hidden="true">06 — THE OTHERS</div>
+      <div class="section-content">
+        <p class="eyebrow">VI · 타인 / The Others</p>
+        <h2 id="heading-6">내가 알 수 없는 마음에도<br>하나의 우주가 있습니다.</h2>
+        <p class="sub">멀리 있는 빛을 향해 손을 내밀어 보세요. 각 빛은 서로 다른 목소리를 품고 있습니다.</p>
+        <div class="canvas-frame others-frame"><canvas id="others-canvas" aria-label="일곱 존재의 빛을 선택하는 그림"></canvas><div class="others-message" id="others-message" role="status">가장 먼저, 누군가의 빛을 선택하세요.</div></div>
+        <div class="interaction-bar"><button type="button" id="connect-other" class="outline-button">누군가에게 빛 보내기 <span aria-hidden="true">↗</span></button><span id="others-count" class="micro-label">연결 0회</span></div>
+        <p class="section-note">타인의 내면을 직접 볼 수 없다는 사실은, 타인이 존재하지 않는다는 뜻이 아닙니다.</p>
+      </div>
+    </section>
+
+    <section class="section finale-section" id="ch7" data-chapter="7" aria-labelledby="heading-7">
+      <div class="section-ornament" aria-hidden="true">07 — AFTER THE LIGHT</div>
+      <div class="section-content finale-content">
+        <p class="eyebrow">VII · 침묵 / After the Light</p>
+        <h2 id="heading-7">당신이라는 우주가<br>남기는 편지.</h2>
+        <div class="final-card">
+          <span class="final-card-mark" aria-hidden="true">✦</span>
+          <p class="letter-lead">당신이 머무르는 동안,<br>이 화면에는 당신만의 흔적이 생겼습니다.</p>
+          <p id="final-text" class="letter-text">우주가 당신의 도착을 기억하고 있습니다.</p>
+          <div class="letter-data">
+            <div><span>함께한 시간</span><strong id="final-duration">00:00</strong></div>
+            <div><span>드러낸 빛</span><strong id="final-reveals">0</strong></div>
+            <div><span>바꾼 나무판</span><strong id="final-ship">0</strong></div>
+            <div><span>이어진 생각</span><strong id="final-nodes">0</strong></div>
+            <div><span>다른 존재와 연결</span><strong id="final-others">0</strong></div>
+          </div>
+          <p class="final-quote">“사라지는 것은 화면입니다.<br>남는 것이 있다면, 그것은 당신이 발견한 의미일 것입니다.”</p>
+          <p id="visit-note" class="visit-note"></p>
+          <div class="final-actions"><button id="save-letter" type="button" class="primary-button">편지 이미지 저장 <span aria-hidden="true">↓</span></button><button id="copy-letter" type="button" class="outline-button">문장 복사</button><button id="restart" type="button" class="text-button">다시 여행하기 ↻</button></div>
+          <p id="action-status" role="status" class="action-status" aria-live="polite"></p>
+        </div>
+        <div class="privacy-note"><strong>기억의 경계</strong><p>이 사이트는 서버로 데이터를 보내지 않습니다. 이 브라우저에는 방문 횟수와 이전 방문 시각만 저장하며, 장면 속 움직임과 상호작용은 탭을 닫으면 사라집니다. 브라우저가 저장을 차단하면 방문 기록도 남지 않습니다.</p><button id="clear-visits" class="text-button" type="button">이 브라우저의 방문 기록 지우기</button></div>
+        <p class="closing">THE UNIVERSE CALLED YOU <span>·</span> NOEMA EXPERIENCE</p>
+      </div>
+    </section>
+  </main>
+  <noscript><div class="noscript">이 경험의 움직이는 장면은 JavaScript가 필요합니다. JavaScript를 켜면 실험이 활성화됩니다.</div></noscript>
+</body>
+</html>
