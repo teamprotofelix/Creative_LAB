@@ -1,0 +1,161 @@
+{
+  "source_repo": "https://github.com/teamprotofelix/Creative_LAB",
+  "date": "2026-11-14",
+  "world_count": 38,
+  "old_world_count": 16,
+  "added_world_count": 22,
+  "worlds": [
+    {
+      "slug": "aether",
+      "href": "./aether/index.html"
+    },
+    {
+      "slug": "anima",
+      "href": "./anima/index.html"
+    },
+    {
+      "slug": "anomalia",
+      "href": "./anomalia/index.html"
+    },
+    {
+      "slug": "auroramind",
+      "href": "./auroramind/index.html"
+    },
+    {
+      "slug": "beyond",
+      "href": "./beyond/index.html"
+    },
+    {
+      "slug": "engram",
+      "href": "./engram/index.html"
+    },
+    {
+      "slug": "mindscape",
+      "href": "./mindscape/index.html"
+    },
+    {
+      "slug": "names",
+      "href": "./names/index.html"
+    },
+    {
+      "slug": "nocturne",
+      "href": "./nocturne/index.html"
+    },
+    {
+      "slug": "outside",
+      "href": "./outside/index.html"
+    },
+    {
+      "slug": "someone",
+      "href": "./someone/index.html"
+    },
+    {
+      "slug": "sum",
+      "href": "./sum/index.html"
+    },
+    {
+      "slug": "the-site-that-knows-you-improved",
+      "href": "./the-site-that-knows-you-improved/index.html"
+    },
+    {
+      "slug": "threshold",
+      "href": "./threshold/index.html"
+    },
+    {
+      "slug": "unfelt",
+      "href": "./unfelt/index.html"
+    },
+    {
+      "slug": "unwritten",
+      "href": "./unwritten/index.html"
+    },
+    {
+      "slug": "AION_THE_BETWEEN",
+      "href": "./AION_THE_BETWEEN/index.html"
+    },
+    {
+      "slug": "BB_mirror",
+      "href": "./BB_mirror/index.html"
+    },
+    {
+      "slug": "BC_THE_SPACE_BETWEEN",
+      "href": "./BC_THE_SPACE_BETWEEN/index.html"
+    },
+    {
+      "slug": "BETWEEN_00",
+      "href": "./BETWEEN_00/index.html"
+    },
+    {
+      "slug": "BETWEEN_01",
+      "href": "./BETWEEN_01/index.html"
+    },
+    {
+      "slug": "BREATH_00",
+      "href": "./BREATH_00/index.html"
+    },
+    {
+      "slug": "LIMEN",
+      "href": "./LIMEN/index.html"
+    },
+    {
+      "slug": "LIMEN_Garden",
+      "href": "./LIMEN_Garden/index.html"
+    },
+    {
+      "slug": "LUMEN_00",
+      "href": "./LUMEN_00/index.html"
+    },
+    {
+      "slug": "Mirror_BC",
+      "href": "./Mirror_BC/index.html"
+    },
+    {
+      "slug": "OBSERVER",
+      "href": "./OBSERVER/index.html"
+    },
+    {
+      "slug": "PHENOMENON_00",
+      "href": "./PHENOMENON_00/index.html"
+    },
+    {
+      "slug": "PHENOMENON_8CH",
+      "href": "./PHENOMENON_8CH/index.html"
+    },
+    {
+      "slug": "PHENOMENON_Improved_00",
+      "href": "./PHENOMENON_Improved_00/index.html"
+    },
+    {
+      "slug": "SAI_The_Interval_00",
+      "href": "./SAI_The_Interval_00/index.html"
+    },
+    {
+      "slug": "SENTIO_00",
+      "href": "./SENTIO_00/index.html"
+    },
+    {
+      "slug": "The_Observatory_Improved",
+      "href": "./The_Observatory_Improved/index.html"
+    },
+    {
+      "slug": "The_Observer_Improved",
+      "href": "./The_Observer_Improved/index.html"
+    },
+    {
+      "slug": "mirror",
+      "href": "./mirror/index.html"
+    },
+    {
+      "slug": "mirror_room",
+      "href": "./mirror_room/index.html"
+    },
+    {
+      "slug": "sai",
+      "href": "./sai/index.html"
+    },
+    {
+      "slug": "universe",
+      "href": "./universe/index.html"
+    }
+  ]
+}

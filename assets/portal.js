@@ -244,15 +244,23 @@
       p.x+=p.vx;p.y+=p.vy;p.z+=p.vz;
     }
   }
+  // Distribute every world across adaptive concentric orbits, rather than
+  // hard-coding two 8-node rings (which would overlap after expansion).
+  const ORBITS = worlds.length > 24 ? 3 : worlds.length > 12 ? 2 : 1;
   function orbitalPoints() {
     const out=[];
-    for(let i=0;i<worlds.length;i++) {
-      const ring=i%2,slot=Math.floor(i/2);
-      const theta=TWOPI*slot/8+(ring?Math.PI/8:0)-.64+t*.018*(ring?-1:1);
-      const rad=R*(ring?1.38:1.61);
-      const x=CX+Math.cos(theta)*rad;
-      const y=CY+Math.sin(theta)*rad*(ring?.62:.75);
-      out.push({x,y,ring,theta,i});
+    const countPerRing=Array.from({length:ORBITS},(_,ring)=>
+      Math.floor(worlds.length/ORBITS)+(ring<worlds.length%ORBITS?1:0));
+    let worldIndex=0;
+    for(let ring=0;ring<ORBITS;ring++) {
+      const total=countPerRing[ring];
+      const rad=R*([1.12,1.42,1.72][ring]||1.5);
+      const flatten=[.72,.72,.72][ring]||.7;
+      for(let slot=0;slot<total;slot++) {
+        const i=worldIndex++;
+        const theta=TWOPI*(slot+.33*ring)/total-.75+t*.014*(ring%2?-1:1);
+        out.push({x:CX+Math.cos(theta)*rad,y:CY+Math.sin(theta)*rad*flatten,ring,theta,i});
+      }
     }
     return out;
   }
@@ -268,11 +276,13 @@
     const aurora=ctx.createRadialGradient(CX,CY,R*.2,CX,CY,R*2.1);
     aurora.addColorStop(0,'rgba(87,142,218,.10)');aurora.addColorStop(.58,'rgba(88,106,218,.035)');aurora.addColorStop(1,'rgba(88,106,218,0)');
     ctx.fillStyle=aurora;ctx.fillRect(CX-R*2.2,CY-R*2.2,R*4.4,R*4.4);
-    // Two cartographic orbital guides.
+    // Orbital guides follow the same geometry as the selectable nodes.
     ctx.save();ctx.translate(CX,CY);ctx.setLineDash([2,10]);
-    ctx.strokeStyle='rgba(136,195,221,.16)';ctx.lineWidth=.7;
-    ctx.beginPath();ctx.ellipse(0,0,R*1.61,R*1.61*.75,0,0,TWOPI);ctx.stroke();
-    ctx.strokeStyle='rgba(168,156,236,.17)';ctx.beginPath();ctx.ellipse(0,0,R*1.38,R*1.38*.62,0,0,TWOPI);ctx.stroke();
+    [1.12,1.42,1.72].slice(0,ORBITS).forEach((radius,ring)=>{
+      ctx.strokeStyle=ring%2?'rgba(168,156,236,.16)':'rgba(136,195,221,.16)';
+      ctx.lineWidth=.7;ctx.beginPath();
+      ctx.ellipse(0,0,R*radius,R*radius*[.72,.72,.72][ring],0,0,TWOPI);ctx.stroke();
+    });
     ctx.setLineDash([]);
     ctx.strokeStyle='rgba(166,205,230,.065)';ctx.beginPath();ctx.arc(0,0,R*1.1,0,TWOPI);ctx.stroke();
     ctx.restore();
@@ -307,7 +317,7 @@
       ctx.arc(x,y,active?4.2:hot?3.5:2.5,0,TWOPI);ctx.fill();ctx.shadowBlur=0;
       ctx.fillStyle=active?'#dcfff2':'rgba(180,208,229,.6)';
       ctx.font='9px ui-monospace,monospace';ctx.textAlign='center';ctx.textBaseline='middle';
-      ctx.fillText(two(i),x,y+(ring?20:-18));
+      if(!small || active || hot) ctx.fillText(two(i),x,y+(ring%2?19:-18));
     });
     // Quiet axis and central singularity give the scene a scientific-instrument feel.
     ctx.beginPath();ctx.arc(CX,CY,1.8,0,TWOPI);ctx.fillStyle='#f3fff7';ctx.fill();
