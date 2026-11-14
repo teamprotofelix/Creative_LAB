@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#080b13">
+  <meta name="description" content="경계가 사라지는 정원, LIMEN. 숨, 시간, 마음, 생명, 인식, 무한에 닿는 여섯 개의 인터랙티브 사유 공간. 오직 브라우저 안에서 피어납니다.">
+  <meta property="og:title" content="LIMEN — 경계가 사라지는 정원">
+  <meta property="og:description" content="어쩌면 우주는 당신을 통해 처음으로 자신을 바라보고 있는지도 모릅니다.">
+  <title>LIMEN — 경계가 사라지는 정원</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./style.css">
+  <script defer src="./app.js"></script>
+</head>
+<body>
+  <div class="app" id="app">
+    <canvas id="universe" aria-label="방문자의 선택에 따라 변화하는 생성형 예술 캔버스">이 체험에는 HTML 캔버스가 필요합니다.</canvas>
+    <div class="vignette" aria-hidden="true"></div>
+    <div class="grain" aria-hidden="true"></div>
+    <div class="horizon-line" aria-hidden="true"></div>
+
+    <header class="masthead">
+      <a class="brand" href="#breath" aria-label="LIMEN 첫 번째 정원으로 돌아가기">
+        <span class="brand-symbol" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-words"><strong>LIMEN</strong><small>경계가 사라지는 정원</small></span>
+      </a>
+      <div class="top-actions">
+        <span class="live-sign"><span class="live-dot"></span>오직 지금, 생성되는 풍경</span>
+        <button class="icon-button" id="soundToggle" type="button" aria-label="소리 켜기" aria-pressed="false" title="소리 켜기">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 9v6h4l5 4V5L9 9H5Z"/><path class="sound-wave" d="M17 9a5 5 0 0 1 0 6M19 6a9 9 0 0 1 0 12"/><path class="sound-off" d="m17 9 5 6m0-6-5 6"/></svg>
+          <span class="button-label" id="soundLabel">소리 끔</span>
+        </button>
+        <button class="icon-button" id="capture" type="button" title="현재 풍경을 이미지로 저장" aria-label="현재 풍경을 이미지로 저장">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7V5a1 1 0 0 1 1-1h3M20 7V5a1 1 0 0 0-1-1h-3M4 17v2a1 1 0 0 0 1 1h3M20 17v2a1 1 0 0 1-1 1h-3"/><path d="M12 6v12m-4-4 4 4 4-4"/></svg>
+          <span class="button-label">순간 저장</span>
+        </button>
+        <button class="icon-button help-button" id="openHelp" type="button" title="체험 안내" aria-label="체험 안내"><span class="question-mark" aria-hidden="true">?</span></button>
+      </div>
+    </header>
+
+    <nav class="chapter-rail" aria-label="여섯 개의 정원">
+      <div class="rail-caption">SIX INNER WORLDS</div>
+      <button class="chapter active" type="button" data-scene="breath" aria-current="page"><span class="chapter-index">01</span><span class="chapter-title">숨</span><span class="chapter-dot"></span></button>
+      <button class="chapter" type="button" data-scene="time"><span class="chapter-index">02</span><span class="chapter-title">시간</span><span class="chapter-dot"></span></button>
+      <button class="chapter" type="button" data-scene="mind"><span class="chapter-index">03</span><span class="chapter-title">마음</span><span class="chapter-dot"></span></button>
+      <button class="chapter" type="button" data-scene="life"><span class="chapter-index">04</span><span class="chapter-title">생명</span><span class="chapter-dot"></span></button>
+      <button class="chapter" type="button" data-scene="perception"><span class="chapter-index">05</span><span class="chapter-title">인식</span><span class="chapter-dot"></span></button>
+      <button class="chapter" type="button" data-scene="infinity"><span class="chapter-index">06</span><span class="chapter-title">무한</span><span class="chapter-dot"></span></button>
+      <div class="rail-tail" aria-hidden="true"><span></span>∞</div>
+    </nav>
+
+    <main class="main-copy" id="mainContent">
+      <div class="eyebrow"><span id="chapterCounter">GARDEN 01 / 06</span><span class="eyebrow-rule"></span><span id="sceneEnglish">THE BREATH</span></div>
+      <div class="copy-transition" id="copyTransition">
+        <h1 id="sceneTitle">우주가<br><em>숨을 쉰다.</em></h1>
+        <p class="scene-description" id="sceneDescription">당신이 들이쉬는 것은 공기만이 아닙니다.<br>우주가 아주 잠깐 당신의 모습이 되는 순간입니다.</p>
+        <div class="poem-line" aria-hidden="true"><span class="poem-line-light"></span></div>
+        <p class="scene-reflection" id="sceneReflection">“지금 이 순간에도, 존재는 조용히 계속되고 있습니다.”</p>
+      </div>
+    </main>
+
+    <div class="scene-center-label" id="sceneCenterLabel" aria-hidden="true"><span class="center-label-line"></span><span id="centerLabelText">THE UNIVERSE INHALES</span></div>
+    <div class="canvas-instruction" id="canvasInstruction" aria-live="polite">화면을 가볍게 터치해 보세요</div>
+
+    <div class="ritual-wrap">
+      <div class="ritual-heading"><span class="mini-star">✳</span> <span id="ritualEyebrow">작은 의식 01</span> <span class="ritual-separator">/</span> <span id="ritualName">숨과 나란히 걷기</span></div>
+      <div class="ritual-panel" id="ritualPanel">
+        <div class="ritual-content" id="ritualContent">
+          <p class="ritual-intro">급하게 할 것은 없습니다. 잠시 이 빛과 함께 호흡해 보세요.</p>
+          <div class="ritual-controls"><button type="button" class="primary-action" id="breathStart">빛과 호흡하기 <span aria-hidden="true">↗</span></button><span class="status-text" id="breathStatus">들이쉬고, 천천히 내쉽니다.</span></div>
+        </div>
+        <div class="ritual-footnote" id="ritualFootnote">이 경험은 어떠한 정보도 서버로 보내지 않습니다.</div>
+      </div>
+      <div class="bottom-navigation"><span>고요함에는 목적지가 없습니다.</span><div class="next-previous"><button type="button" id="previousScene" aria-label="이전 정원">←</button><span id="sceneNumber">01 <span class="slash">/ 06</span></span><button type="button" id="nextScene" aria-label="다음 정원">→</button></div></div>
+    </div>
+
+    <div class="side-micro" aria-hidden="true"><span class="side-line"></span>BE HERE, NOW <span class="side-line"></span></div>
+    <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+    <div class="modal-backdrop" id="helpModal" hidden>
+      <section class="help-modal" role="dialog" aria-modal="true" aria-labelledby="helpTitle" tabindex="-1">
+        <button type="button" class="modal-close" id="closeHelp" aria-label="도움말 닫기">×</button>
+        <span class="modal-overline">A NOTE BEFORE YOU BEGIN</span>
+        <h2 id="helpTitle">이곳에는<br><em>정답이 없습니다.</em></h2>
+        <p>여섯 개의 정원을 천천히 지나가 보세요. 숨은 빛이 되고, 시간은 궤도가 되고, 마음은 물이 되고, 생명은 가지를 뻗습니다. 당신이 바라보는 방식에 따라 세계가 바뀌고, 마지막에는 당신만의 별자리를 만들 수 있습니다.</p>
+        <div class="help-grid"><div><b>01 — 06</b><span>왼쪽 또는 위쪽에서 정원 이동</span></div><div><b>← / →</b><span>키보드 화살표로 정원 이동</span></div><div><b>터치 · 클릭</b><span>각 세계와 직접 상호작용</span></div><div><b>소리 · 저장</b><span>선택적 명상음과 PNG 보관</span></div></div>
+        <p class="modal-footnote">로그인도, 추적도, 서버도 없습니다. 소리의 원음과 풍경은 브라우저에서 즉석으로 만들어집니다. 소리가 불편하다면 끈 상태로 감상하세요. 움직임 줄이기 설정도 존중합니다.</p>
+        <button type="button" class="primary-action modal-enter" id="enterGarden">그저, 존재하기 <span aria-hidden="true">↗</span></button>
+      </section>
+    </div>
+    <div class="modal-backdrop letter-backdrop" id="letterModal" hidden>
+      <section class="letter-modal" role="dialog" aria-modal="true" aria-labelledby="letterTitle" tabindex="-1">
+        <button class="modal-close" id="closeLetter" type="button" aria-label="편지 닫기">×</button>
+        <span class="modal-overline">A LETTER FROM THE UNWRITTEN UNIVERSE</span>
+        <div class="letter-emblem" aria-hidden="true">✳</div>
+        <h2 id="letterTitle">당신이 지나간 곳에<br><em>우주가 남긴 편지</em></h2>
+        <div class="letter-text" id="letterText"></div>
+        <div class="letter-actions"><button class="primary-action" type="button" id="copyLetter">이 편지 간직하기 <span aria-hidden="true">↗</span></button><button class="secondary-action" type="button" id="leaveLetter">하늘로 돌아가기</button></div>
+        <p class="modal-footnote">당신의 선택을 현재 탭 안에서만 조합한 문장입니다. 누구에게도 전송되지 않습니다.</p>
+      </section>
+    </div>
+    <noscript><div class="nojs">이 정원은 자바스크립트로 실시간 생성됩니다. 브라우저의 자바스크립트를 켜고 다시 방문해 주세요.</div></noscript>
+  </div>
+</body>
+</html>

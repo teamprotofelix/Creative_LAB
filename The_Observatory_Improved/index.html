@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#05040c">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="여섯 장의 우주를 지나 자신의 질문에 도착하는 대화형 관측소. 모든 경험은 브라우저 안에서 완성됩니다.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="관측소 — The Observatory">
+  <meta property="og:description" content="당신이 보고 있는 것은 웹사이트가 아니라 하나의 질문입니다.">
+  <title>관측소 — 우주가 자신을 바라보는 곳</title>
+  <link rel="icon" type="image/svg+xml" href="./favicon.svg">
+  <link rel="stylesheet" href="./styles.css">
+  <script src="./app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">본문으로 건너뛰기</a>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scroll-progress" aria-hidden="true"><span id="progressFill"></span></div>
+
+  <header class="topbar">
+    <a class="brand" href="#threshold" aria-label="관측소 처음으로 이동">
+      <span class="brand-mark" aria-hidden="true">◉</span>
+      <span><strong>관측소</strong><small>THE OBSERVATORY</small></span>
+    </a>
+    <div class="top-actions">
+      <span class="status" id="chapterStatus" aria-live="off">01 / 06</span>
+      <button class="utility-button" id="motionButton" type="button" aria-pressed="false" title="움직임 일시정지">
+        <span id="motionIcon" aria-hidden="true">Ⅱ</span><span id="motionLabel" class="utility-text">움직임 정지</span>
+      </button>
+      <button class="utility-button help-trigger" id="helpButton" type="button" aria-label="사용 방법 보기" aria-expanded="false" aria-controls="helpPanel" title="사용 방법 보기">?</button>
+    </div>
+  </header>
+
+  <nav class="chapter-nav" aria-label="관측소의 여섯 장">
+    <a href="#threshold" data-nav="threshold" aria-current="step"><span class="nav-index">01</span><span class="nav-name">문턱</span></a>
+    <a href="#quantum" data-nav="quantum"><span class="nav-index">02</span><span class="nav-name">가능성</span></a>
+    <a href="#life" data-nav="life"><span class="nav-index">03</span><span class="nav-name">생명</span></a>
+    <a href="#mind" data-nav="mind"><span class="nav-index">04</span><span class="nav-name">마음</span></a>
+    <a href="#galaxy" data-nav="galaxy"><span class="nav-index">05</span><span class="nav-name">우주</span></a>
+    <a href="#question" data-nav="question"><span class="nav-index">06</span><span class="nav-name">질문</span></a>
+  </nav>
+
+  <aside class="help-panel" id="helpPanel" hidden aria-label="사용 안내">
+    <div class="help-head"><strong>관측 안내</strong><button id="helpClose" type="button" aria-label="안내 닫기">×</button></div>
+    <p>스크롤 또는 오른쪽 장 번호로 이동합니다. 각 장에서 빈 공간을 클릭하거나 터치하면 우주의 모습이 반응합니다.</p>
+    <p><b>생명</b> 장에서는 화면을 터치해 세포를 심을 수 있습니다. <b>질문</b> 장에서는 사유를 돕는 문장을 발견합니다.</p>
+    <p>↑ ↓ 키로 장을 이동할 수 있습니다. 움직임은 상단에서 멈출 수 있습니다.</p>
+    <p class="help-note">외부 서버 · 회원가입 · 추적 스크립트 없음. 질문은 전송하거나 자동 저장하지 않습니다.</p>
+  </aside>
+
+  <noscript><p class="noscript-notice">이 페이지의 본문은 그대로 읽을 수 있습니다. 움직이는 우주와 질문 기능을 사용하려면 JavaScript를 켜 주세요.</p></noscript>
+
+  <main id="main">
+    <section class="chapter chapter-first is-visible" id="threshold" data-mode="threshold" aria-labelledby="heading-threshold">
+      <div class="chapter-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 001 <span class="overline-dot">✦</span> THRESHOLD</div>
+        <p class="prologue">당신이 보고 있는 것은</p>
+        <h1 id="heading-threshold" class="hero-title">웹사이트가 아닙니다.<br><em>하나의 질문입니다.</em></h1>
+        <p class="chapter-description">눈앞의 점 하나에서 우주가 시작됩니다.<br>그리고 이 순간, 관측자가 도착했습니다.</p>
+        <p class="interaction-hint">빈 공간을 눌러 첫 파문을 만들어 보세요 <span aria-hidden="true">↗</span></p>
+      </div>
+      <a class="next-link" href="#quantum"><span>관측 시작</span><span class="next-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter" id="quantum" data-mode="quantum" aria-labelledby="heading-quantum">
+      <div class="chapter-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 002 <span class="overline-dot">✦</span> POSSIBILITY</div>
+        <p class="chapter-kicker">시작되기 이전의 것들</p>
+        <h2 id="heading-quantum" class="chapter-title">아직 정해지지 않은<br><em>모든 가능성.</em></h2>
+        <p class="chapter-description">어떤 길은 아직 열리지 않았습니다.<br>그러나 열리지 않았다는 것이, 존재하지 않는다는 뜻은 아닙니다.</p>
+        <p class="interaction-hint">움직여 보세요. 가능성의 입자들이 응답합니다.</p>
+      </div>
+      <a class="next-link" href="#life"><span>다음 장 · 생명</span><span class="next-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter" id="life" data-mode="life" aria-labelledby="heading-life">
+      <div class="chapter-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 003 <span class="overline-dot">✦</span> EMERGENCE</div>
+        <p class="chapter-kicker">단순한 규칙이 만들어 낸 복잡함</p>
+        <h2 id="heading-life" class="chapter-title">서로 만난 작은 것들이<br><em>뜻밖의 무늬를 만듭니다.</em></h2>
+        <p class="chapter-description">여기에는 거대한 설계도가 없습니다.<br>이것은 생명 그 자체가 아니라, 질서를 상상하는 작은 모형입니다.</p>
+        <button type="button" class="action-pill" id="reseedButton"><span aria-hidden="true">✳</span> 새로운 씨앗 뿌리기</button>
+        <p class="interaction-hint">격자의 빈 공간을 누르면 새로운 세포가 자랍니다.</p>
+      </div>
+      <a class="next-link" href="#mind"><span>다음 장 · 마음</span><span class="next-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter" id="mind" data-mode="mind" aria-labelledby="heading-mind">
+      <div class="chapter-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 004 <span class="overline-dot">✦</span> COGNITION</div>
+        <p class="chapter-kicker">서로에게 닿는 순간</p>
+        <h2 id="heading-mind" class="chapter-title">연결은 많아지고,<br><em>세상은 의미가 됩니다.</em></h2>
+        <p class="chapter-description">우리는 기억하고, 예상하고, 때로는 틀립니다.<br>어쩌면 마음은 정답이 아니라, 계속 이어지는 물음일지도 모릅니다.</p>
+        <p class="interaction-hint">커서를 움직이거나 빈 공간을 눌러 신호를 깨워 보세요.</p>
+      </div>
+      <a class="next-link" href="#galaxy"><span>다음 장 · 우주</span><span class="next-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter" id="galaxy" data-mode="galaxy" aria-labelledby="heading-galaxy">
+      <div class="chapter-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 005 <span class="overline-dot">✦</span> COSMOS</div>
+        <p class="chapter-kicker">안에서 밖으로, 다시 안으로</p>
+        <h2 id="heading-galaxy" class="chapter-title">우리를 만든 우주를<br><em>우리가 바라봅니다.</em></h2>
+        <p class="chapter-description">별의 물질로 이루어진 우리가 별을 묻습니다.<br>그 질문 안에서, 멀고 가까움의 경계가 조금 흐려집니다.</p>
+        <p class="interaction-hint">빈 공간을 누르면 빛의 고리가 퍼집니다.</p>
+      </div>
+      <a class="next-link" href="#question"><span>마지막 장 · 질문</span><span class="next-line" aria-hidden="true"></span><span aria-hidden="true">↓</span></a>
+    </section>
+
+    <section class="chapter chapter-question" id="question" data-mode="question" aria-labelledby="heading-question">
+      <div class="chapter-content question-content">
+        <div class="overline"><span class="overline-line"></span> FIELD NOTE 006 <span class="overline-dot">✦</span> THE QUESTION</div>
+        <p class="chapter-kicker">관측의 끝, 사유의 시작</p>
+        <h2 id="heading-question" class="chapter-title">이제 우주가<br><em>당신에게 묻습니다.</em></h2>
+        <p class="chapter-description">지금 마음속에 떠오른 질문은 무엇인가요?</p>
+
+        <form id="questionForm" class="question-form" autocomplete="off">
+          <label for="questionField" class="question-label">당신의 질문</label>
+          <div class="input-row">
+            <input id="questionField" name="question" type="text" maxlength="180" placeholder="예: 시간은 왜 한 방향으로 흐를까?" required>
+            <button type="submit" class="submit-question" aria-label="질문을 관측하기"><span aria-hidden="true">↗</span></button>
+          </div>
+          <div class="input-foot"><span>입력한 질문은 이 기기에서만 처리됩니다.</span><span id="characterCount">0 / 180</span></div>
+        </form>
+
+        <div class="answer-card" id="answerCard" hidden aria-live="polite" aria-atomic="true">
+          <div class="answer-header"><span>REFLECTION <span id="reflectionNumber">01</span></span><span class="answer-star" aria-hidden="true">✧</span></div>
+          <p class="reflected-question" id="reflectedQuestion"></p>
+          <p class="answer-text" id="answerText"></p>
+          <p class="answer-prompt" id="answerPrompt"></p>
+          <div class="answer-actions">
+            <button type="button" class="action-pill" id="anotherButton">다른 관점 보기 <span aria-hidden="true">↻</span></button>
+            <button type="button" class="text-button" id="copyButton">내용 복사</button>
+            <button type="button" class="text-button" id="saveButton">텍스트 저장</button>
+          </div>
+          <p class="answer-footnote">이 문장은 AI가 생성한 답이나 과학적 해설이 아닙니다. 질문의 주제에 따라 선택되는 사유의 제안입니다.</p>
+        </div>
+
+        <div class="ending" id="ending">
+          <div class="ending-glyph" aria-hidden="true">◎</div>
+          <p>대답이 끝나는 곳에서,<br>새로운 질문이 시작됩니다.</p>
+          <a href="#threshold" class="restart-link">처음부터 다시 관측하기 <span aria-hidden="true">↑</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer"><span id="visitorId">관측자 · …</span><span>NO SIGNAL TRANSMITTED · LOCAL EXPERIENCE</span></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

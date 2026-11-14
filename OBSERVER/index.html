@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#050812">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="OBSERVER — 하나의 점에서 시작해, 당신의 움직임과 선택으로 변화하는 작은 우주. 관찰과 기억을 위한 인터랙티브 명상.">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="OBSERVER — 관찰자">
+  <meta property="og:description" content="당신이 이 페이지를 보는 순간, 이 페이지도 당신을 봅니다.">
+  <title>OBSERVER · 관찰자</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+  <script src="main.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#experience">경험 내용으로 이동</a>
+  <div id="nebula" aria-hidden="true"></div>
+  <canvas id="cosmos" aria-hidden="true"></canvas>
+  <div id="vignette" aria-hidden="true"></div>
+  <div id="grain" aria-hidden="true"></div>
+  <div id="cursor" aria-hidden="true"></div>
+
+  <header class="site-header" aria-label="사이트 정보">
+    <div class="identity">
+      <span class="identity-icon" aria-hidden="true"><span></span></span>
+      <span class="identity-name">OBSERVER <small>관찰자 / INTERACTIVE MEDITATION</small></span>
+    </div>
+    <div class="system-tag"><span class="live-dot" aria-hidden="true"></span> A UNIVERSE IN PROGRESS <span class="tag-index">/ 001</span></div>
+  </header>
+
+  <aside id="hud" aria-label="이번 경험의 기록">
+    <div class="hud-item"><span class="hud-label">우주의 나이 · 과학적 추정</span><span class="hud-value" id="universe-age">약 138억 년</span></div>
+    <div class="hud-item"><span class="hud-label">이 우주에서 보낸 시간</span><span class="hud-value" id="session-time">00:00.0</span></div>
+    <div class="hud-item"><span class="hud-label">만든 별</span><span class="hud-value" id="click-count">0</span></div>
+    <div class="hud-item"><span class="hud-label">포인터의 이동</span><span class="hud-value" id="move-distance">0 px</span></div>
+  </aside>
+
+  <main id="experience" aria-label="관찰자 경험" tabindex="-1">
+    <section class="layer active" id="layer-dot" aria-label="하나의 점" aria-hidden="false">
+      <span class="origin-halo" aria-hidden="true"></span>
+      <span class="dot" aria-hidden="true"></span>
+      <span class="intro-caption">모든 시작에는 · 하나의 가능성이 있습니다</span>
+    </section>
+
+    <section class="layer" id="layer-title" aria-label="관찰자" aria-hidden="true">
+      <span class="eyebrow">AN EXPERIMENT IN ATTENTION</span>
+      <h1>관찰자</h1>
+      <p class="subtitle">당신이 이 페이지를 보는 순간,<br>이 페이지도 당신을 봅니다.</p>
+      <span class="title-rule" aria-hidden="true"></span>
+      <p class="quiet-footnote">당신이 움직이면, 이 작은 우주도 변합니다.</p>
+    </section>
+
+    <section class="layer" id="layer-thought" aria-label="흐르는 사유" aria-hidden="true">
+      <span class="eyebrow">A THOUGHT, NOT AN ANSWER <span class="sequence-number" id="thought-number">01</span></span>
+      <p class="thought" id="thought-text"></p>
+      <span class="thought-dash" aria-hidden="true"></span>
+      <p class="thought-note">답을 찾으려 하지 않아도 좋습니다.</p>
+    </section>
+
+    <section class="layer" id="layer-signature" aria-label="이번 방문의 우주 서명" aria-hidden="true">
+      <span class="eyebrow">THE SHAPE OF THIS MOMENT</span>
+      <p class="signature-label">당신의 우주 서명</p>
+      <p class="signature" id="signature"></p>
+      <p class="signature-note">움직임과 선택, 우연이 만나 이번 방문의 표식이 되었습니다.</p>
+      <p class="signature-subnote">잠시 머무르다 다시 사유 속으로 돌아갑니다.</p>
+    </section>
+
+    <section class="layer" id="layer-final" aria-label="우주의 마지막 장면" aria-hidden="true">
+      <div class="final-content">
+        <span class="eyebrow">AN END IS ANOTHER BEGINNING</span>
+        <p class="final-line">당신은 <strong id="final-time">0초</strong> 동안</p>
+        <h2 class="final-heading">하나의 우주를<br><em>변화시켰습니다.</em></h2>
+        <p class="final-prose">그 사이 <strong id="final-clicks">0</strong>개의 별이 태어났고, 포인터는 <strong id="final-distance">0</strong>픽셀을 여행했습니다.</p>
+        <div class="final-divider" aria-hidden="true"><span>✧</span></div>
+        <p class="final-koan">당신이 이 탭을 닫으면 화면 속 이 우주는 사라집니다.</p>
+        <p class="final-koan">하지만 그 순간을 바라본 경험은 다른 곳에 남을 수 있습니다.</p>
+        <p class="final-koan gold">그 기억이 당신에게 어떤 의미인지, 결정하는 것은 당신입니다.</p>
+        <div class="final-signature"><span>THIS VISIT'S CONSTELLATION</span><strong id="final-signature"></strong></div>
+      </div>
+      <div class="final-actions">
+        <button type="button" class="action-button action-primary" id="restart-button">↻ <span>다시 태어나기</span></button>
+        <button type="button" class="action-button" id="save-button">↓ <span>이 순간을 그림으로 저장</span></button>
+        <button type="button" class="action-button" id="copy-button">◇ <span>서명 복사</span></button>
+      </div>
+    </section>
+  </main>
+
+  <footer class="bottom-bar">
+    <div class="bottom-instructions" id="instructions">
+      <button type="button" class="skip-intro" id="skip-intro">시작 장면 건너뛰기 <span aria-hidden="true">↗</span></button>
+      <p class="hint" id="hint">움직이세요 <span>·</span> 눌러보세요 <span>·</span> 느끼세요 <span class="keyboard-hint">(Space로도 별을 만들 수 있습니다)</span></p>
+    </div>
+    <div class="bottom-actions">
+      <button type="button" class="utility-button" id="motion-toggle" aria-pressed="false" aria-label="움직임 줄이기" title="움직임 줄이기">
+        <span class="utility-symbol" aria-hidden="true">◌</span><span class="utility-label">MOTION ON</span>
+      </button>
+      <button type="button" class="utility-button" id="sound-toggle" aria-pressed="false" aria-label="소리 켜기" title="소리 켜기">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><path d="M11 5L6 9H2v6h4l5 4V5z"/><path class="sound-waves" d="M15.54 8.46a5 5 0 010 7.07M19.07 4.93a10 10 0 010 14.14"/></svg>
+        <span class="utility-label" id="sound-label">SOUND OFF</span>
+      </button>
+    </div>
+  </footer>
+  <div class="progress-track" role="presentation"><div class="progress-fill" id="progress-fill"></div></div>
+  <div class="sr-only" role="status" aria-live="polite" id="status"></div>
+  <div id="toast" class="toast" aria-hidden="true"></div>
+  <noscript><div class="noscript">이 작은 우주를 실행하려면 브라우저에서 JavaScript를 활성화해야 합니다.</div></noscript>
+</body>
+</html>

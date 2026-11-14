@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#090d18">
+  <meta name="description" content="숨, 시간, 생명, 인식, 관계의 다섯 방을 지나며 나만의 작은 우주를 남기는 인터랙티브 명상 정원. 광고도 로그인도 없는 조용한 웹 경험.">
+  <meta property="og:title" content="여백의 우주 — THE SPACE BETWEEN">
+  <meta property="og:description" content="세상이 너무 크게 느껴질 때, 우주를 조금만 안쪽으로 돌려보세요.">
+  <title>여백의 우주 — THE SPACE BETWEEN</title>
+  <link rel="icon" href="assets/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body data-scene="threshold">
+  <div class="grain" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <canvas id="cosmos" aria-label="현재 주제에 따라 반응하는 추상적인 별과 빛의 그림. 마우스나 손가락으로 움직일 수 있습니다." tabindex="0"></canvas>
+
+  <header class="topbar">
+    <button id="brand" class="wordmark" title="처음으로 돌아가기" aria-label="시작 화면으로 이동">
+      <span class="sigil" aria-hidden="true"><i></i><i></i><i></i></span>
+      <span class="brand-text"><strong>여백의 우주</strong><small>THE SPACE BETWEEN</small></span>
+    </button>
+    <div class="top-right">
+      <span class="top-note"><span class="glow-dot"></span> 여기는 아무것도 증명하지 않아도 되는 곳</span>
+      <button id="motionBtn" class="icon-btn" aria-label="움직임 줄이기" title="움직임 줄이기" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 12h4l3-8 4 16 3-8h4" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </button>
+      <button id="soundBtn" class="icon-btn" aria-label="앰비언트 소리 켜기" title="앰비언트 소리 켜기" aria-pressed="false">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 9v6h4l5 4V5L8 9H4Z" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/><path class="sound-waves" d="M16 9c1 .7 1.5 1.7 1.5 3S17 14.3 16 15m2.5-9c2 1.5 3 3.5 3 6s-1 4.5-3 6" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <aside class="chapter-nav" aria-label="여행할 공간">
+    <div class="nav-spine" aria-hidden="true"></div>
+    <button data-go="threshold" class="nav-item active" aria-label="00 문턱" aria-current="step"><span class="nav-number">00</span><span class="nav-name">문턱</span></button>
+    <button data-go="breath" class="nav-item" aria-label="01 숨"><span class="nav-number">01</span><span class="nav-name">숨</span></button>
+    <button data-go="time" class="nav-item" aria-label="02 시간"><span class="nav-number">02</span><span class="nav-name">시간</span></button>
+    <button data-go="life" class="nav-item" aria-label="03 생명"><span class="nav-number">03</span><span class="nav-name">생명</span></button>
+    <button data-go="perception" class="nav-item" aria-label="04 인식"><span class="nav-number">04</span><span class="nav-name">인식</span></button>
+    <button data-go="connection" class="nav-item" aria-label="05 관계"><span class="nav-number">05</span><span class="nav-name">관계</span></button>
+    <button data-go="echo" class="nav-item" aria-label="06 여운"><span class="nav-number">06</span><span class="nav-name">여운</span></button>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="chapter-mark"><span id="chapterIndex">PROLOGUE / 00</span><span class="mark-line"></span><span id="chapterEnglish">BEFORE THE BEGINNING</span></div>
+    <section class="story" id="story" aria-live="polite" aria-atomic="true">
+      <p class="eyebrow" id="eyebrow">AN INVITATION TO SIMPLY EXIST</p>
+      <h1 id="headline">잠시,<br><em>존재해도</em> 괜찮습니다.</h1>
+      <p id="description" class="description">수많은 생각이 당신을 지나가지만,<br>당신은 그 생각들보다 넓은 존재입니다.</p>
+      <button id="thought" class="thought" type="button" title="눌러서 새로운 사유 보기"><span class="thought-quote">“</span><span id="thoughtText">지금 이 순간, 무엇이 나를 살아 있게 하나요?</span><span class="thought-cycle" aria-hidden="true">↻</span></button>
+    </section>
+    <div id="breathGuide" class="breath-guide" aria-live="off" hidden><span id="breathVerb">들이쉬기</span><span id="breathCount">4</span><small>당신의 편안한 속도로</small></div>
+    <div id="timeGuide" class="time-guide" hidden><span>지나간 것</span><span class="now-tag">지금</span><span>아직 오지 않은 것</span></div>
+    <div id="worldHint" class="world-hint"><span class="hint-line"></span><span id="worldHintText">빛의 중심으로 천천히 마우스를 움직여 보세요</span></div>
+  </main>
+
+  <div class="right-annotations" aria-hidden="true">
+    <span class="vertical-line"></span><span id="sideWord">EVERYTHING BEGINS WITH ATTENTION</span>
+  </div>
+
+  <section class="dock" aria-label="현재 공간 조작">
+    <div class="dock-top"><div class="chapter-small" id="dockLabel">시작하기 전에</div><div class="trace-count"><span class="trace-symbol">✳</span> <span id="traceStatus">서두르지 않아도 됩니다</span></div></div>
+    <div id="controls" class="controls"></div>
+  </section>
+
+  <footer class="footerbar">
+    <div class="footer-left"><span class="small-star">✳</span><span>당신이 머무는 동안만 존재하는 작은 세계</span></div>
+    <div class="footer-center"><span id="elapsed">00:00</span> <span class="footer-sep">/</span> <span>머문 시간</span></div>
+    <div class="footer-actions"><button id="prevBtn" class="quiet-link" aria-label="이전 공간"><span aria-hidden="true">←</span> 이전</button><span class="footer-divider"></span><button id="nextBtn" class="quiet-link strong" aria-label="다음 공간">다음 세계 <span aria-hidden="true">→</span></button></div>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="js/app.js" defer></script>
+</body>
+</html>

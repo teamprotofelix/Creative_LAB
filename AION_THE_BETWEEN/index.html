@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#070b10">
+  <meta name="description" content="일곱 개의 살아 있는 실험. 관측, 시간, 생명, 마음, 인지, 관계, 무한을 직접 만지며 묻는 사유의 우주.">
+  <meta property="og:title" content="AION — 사이의 우주">
+  <meta property="og:description" content="정답이 아니라, 보는 방식이 달라지는 일곱 개의 방.">
+  <title>AION — 사이의 우주 | Seven Rooms Beyond Thought</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <canvas id="atmosphere" aria-hidden="true"></canvas>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="app-shell" id="app">
+    <header class="masthead">
+      <button class="brand" id="brandBtn" type="button" aria-label="처음 화면으로 이동">
+        <span class="brand-mark" aria-hidden="true"><span></span><span></span><span></span></span>
+        <span class="brand-name">AION<span class="brand-mid"> / </span><small>사이의 우주</small></span>
+      </button>
+      <div class="mast-center" aria-hidden="true"><span class="pulsar"></span> A LIVING PHILOSOPHICAL INSTRUMENT <span class="edition">/ VOL. 01</span></div>
+      <div class="head-actions">
+        <button class="icon-action" id="audioBtn" type="button" aria-label="배경음 켜기" aria-pressed="false" title="배경음 켜기"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4V5Z"/><path class="sound-wave" d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg></button>
+        <button class="icon-action" id="motionBtn" type="button" aria-label="움직임 일시정지" aria-pressed="false" title="움직임 일시정지"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" aria-hidden="true"><path id="motionIcon" d="M8 5v14M16 5v14"/></svg></button>
+        <button class="journal-trigger" id="journalBtn" type="button"><span class="journal-star">✧</span> 나의 흔적 <span class="note-count" id="noteCount">0</span></button>
+      </div>
+    </header>
+
+    <nav class="room-rail" id="roomRail" aria-label="일곱 개의 방">
+      <div class="rail-caption">THE SEVEN ROOMS <span>↘</span></div>
+      <button class="room-link" data-room="0" type="button"><span class="rail-number">01</span><span class="rail-title">관측</span><span class="rail-symbol">✳</span></button>
+      <button class="room-link" data-room="1" type="button"><span class="rail-number">02</span><span class="rail-title">시간</span><span class="rail-symbol">◷</span></button>
+      <button class="room-link" data-room="2" type="button"><span class="rail-number">03</span><span class="rail-title">생명</span><span class="rail-symbol">❋</span></button>
+      <button class="room-link" data-room="3" type="button"><span class="rail-number">04</span><span class="rail-title">마음</span><span class="rail-symbol">≈</span></button>
+      <button class="room-link" data-room="4" type="button"><span class="rail-number">05</span><span class="rail-title">인지</span><span class="rail-symbol">⌁</span></button>
+      <button class="room-link" data-room="5" type="button"><span class="rail-number">06</span><span class="rail-title">관계</span><span class="rail-symbol">⋈</span></button>
+      <button class="room-link" data-room="6" type="button"><span class="rail-number">07</span><span class="rail-title">무한</span><span class="rail-symbol">∞</span></button>
+      <div class="rail-end"><span>NO FINAL ANSWER</span><span>7 / ∞</span></div>
+    </nav>
+
+    <main class="main" id="mainContent">
+      <section id="landing" class="landing" aria-labelledby="heroTitle">
+        <div class="hero-index"><span class="microdot"></span> FIELD NOTES ON BEING <span class="hero-index-line"></span> 2026 / ∞</div>
+        <div class="hero-content">
+          <div class="hero-small">AN EXPERIMENT IN PERCEPTION <span class="deco-spark">✦</span> EXISTENCE <span class="deco-spark">✦</span> INFINITY</div>
+          <h1 id="heroTitle">우리는 세계를<br><span class="italic-gold">보고 있는 걸까,</span><br>만들고 있는 걸까.</h1>
+          <div class="hero-thought"><span class="vertical-rule"></span><p>하나의 별, 하나의 순간, 하나의 생명.<br>일곱 개의 실험을 지나면<br>세계는 그대로인데, 보는 당신은 달라질지도 모릅니다.</p></div>
+          <div class="hero-actions"><button id="enterBtn" class="primary-button" type="button"><span>첫 번째 질문으로</span><span class="arrow-circle">↗</span></button><span class="hero-hint">스크롤이 아니라, 직접 만지는 사유</span></div>
+        </div>
+        <div class="hero-object" aria-hidden="true"><div class="object-caption object-caption-a">NOTHING IS STILL</div><div class="object-caption object-caption-b">EVERYTHING BECOMES</div><div class="object-center"><span class="eye-cross">✧</span></div><div class="object-ring ring-a"></div><div class="object-ring ring-b"></div><div class="object-ring ring-c"></div></div>
+        <div class="hero-bottom"><div><span class="meta-label">01—07</span><span class="meta-value">일곱 개의 방</span></div><div><span class="meta-label">000</span><span class="meta-value">강요하는 정답</span></div><div><span class="meta-label">∞</span><span class="meta-value">남겨진 질문</span></div><span class="scroll-note">BEGIN WHERE YOU ARE <span>↗</span></span></div>
+      </section>
+
+      <section id="experience" class="experience" aria-labelledby="roomHeading" hidden>
+        <div class="room-copy">
+          <div class="room-pretitle"><span class="microdot"></span><span id="roomEnglish">OBSERVATION</span><span id="roomFraction">/ 01 — 07</span></div>
+          <h2 id="roomHeading"></h2>
+          <p id="roomDescription" class="room-description"></p>
+          <div class="room-inquiry"><span class="inquiry-label">THE QUESTION <span>✳</span></span><p id="roomQuestion"></p></div>
+          <div class="control-zone"><div class="control-intro"><span>YOUR INSTRUMENT</span><span id="controlSubtitle">INTERACT TO DISCOVER</span></div><div id="sceneControls" class="scene-controls"></div></div>
+          <div class="thought-pad"><label for="reflectionText">이 방에서 내게 남은 생각</label><textarea id="reflectionText" rows="2" maxlength="600" placeholder="한 단어도 괜찮습니다. 답을 찾지 않아도 됩니다."></textarea><div class="thought-actions"><span id="reflectionHint">이 기록은 이 기기에만 저장됩니다.</span><button id="saveThoughtBtn" type="button">한 문장 남기기 <span>＋</span></button></div></div>
+          <div class="room-nav"><button type="button" id="previousBtn" class="ghost-button">← 이전의 질문</button><button type="button" id="nextBtn" class="next-button">다음 질문 <span>↗</span></button></div>
+        </div>
+        <div class="stage-column"><div class="stage-card" id="stageCard"><div class="stage-top"><span><i class="live-dot"></i> LIVE THOUGHT EXPERIMENT</span><span id="stageCounter">01 / 07</span></div><div class="canvas-container" id="canvasContainer"><canvas id="worldCanvas" tabindex="0" role="img" aria-label="직접 조작할 수 있는 철학적 시각화"></canvas><div id="canvasOverlay" class="canvas-overlay"><span id="canvasBadge">THE FIELD IS OPEN</span><span id="canvasGesture">TOUCH TO BEGIN</span></div></div><div class="stage-bottom"><div class="stage-message"><span class="stage-line"></span><span id="stageMessage">가능성의 지도를 건드려 보세요.</span></div><button id="resetStageBtn" class="reset-button" type="button" aria-label="이 실험 초기화">↺ <span>다시 보기</span></button></div></div><div class="stage-footnote"><span>NOT A SIMULATION OF TRUTH.</span><span>AN INVITATION TO QUESTION IT.</span></div></div>
+      </section>
+
+      <section id="notebook" class="notebook" aria-labelledby="journalHeading" hidden><div class="journal-layout"><div class="journal-lead"><div class="room-pretitle"><span class="microdot"></span> PRIVATE CONSTELLATION / YOURS ALONE</div><h2 id="journalHeading">당신이 지나온 자리에<br><em>별이 남았습니다.</em></h2><p>일곱 개의 방에서 남긴 문장들이 당신만의 별자리를 만듭니다. 내용은 브라우저에만 저장되며 서버로 전송되지 않습니다.</p><div class="journal-buttons"><button type="button" id="exportImageBtn" class="primary-button">별자리 이미지 저장 <span class="arrow-circle">↓</span></button><button type="button" id="exportTextBtn" class="outline-button">문장 내려받기 ↗</button><button type="button" id="clearNotesBtn" class="subtle-button">모든 기록 지우기</button></div><div class="privacy-note">✧ 다른 기기나 브라우저에서는 기록이 보이지 않습니다. 브라우저 데이터를 지우면 사라질 수 있습니다.</div></div><div class="journal-display"><div class="journal-canvas-head"><span>A MAP OF WHAT REMAINS</span><span id="journalDate">—</span></div><canvas id="journalCanvas" role="img" aria-label="저장한 생각들을 연결한 나만의 별자리"></canvas><div class="journal-caption">THE UNIVERSE, AS SEEN BY YOU.</div></div></div><section class="revelation" id="revelation" aria-labelledby="revelationHeading" hidden><div class="revelation-index"><span class="microdot"></span> 08 / 07 <span class="revelation-line"></span> THE ONE WHO WAS LOOKING</div><div class="revelation-main"><div class="revelation-orbit" aria-hidden="true"><span>✳</span></div><div class="revelation-copy"><h3 id="revelationHeading">여덟 번째 방은<br><em>처음부터 당신이었습니다.</em></h3><p>별을 선택한 사람도, 시간을 움직인 사람도, 씨앗을 다시 심은 사람도 당신입니다. 점과 선은 바뀌었고, 화면에는 새로운 모양이 생겼습니다.</p><p>하지만 일곱 번의 질문 사이에서 가장 신비로운 사건은, 그 모든 변화를 <strong>바라보고 있었다는 사실</strong>일지도 모릅니다.</p><button id="revisitBtn" class="revisit-button" type="button">다시 보되, 조금 다른 눈으로 <span>↗</span></button></div></div></section><div class="journal-entries-head"><h3>남겨진 문장들 <span id="notesHeadingCount">0</span></h3><button type="button" id="returnRoomsBtn">실험으로 돌아가기 ↗</button></div><div id="journalEntries" class="journal-entries"></div></section>
+    </main>
+    <footer class="global-footer"><span>© AION / THE BETWEEN</span><span>세상에 관한 결정적인 답은 이곳에 없습니다.</span><span id="sessionClock">00:00</span></footer>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <script src="app.js" defer></script>
+</body>
+</html>
